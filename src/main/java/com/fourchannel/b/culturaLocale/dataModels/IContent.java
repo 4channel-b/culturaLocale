@@ -7,4 +7,6 @@ public interface IContent {
     String description = null;
     // GMT.
     Date creationDate = null;
+
+    // TODO: Implement getStatus with a forced override
 }
