@@ -1,5 +1,7 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import com.fourchannel.b.culturaLocale.dataModels.users.IUser;
+
 import java.util.Date;
 
 public interface IContent {
@@ -7,6 +9,15 @@ public interface IContent {
     String description = null;
     // GMT.
     Date creationDate = null;
+    ImageSet images = null;
+    IUser creator = null;
+    ApprovalStatus status = null;
 
-    // TODO: Implement getStatus with a forced override
+    String getName();
+    String getDescription();
+    Date getCreationDate();
+    ImageSet getImages();
+    IUser getCreator();
+    ApprovalStatus getStatus();
+    String getContentType(); // Needed to discern content types in class agnostic lists
 }

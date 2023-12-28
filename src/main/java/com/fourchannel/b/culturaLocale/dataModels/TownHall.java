@@ -2,7 +2,7 @@ package com.fourchannel.b.culturaLocale.dataModels;
 
 import java.util.Date;
 
-public class Town {
+public class TownHall {
     private String ID;
     private String name;
     private String description;
