@@ -20,4 +20,8 @@ public class Itinerary extends Content {
     public String getContentType() {
         return "ITINERARY";
     }
+
+    public int getDifficultyLevel() {
+        return difficultyLevel;
+    }
 }

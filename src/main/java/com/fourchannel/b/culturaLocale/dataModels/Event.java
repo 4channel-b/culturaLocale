@@ -24,4 +24,12 @@ public class Event extends Content {
     public String getID() {
         return ID;
     }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
 }

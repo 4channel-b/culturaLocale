@@ -12,5 +12,9 @@ public class Contest {
     private Date endDate;
     private String rules;
     private String type;
-    private List<IContent> pops;
+    private List<Content> contents;
+
+    public String getType() {
+        return type;
+    }
 }

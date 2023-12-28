@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class PointOfInterest extends Content {
     private String ID;
-    private int category;
+    private PointOfInterestCategory category;
     private Location location;
     private TownHall townHall;
 
@@ -18,5 +18,9 @@ public class PointOfInterest extends Content {
     @Override
     public String getContentType() {
         return "POINT_OF_INTEREST";
+    }
+
+    public PointOfInterestCategory getCategory() {
+        return category;
     }
 }
