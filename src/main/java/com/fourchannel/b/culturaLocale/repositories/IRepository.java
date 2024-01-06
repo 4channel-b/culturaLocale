@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public interface IRepository<T> {
-    void add(T item);
+    T save(T item);
     T findById(String id);
     List<T> findAll();
     void update(T item);

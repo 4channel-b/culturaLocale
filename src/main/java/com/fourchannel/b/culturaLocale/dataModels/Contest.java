@@ -1,9 +1,15 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
 
+import lombok.*;
+
 import java.util.Date;
 import java.util.List;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
 public class Contest {
     private Long Id;
     private String name;

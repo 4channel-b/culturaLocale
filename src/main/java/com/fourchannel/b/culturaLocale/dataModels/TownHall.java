@@ -1,7 +1,13 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
-import java.util.Date;
+import lombok.*;
 
+import java.util.Date;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
 public class TownHall {
     private String ID;
     private String name;

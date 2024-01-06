@@ -2,9 +2,14 @@ package com.fourchannel.b.culturaLocale.dataModels;
 
 import com.fourchannel.b.culturaLocale.dataModels.users.IUser;
 import jakarta.persistence.Id;
+import lombok.*;
 
 import java.util.Date;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
 public class Event extends Content {
     private String ID;
     private Date startDate;

@@ -6,6 +6,6 @@ import com.fourchannel.b.culturaLocale.repositories.IVectorRepository;
 
 public class Animator extends IUser {
     public void createContest(IVectorRepository<Contest> repository, Contest contest) {
-        repository.add(contest);
+        //repository.add(contest);
     }
 }

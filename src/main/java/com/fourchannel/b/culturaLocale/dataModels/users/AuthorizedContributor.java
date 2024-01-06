@@ -10,6 +10,6 @@ public class AuthorizedContributor extends IUser {
             content.setStatus(ApprovalStatus.ACCEPTED);
         }
 
-        repository.add(content);
+        //repository.add(content);
     }
 }

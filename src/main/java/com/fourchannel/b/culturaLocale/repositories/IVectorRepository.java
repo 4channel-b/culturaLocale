@@ -18,14 +18,15 @@ public class IVectorRepository<T> implements IRepository<T> {
     }
 
     @Override
-    public void add(T item) {
+    public T save(T item) {
         // no dupes
         if (findById(getIdFromObject(item)) != null)
         {
-            return;
+            return null;
         }
 
         vector.add(item);
+        return item;
     }
 
     @Override

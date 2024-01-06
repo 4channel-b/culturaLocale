@@ -11,6 +11,6 @@ public class Contributor extends IUser {
             content.setStatus(ApprovalStatus.PENDING);
         }
 
-        repository.add(content);
+        //repository.add(content);
     }
 }
