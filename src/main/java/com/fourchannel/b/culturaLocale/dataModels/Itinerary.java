@@ -1,9 +1,7 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
-import com.fourchannel.b.culturaLocale.dataModels.users.IUser;
 import lombok.*;
 
-import java.util.Date;
 import java.util.List;
 @Data
 @AllArgsConstructor

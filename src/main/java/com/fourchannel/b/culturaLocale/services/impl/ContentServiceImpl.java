@@ -12,22 +12,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContentServiceImpl implements ContentService {
     private final ItineraryRepository itinerarioRepository;
-    private final PointOfInterestRepository puntoDiInteresseRepository;
-    private final EventRepository eventoRepository;
+    private final PointOfInterestRepository pointOfInterestRepository;
+    private final EventRepository eventRepository;
     public ContentServiceImpl(ItineraryRepository itinerarioRepository, PointOfInterestRepository puntoDiInteresseRepository, EventRepository eventoRepository) {
+
         this.itinerarioRepository = itinerarioRepository;
-        this.puntoDiInteresseRepository = puntoDiInteresseRepository;
-        this.eventoRepository = eventoRepository;
+        this.pointOfInterestRepository = puntoDiInteresseRepository;
+        this.eventRepository = eventoRepository;
     }
     public Itinerary createNewItinerary(Itinerary itinerario) {
+        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         return itinerarioRepository.save(itinerario);
     }
 
     public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest) {
-        return puntoDiInteresseRepository.save(pointOfInterest);
+        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
+        return pointOfInterestRepository.save(pointOfInterest);
     }
 
     public Event createNewEvent(Event event) {
-        return eventoRepository.save(event);
+        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
+        return eventRepository.save(event);
     }
 }

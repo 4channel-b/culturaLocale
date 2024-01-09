@@ -1,7 +1,4 @@
-package com.fourchannel.b.culturaLocale.dataModels.users;
-
-import com.fourchannel.b.culturaLocale.dataModels.Content;
-import com.fourchannel.b.culturaLocale.dataModels.users.IUser;
+package com.fourchannel.b.culturaLocale.dataModels;
 
 import java.util.Date;
 

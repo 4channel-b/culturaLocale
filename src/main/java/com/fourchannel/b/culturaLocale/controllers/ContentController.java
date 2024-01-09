@@ -21,19 +21,16 @@ public class ContentController {
     }
     @PostMapping("/add/itinerary")
     public ResponseEntity<Itinerary> createItinerary(@RequestBody Itinerary itinerary) {
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         Itinerary newItinerary = contentService.createNewItinerary(itinerary);
         return ResponseEntity.ok(newItinerary);
     }
     @PostMapping("/add/event")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         Event newEvent = contentService.createNewEvent(event);
         return ResponseEntity.ok(newEvent);
     }
     @PostMapping("/add/poi")
     public ResponseEntity<PointOfInterest> createPoi(@RequestBody PointOfInterest pointOfInterest) {
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         PointOfInterest newPoi = contentService.createNewPointOfInterest(pointOfInterest);
         return ResponseEntity.ok(newPoi);
     }

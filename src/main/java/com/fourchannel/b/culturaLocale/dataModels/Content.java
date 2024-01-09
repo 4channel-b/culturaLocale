@@ -1,7 +1,5 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
-import com.fourchannel.b.culturaLocale.dataModels.users.IUser;
-
 import java.util.Date;
 
 public abstract class Content {
