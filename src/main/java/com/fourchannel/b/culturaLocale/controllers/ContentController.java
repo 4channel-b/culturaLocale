@@ -6,10 +6,10 @@ import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import com.fourchannel.b.culturaLocale.services.impl.ContentServiceImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/content")
@@ -34,4 +34,17 @@ public class ContentController {
         PointOfInterest newPoi = contentService.createNewPointOfInterest(pointOfInterest);
         return ResponseEntity.ok(newPoi);
     }
+    @GetMapping("/getAll/poi")
+    public ResponseEntity<List<PointOfInterest>> getAllPoi(){
+        return ResponseEntity.ok(contentService.getAllPoi());
+    }
+    @GetMapping("/getAll/event")
+    public ResponseEntity<List<Event>> getAllEvent(){
+        return ResponseEntity.ok(contentService.getAllEvent());
+    }
+    @GetMapping("/getAll/poi")
+    public ResponseEntity<List<Itinerary>> getAllItinerary(){
+        return ResponseEntity.ok(contentService.getAllItinerary());
+    }
+    //TODO add search by parameters
 }
