@@ -7,7 +7,6 @@ import java.util.Date;
 public class User {
     private String id, username, fullname, email;
     private Date registrationDate;
-    private Role role;
     private PointOfInterestCategory preferredCategory;
 
 }
