@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 public class SubscriptionEntry
 {
+    //State declaration
     private Content content;
     private Contest contest;
 }
