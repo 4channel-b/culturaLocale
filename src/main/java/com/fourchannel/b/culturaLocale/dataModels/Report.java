@@ -4,6 +4,8 @@ import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
 import java.util.Date;
 
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
+
 public class Report {
     private String ID;
     private User reporter;
