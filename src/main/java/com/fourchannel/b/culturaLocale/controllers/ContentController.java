@@ -42,7 +42,7 @@ public class ContentController {
     public ResponseEntity<List<Event>> getAllEvent(){
         return ResponseEntity.ok(contentService.getAllEvent());
     }
-    @GetMapping("/getAll/poi")
+    @GetMapping("/getAll/itinerary")
     public ResponseEntity<List<Itinerary>> getAllItinerary(){
         return ResponseEntity.ok(contentService.getAllItinerary());
     }
