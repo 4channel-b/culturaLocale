@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
+import com.fourchannel.b.culturaLocale.dataModels.ApprovalStatus;
 import com.fourchannel.b.culturaLocale.dataModels.Event;
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
@@ -66,9 +67,20 @@ public class ContentController {
     @PutMapping("/approve/event")
     public ResponseEntity<Event> approvateEvent(@RequestBody Event event)
     {
-        //TODO Modificare stato evento approved
-        Event newEvent = contentService.createNewEvent(event);
-        return ResponseEntity.ok(newEvent);
+        event.setStatus(ApprovalStatus.ACCEPTED);
+        return ResponseEntity.ok(event);
+    }
+    @PutMapping("/approve/poi")
+    public ResponseEntity<PointOfInterest> approvatePoi(@RequestBody PointOfInterest pointOfInterest)
+    {
+        pointOfInterest.setStatus(ApprovalStatus.ACCEPTED);
+        return ResponseEntity.ok(pointOfInterest);
+    }
+    @PutMapping("/approve/itinerary")
+    public ResponseEntity<Itinerary> approvateItinerary(@RequestBody Itinerary itinerary)
+    {
+        itinerary.setStatus(ApprovalStatus.ACCEPTED);
+        return ResponseEntity.ok(itinerary);
     }
     //TODO add search by parameters
 }

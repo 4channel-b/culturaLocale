@@ -26,4 +26,8 @@ public interface ContentService {
     public List<Itinerary> getAllItinerary();
 
     public List<PointOfInterest> getAllPoi();
+
+    public void updateEvent(Event event);
+    public void updatePoi(PointOfInterest pointOfInterest);
+    public void updateEvent(Itinerary itinerary);
 }

@@ -64,4 +64,20 @@ public class ContentServiceImpl implements ContentService {
     public List<PointOfInterest> getAllPoi() {
         return pointOfInterestRepository.findAll();
     }
+
+    @Override
+    public void updateEvent(Event event) {
+        eventRepository.update(event);
+    }
+
+    @Override
+    public void updatePoi(PointOfInterest pointOfInterest) {
+        pointOfInterestRepository.update(pointOfInterest);
+    }
+
+    @Override
+    public void updateEvent(Itinerary itinerary) {
+        itineraryRepository.update(itinerary);
+    }
+
 }
