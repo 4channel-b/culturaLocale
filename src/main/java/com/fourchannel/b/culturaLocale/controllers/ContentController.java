@@ -62,5 +62,13 @@ public class ContentController {
     public ResponseEntity<List<Itinerary>> getAllItinerary(){
         return ResponseEntity.ok(contentService.getAllItinerary());
     }
+
+    @PutMapping("/approve/event")
+    public ResponseEntity<Event> approvateEvent(@RequestBody Event event)
+    {
+        //TODO Modificare stato evento approved
+        Event newEvent = contentService.createNewEvent(event);
+        return ResponseEntity.ok(newEvent);
+    }
     //TODO add search by parameters
 }
