@@ -34,6 +34,22 @@ public class ContentController {
         PointOfInterest newPoi = contentService.createNewPointOfInterest(pointOfInterest);
         return ResponseEntity.ok(newPoi);
     }
+
+    @GetMapping("/get/itinerary/{id}")
+    public ResponseEntity<Itinerary> getItinerary(@PathVariable int id) {
+        return ResponseEntity.ok(contentService.getItinerary(id));
+    }
+
+    @GetMapping("/get/event/{id}")
+    public ResponseEntity<Event> getEvent(@PathVariable int id) {
+        return ResponseEntity.ok(contentService.getEvent(id));
+    }
+
+    @GetMapping("/get/poi/{id}")
+    public ResponseEntity<PointOfInterest> getPoi(@PathVariable int id) {
+        return ResponseEntity.ok(contentService.getPoi(id));
+    }
+
     @GetMapping("/getAll/poi")
     public ResponseEntity<List<PointOfInterest>> getAllPoi(){
         return ResponseEntity.ok(contentService.getAllPoi());

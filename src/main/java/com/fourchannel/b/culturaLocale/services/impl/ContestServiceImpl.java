@@ -2,7 +2,6 @@ package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.Contest;
 import com.fourchannel.b.culturaLocale.repositories.ContestRepository;
-import com.fourchannel.b.culturaLocale.services.ContentService;
 import com.fourchannel.b.culturaLocale.services.ContestService;
 import org.springframework.stereotype.Service;
 

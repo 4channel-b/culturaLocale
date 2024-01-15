@@ -38,10 +38,24 @@ public class ContentServiceImpl implements ContentService {
         return eventRepository.save(event);
     }
 
+    @Override
+    public Itinerary getItinerary(int id) {
+       return itineraryRepository.findById(String.valueOf(id));
+    }
+    
+    @Override
+    public PointOfInterest getPoi(int id) {
+        return pointOfInterestRepository.findById(String.valueOf(id));
+    }
+    
+    @Override
+    public Event getEvent(int id) {
+        return eventRepository.findById(String.valueOf(id));
+    }
+
     public List<Event> getAllEvent() {
         return eventRepository.findAll();
     }
-
 
     public List<Itinerary> getAllItinerary() {
         return itineraryRepository.findAll();
@@ -49,25 +63,5 @@ public class ContentServiceImpl implements ContentService {
 
     public List<PointOfInterest> getAllPoi() {
         return pointOfInterestRepository.findAll();
-    }
-    // Method to search Events by date range
-    public List<Event> searchEventsByDateRange(Date startDate, Date endDate) {
-        return eventRepository.findAll().stream()
-                .filter(event -> !event.getStartDate().before(startDate) && !event.getEndDate().after(endDate))
-                .collect(Collectors.toList());
-    }
-
-    // Method to search Itineraries by difficulty level
-    public List<Itinerary> searchItinerariesByDifficulty(int difficultyLevel) {
-        return itineraryRepository.findAll().stream()
-                .filter(itinerary -> itinerary.getDifficultyLevel() == difficultyLevel)
-                .collect(Collectors.toList());
-    }
-
-    // Method to search Points of Interest by category
-    public List<PointOfInterest> searchPointsOfInterestByCategory(PointOfInterestCategory category) {
-        return pointOfInterestRepository.findAll().stream()
-                .filter(poi -> poi.getCategory() == category)
-                .collect(Collectors.toList());
     }
 }
