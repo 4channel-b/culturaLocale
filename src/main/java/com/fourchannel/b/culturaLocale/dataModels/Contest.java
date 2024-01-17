@@ -10,7 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
-public class Contest {
+public class Contest
+{
     private Long Id;
     private String name;
     private String description;

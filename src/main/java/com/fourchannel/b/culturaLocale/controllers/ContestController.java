@@ -19,9 +19,9 @@ public class ContestController {
         this.contestService = contestService;
     }
     @PostMapping("/add/contest")
-    public ResponseEntity<Contest> createItinerary(@RequestBody Contest contest) {
+    public ResponseEntity<Contest> createItinerary(@RequestBody Contest contest)
+    {
         Contest newContest = contestService.createContest(contest);
         return ResponseEntity.ok(newContest);
     }
-
 }

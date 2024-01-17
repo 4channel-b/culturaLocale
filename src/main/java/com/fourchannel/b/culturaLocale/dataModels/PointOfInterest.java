@@ -7,7 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Getter
-public class PointOfInterest extends Content {
+public class PointOfInterest extends Content
+{
     private String ID;
     private PointOfInterestCategory category;
     private Location location;

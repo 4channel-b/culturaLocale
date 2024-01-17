@@ -1,6 +1,14 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
-public class Location {
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+public class Location
+{
     private float longitude;
     private float latitude;
 }

@@ -23,33 +23,63 @@ public class ContentServiceImpl implements ContentService {
         this.pointOfInterestRepository = puntoDiInteresseRepository;
         this.eventRepository = eventoRepository;
     }
-    public Itinerary createNewItinerary(Itinerary itinerario) {
+    public Itinerary createNewItinerary(Itinerary itinerario)
+    {
+        if(itinerario == null)
+        {
+            throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
+        }
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         return itineraryRepository.save(itinerario);
     }
 
-    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest) {
+    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest)
+    {
+        if(pointOfInterest == null)
+        {
+            throw new IllegalArgumentException("| ERROR | pointOfInterest is NULL");
+        }
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         return pointOfInterestRepository.save(pointOfInterest);
     }
 
-    public Event createNewEvent(Event event) {
+    public Event createNewEvent(Event event)
+    {
+        if(event == null)
+        {
+            throw new IllegalArgumentException("| ERROR | Event is NULL");
+        }
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         return eventRepository.save(event);
     }
 
     @Override
-    public Itinerary getItinerary(int id) {
+    public Itinerary getItinerary(int id)
+    {
+        if(id < 0)
+        {
+            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
+        }
        return itineraryRepository.findById(String.valueOf(id));
     }
     
     @Override
-    public PointOfInterest getPoi(int id) {
+    public PointOfInterest getPoi(int id)
+    {
+        if(id < 0)
+        {
+            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
+        }
         return pointOfInterestRepository.findById(String.valueOf(id));
     }
     
     @Override
-    public Event getEvent(int id) {
+    public Event getEvent(int id)
+    {
+        if(id < 0)
+        {
+            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
+        }
         return eventRepository.findById(String.valueOf(id));
     }
 
@@ -66,18 +96,32 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public void updateEvent(Event event) {
+    public void updateEvent(Event event)
+    {
+        if(event == null)
+        {
+            throw new IllegalArgumentException("| ERROR | Event is NULL");
+        }
         eventRepository.update(event);
     }
 
     @Override
-    public void updatePoi(PointOfInterest pointOfInterest) {
+    public void updatePoi(PointOfInterest pointOfInterest)
+    {
+        if(pointOfInterest == null)
+        {
+            throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
+        }
         pointOfInterestRepository.update(pointOfInterest);
     }
 
     @Override
-    public void updateEvent(Itinerary itinerary) {
+    public void updateEvent(Itinerary itinerary)
+    {
+        if(itinerary == null)
+        {
+            throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
+        }
         itineraryRepository.update(itinerary);
     }
-
 }
