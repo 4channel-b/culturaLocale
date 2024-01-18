@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -8,9 +9,15 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Getter
+@Entity
+@Table(name="event")
 public class Event extends Content {
+    @Id
+    private Long id;
     private Date startDate;
     private Date endDate;
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="location_id")
     private Location location;
 
     /**

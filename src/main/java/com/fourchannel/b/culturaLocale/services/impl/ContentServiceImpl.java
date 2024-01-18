@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+import java.util.stream.Collectors;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -65,7 +67,7 @@ public class ContentServiceImpl implements ContentService {
         {
             throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
         }
-       return itineraryRepository.findById(String.valueOf(id));
+       return itineraryRepository.findById((long)id).orElse(null);
     }
     
     @Override
@@ -75,7 +77,7 @@ public class ContentServiceImpl implements ContentService {
         {
             throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
         }
-        return pointOfInterestRepository.findById(String.valueOf(id));
+        return pointOfInterestRepository.findById((long)id).orElse(null);
     }
     
     @Override
@@ -85,19 +87,22 @@ public class ContentServiceImpl implements ContentService {
         {
             throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
         }
-        return eventRepository.findById(String.valueOf(id));
+        return eventRepository.findById((long)id).orElse(null);
     }
 
     public List<Event> getAllEvent() {
-        return eventRepository.findAll();
+        return StreamSupport.stream(eventRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public List<Itinerary> getAllItinerary() {
-        return itineraryRepository.findAll();
+        return StreamSupport.stream(itineraryRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public List<PointOfInterest> getAllPoi() {
-        return pointOfInterestRepository.findAll();
+        return StreamSupport.stream(pointOfInterestRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -107,7 +112,7 @@ public class ContentServiceImpl implements ContentService {
         {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
-        eventRepository.update(event);
+        eventRepository.save(event);
     }
 
     @Override
@@ -117,7 +122,7 @@ public class ContentServiceImpl implements ContentService {
         {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
-        pointOfInterestRepository.update(pointOfInterest);
+        pointOfInterestRepository.save(pointOfInterest);
     }
 
     @Override
@@ -127,10 +132,10 @@ public class ContentServiceImpl implements ContentService {
         {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
-        itineraryRepository.update(itinerary);
+        itineraryRepository.save(itinerary);
     }
     private void creatorExist(Content content){
-        if(userRepository.findById(content.getCreator().getId()) == null)
-            throw new NullPointerException("creator doesn't exist");
+        //if(userRepository.findById(content.getCreator()).isEmpty())
+          //  throw new NullPointerException("creator doesn't exist");
     }
 }

@@ -44,7 +44,4 @@ public abstract class Content {
     }
 
     public abstract String getContentType(); // Needed to discern content types in class agnostic lists
-    public String getId() {
-        return Id;
-    }
 }

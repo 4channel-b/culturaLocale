@@ -1,6 +1,7 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -10,8 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
+@Entity
+@Table(name="contest")
 public class Contest
 {
+    @Id
     private Long Id;
     private String name;
     private String description;
@@ -19,7 +23,13 @@ public class Contest
     private Date endDate;
     private String rules;
     private String type;
-    private List<Content> contents;
+    @ManyToMany
+    @JoinTable(
+            name = "contest_content",
+            joinColumns = @JoinColumn(name = "contest_id"),
+            inverseJoinColumns = @JoinColumn(name = "content_id")
+    )
+    private List<PointOfInterest> contents;
 
     public String getType() {
         return type;
@@ -33,7 +43,7 @@ public class Contest
      * @param content
      * @return true if anything went well
      */
-    public boolean subscribe(Content content)
+    public boolean subscribe(PointOfInterest content)
     {
         if(content == null)
         {
@@ -51,7 +61,7 @@ public class Contest
      * @param content
      * @return
      */
-    public boolean unSubscribe(Content content)
+    public boolean unSubscribe(PointOfInterest content)
     {
         if(content == null)
         {

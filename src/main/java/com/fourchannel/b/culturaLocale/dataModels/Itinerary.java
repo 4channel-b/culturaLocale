@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -8,12 +9,20 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
+@Entity
+@Table(name="itinerary")
 public class Itinerary extends Content {
-
-
+    @Id
+    private Long id;
     private double estimatedDuration;
     private int difficultyLevel;
-    private List<Content> contents;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "itinerary_content",
+            joinColumns = @JoinColumn(name = "itinerary_id"),
+            inverseJoinColumns = @JoinColumn(name = "content_id")
+    )
+    private List<PointOfInterest> contents;
 
 
     /**

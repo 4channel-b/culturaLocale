@@ -1,7 +1,8 @@
 package com.fourchannel.b.culturaLocale.repositories;
 
 import com.fourchannel.b.culturaLocale.dataModels.Report;
+import org.springframework.data.repository.CrudRepository;
 
-public class ReportRepository extends IVectorRepository<Report> {
+public interface ReportRepository extends CrudRepository<Report,Long> {
 
 }

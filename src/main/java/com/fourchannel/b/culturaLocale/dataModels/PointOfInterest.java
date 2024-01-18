@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -7,10 +8,18 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Getter
+@Entity
+@Table(name="poi")
 public class PointOfInterest extends Content
 {
+    @Id
+    private Long id;
     private PointOfInterestCategory category;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
     private Location location;
+    @ManyToOne
+    @JoinColumn(name = "town_hall_id")
     private TownHall townHall;
 
     /**

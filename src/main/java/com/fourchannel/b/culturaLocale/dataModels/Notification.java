@@ -1,5 +1,7 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -9,11 +11,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Getter
+@Entity
+@Table(name="notification")
 public class Notification
 {
+    @Id
+    private Long Id;
     private String title;
     private String description;
     private LocalDateTime timeStamp;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Notification(String title, String description)
     {
