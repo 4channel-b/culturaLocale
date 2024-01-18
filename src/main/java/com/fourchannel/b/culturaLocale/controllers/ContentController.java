@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/content")
@@ -21,19 +22,30 @@ public class ContentController {
         this.contentService = contentService;
     }
     @PostMapping("/add/itinerary")
-    public ResponseEntity<Itinerary> createItinerary(@RequestBody Itinerary itinerary) {
+    public ResponseEntity<?> createItinerary(@RequestBody Itinerary itinerary) {
         Itinerary newItinerary = contentService.createNewItinerary(itinerary);
         return ResponseEntity.ok(newItinerary);
     }
     @PostMapping("/add/event")
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        Event newEvent = contentService.createNewEvent(event);
-        return ResponseEntity.ok(newEvent);
+    public ResponseEntity<?> createEvent(@RequestBody Event event) {
+        try {
+            Event newEvent = contentService.createNewEvent(event);
+            return ResponseEntity.ok(newEvent);
+        }
+        catch(Exception e) {
+            return ResponseEntity.badRequest().body("Error creating event" + e.getMessage());
+        }
     }
     @PostMapping("/add/poi")
-    public ResponseEntity<PointOfInterest> createPoi(@RequestBody PointOfInterest pointOfInterest) {
-        PointOfInterest newPoi = contentService.createNewPointOfInterest(pointOfInterest);
-        return ResponseEntity.ok(newPoi);
+    public ResponseEntity<?> createPoi(@RequestBody PointOfInterest pointOfInterest) {
+        try {
+            PointOfInterest newPoi = contentService.createNewPointOfInterest(pointOfInterest);
+            return ResponseEntity.ok(newPoi);
+        }
+        catch(Exception e) {
+            return ResponseEntity.badRequest().body("Error creating Poi" + e.getMessage());
+        }
+
     }
 
     @GetMapping("/get/itinerary/{id}")

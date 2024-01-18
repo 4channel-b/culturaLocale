@@ -7,11 +7,12 @@ import com.fourchannel.b.culturaLocale.dataModels.PointOfInterestCategory;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface ContentService {
-    public Itinerary createNewItinerary(Itinerary itinerario);
+    public  Itinerary createNewItinerary(Itinerary itinerario);
 
-    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest);
+    public  PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest);
     
     public Event createNewEvent(Event event);
     

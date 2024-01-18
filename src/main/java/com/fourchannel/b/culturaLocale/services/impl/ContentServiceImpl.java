@@ -1,15 +1,13 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
-import com.fourchannel.b.culturaLocale.repositories.EventRepository;
-import com.fourchannel.b.culturaLocale.repositories.IVectorRepository;
-import com.fourchannel.b.culturaLocale.repositories.ItineraryRepository;
-import com.fourchannel.b.culturaLocale.repositories.PointOfInterestRepository;
+import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,20 +15,25 @@ public class ContentServiceImpl implements ContentService {
     private final ItineraryRepository itineraryRepository;
     private final PointOfInterestRepository pointOfInterestRepository;
     private final EventRepository eventRepository;
-    public ContentServiceImpl(ItineraryRepository itinerarioRepository, PointOfInterestRepository puntoDiInteresseRepository, EventRepository eventoRepository) {
+    private final UserRepository userRepository;
+    public ContentServiceImpl(ItineraryRepository itinerarioRepository, PointOfInterestRepository puntoDiInteresseRepository, EventRepository eventoRepository, UserRepository userRepository) {
 
         this.itineraryRepository = itinerarioRepository;
         this.pointOfInterestRepository = puntoDiInteresseRepository;
         this.eventRepository = eventoRepository;
+        this.userRepository = userRepository;
     }
-    public Itinerary createNewItinerary(Itinerary itinerario)
+    public Itinerary createNewItinerary(Itinerary itinerary)
     {
-        if(itinerario == null)
+        if(itinerary == null)
         {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
+
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
-        return itineraryRepository.save(itinerario);
+        //creatorExist(itinerary);
+        return itineraryRepository.save(itinerary);
+
     }
 
     public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest)
@@ -40,6 +43,7 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | pointOfInterest is NULL");
         }
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
+        creatorExist(pointOfInterest);
         return pointOfInterestRepository.save(pointOfInterest);
     }
 
@@ -50,6 +54,7 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
+        creatorExist(event);
         return eventRepository.save(event);
     }
 
@@ -123,5 +128,9 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
         itineraryRepository.update(itinerary);
+    }
+    private void creatorExist(Content content){
+        if(userRepository.findById(content.getCreator().getId()) == null)
+            throw new NullPointerException("creator doesn't exist");
     }
 }

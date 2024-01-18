@@ -9,7 +9,6 @@ import lombok.*;
 @Getter
 public class PointOfInterest extends Content
 {
-    private String ID;
     private PointOfInterestCategory category;
     private Location location;
     private TownHall townHall;

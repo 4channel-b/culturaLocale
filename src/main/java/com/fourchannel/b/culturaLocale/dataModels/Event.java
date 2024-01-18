@@ -9,7 +9,6 @@ import java.util.Date;
 @Builder
 @Getter
 public class Event extends Content {
-    private String ID;
     private Date startDate;
     private Date endDate;
     private Location location;
@@ -24,9 +23,7 @@ public class Event extends Content {
         return "EVENT";
     }
 
-    public String getID() {
-        return ID;
-    }
+
 
     public Date getStartDate() {
         return startDate;

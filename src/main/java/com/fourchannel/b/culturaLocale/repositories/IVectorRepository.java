@@ -5,13 +5,16 @@ import java.util.Optional;
 import java.util.Vector;
 
 public class IVectorRepository<T> implements IRepository<T> {
-    private final Vector<T> vector = new Vector<>();
+    private final Vector<T> vector;
+    public IVectorRepository (){
+        vector = new Vector<>();
+    }
 
     // Method to retrieve the ID from a generic object
     private String getIdFromObject(T item) {
         // Assuming item has a getID method that returns a String
         try {
-            return (String) item.getClass().getMethod("getID").invoke(item);
+            return (String) item.getClass().getMethod("getId").invoke(item);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error accessing getID method from object", e);
         }

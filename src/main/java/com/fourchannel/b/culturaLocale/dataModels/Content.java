@@ -6,6 +6,7 @@ import java.util.Date;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
 public abstract class Content {
+    private String Id;
     String name = null;
     String description = null;
     // GMT.
@@ -43,4 +44,7 @@ public abstract class Content {
     }
 
     public abstract String getContentType(); // Needed to discern content types in class agnostic lists
+    public String getId() {
+        return Id;
+    }
 }

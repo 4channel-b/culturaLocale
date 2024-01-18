@@ -11,7 +11,6 @@ import java.util.List;
 public class Itinerary extends Content {
 
 
-    private String ID;
     private double estimatedDuration;
     private int difficultyLevel;
     private List<Content> contents;
