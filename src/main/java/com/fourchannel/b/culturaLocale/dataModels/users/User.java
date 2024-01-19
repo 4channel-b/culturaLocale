@@ -16,16 +16,13 @@ import java.util.List;
 @Table(name="user")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
     private Long Id;
-    private String username=null, fullName=null, email=null;
+    private String username=null;
+    private String fullName=null, email=null;
     private Date registrationDate=null;
     private PointOfInterestCategory preferredCategory=null;
-    @ManyToMany
-    @JoinTable(
-            name = "user_notification",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "notification_id")
-    )
+    @OneToMany
     private List<Notification> notificationList=null;
 
 }

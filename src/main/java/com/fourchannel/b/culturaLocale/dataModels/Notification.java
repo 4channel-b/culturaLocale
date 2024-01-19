@@ -20,9 +20,6 @@ public class Notification
     private String title;
     private String description;
     private LocalDateTime timeStamp;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
     public Notification(String title, String description)
     {

@@ -16,19 +16,15 @@ import java.util.List;
 public class Contest
 {
     @Id
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contest_id_seq")
+    private Long id;
     private String name;
     private String description;
     private Date initialDate;
     private Date endDate;
     private String rules;
     private String type;
-    @ManyToMany
-    @JoinTable(
-            name = "contest_content",
-            joinColumns = @JoinColumn(name = "contest_id"),
-            inverseJoinColumns = @JoinColumn(name = "content_id")
-    )
+    @OneToMany
     private List<PointOfInterest> contents;
 
     public String getType() {

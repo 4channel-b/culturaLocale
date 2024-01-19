@@ -16,12 +16,7 @@ public class Itinerary extends Content {
     private Long id;
     private double estimatedDuration;
     private int difficultyLevel;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "itinerary_content",
-            joinColumns = @JoinColumn(name = "itinerary_id"),
-            inverseJoinColumns = @JoinColumn(name = "content_id")
-    )
+    @ManyToMany
     private List<PointOfInterest> contents;
 
 

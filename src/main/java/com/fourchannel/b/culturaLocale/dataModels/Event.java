@@ -16,8 +16,7 @@ public class Event extends Content {
     private Long id;
     private Date startDate;
     private Date endDate;
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name="location_id")
+    @ManyToOne
     private Location location;
 
     /**
