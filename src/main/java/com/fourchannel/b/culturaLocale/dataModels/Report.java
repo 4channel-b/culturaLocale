@@ -16,7 +16,7 @@ import lombok.*;
 @Table(name="report")
 public class Report {
     @Id
-    private Long ID;
+    private Long id;
     @ManyToOne
     private User reporter;
     private String description;
@@ -24,5 +24,5 @@ public class Report {
     private int status;
     private String resolution;
     @ManyToOne
-    private PointOfInterest content;
+    private Content content;
 }

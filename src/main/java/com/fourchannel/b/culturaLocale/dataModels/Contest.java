@@ -26,7 +26,7 @@ public class Contest
     @Getter
     private String type;
     @OneToMany
-    private List<PointOfInterest> contents;
+    private List<Content> contents;
 
     /**
      * Add the given content in a specific list.

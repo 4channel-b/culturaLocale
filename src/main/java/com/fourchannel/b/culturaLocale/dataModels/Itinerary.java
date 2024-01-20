@@ -18,7 +18,7 @@ public class Itinerary extends Content {
     @Getter
     private int difficultyLevel;
     @ManyToMany
-    private List<PointOfInterest> contents;
+    private List<Content> contents;
 
 
     /**
