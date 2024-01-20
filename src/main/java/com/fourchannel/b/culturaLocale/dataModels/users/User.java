@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels.users;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fourchannel.b.culturaLocale.dataModels.Notification;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterestCategory;
 import jakarta.persistence.*;
@@ -17,6 +18,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) // id is included in responses but ignored in requests
     private Long Id;
     private String username=null;
     private String fullName=null, email=null;
