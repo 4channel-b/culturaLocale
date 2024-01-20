@@ -20,7 +20,8 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody AddUserRequestWrapper addUserRequestWrapper)
     {
-        User newUser = userService.createUser(addUserRequestWrapper.getUser(), addUserRequestWrapper.getTownHall(), addUserRequestWrapper.getRole());
+        User newUser = userService.createUser(addUserRequestWrapper.getUser(),
+                addUserRequestWrapper.getTownHall(), addUserRequestWrapper.getRole());
         return ResponseEntity.ok(newUser);
     }
     @GetMapping("/getAll")

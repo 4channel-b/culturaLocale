@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 @Getter
 @Entity
-@Table(name="poi")
 public class PointOfInterest extends Content
 {
     @Id

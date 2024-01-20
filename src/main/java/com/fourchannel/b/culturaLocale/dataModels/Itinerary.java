@@ -10,7 +10,6 @@ import java.util.List;
 @Builder
 @Getter
 @Entity
-@Table(name="itinerary")
 public class Itinerary extends Content {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="itinerary_id_seq")

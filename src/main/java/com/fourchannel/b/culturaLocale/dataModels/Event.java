@@ -10,7 +10,6 @@ import java.util.Date;
 @Builder
 @Getter
 @Entity
-@Table(name="event")
 public class Event extends Content {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="event_id_seq")
