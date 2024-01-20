@@ -5,13 +5,10 @@ import com.fourchannel.b.culturaLocale.dataModels.Event;
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
 import com.fourchannel.b.culturaLocale.services.ContentService;
-import com.fourchannel.b.culturaLocale.services.impl.ContentServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/content")
@@ -77,19 +74,19 @@ public class ContentController {
     }
 
     @PutMapping("/approve/event")
-    public ResponseEntity<Event> approvateEvent(@RequestBody Event event)
+    public ResponseEntity<Event> approveEvent(@RequestBody Event event)
     {
         event.setStatus(ApprovalStatus.ACCEPTED);
         return ResponseEntity.ok(event);
     }
     @PutMapping("/approve/poi")
-    public ResponseEntity<PointOfInterest> approvatePoi(@RequestBody PointOfInterest pointOfInterest)
+    public ResponseEntity<PointOfInterest> approvePoi(@RequestBody PointOfInterest pointOfInterest)
     {
         pointOfInterest.setStatus(ApprovalStatus.ACCEPTED);
         return ResponseEntity.ok(pointOfInterest);
     }
     @PutMapping("/approve/itinerary")
-    public ResponseEntity<Itinerary> approvateItinerary(@RequestBody Itinerary itinerary)
+    public ResponseEntity<Itinerary> approveItinerary(@RequestBody Itinerary itinerary)
     {
         itinerary.setStatus(ApprovalStatus.ACCEPTED);
         return ResponseEntity.ok(itinerary);
