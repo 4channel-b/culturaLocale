@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class Notification
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="notification_id_seq")
     private Long Id;
     private String title;
     private String description;

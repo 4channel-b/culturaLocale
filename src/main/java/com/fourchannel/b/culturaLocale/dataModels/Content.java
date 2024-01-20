@@ -3,11 +3,29 @@ package com.fourchannel.b.culturaLocale.dataModels;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
 import java.util.Date;
+
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Entity
+@Table(name="content")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Content {
-    private String Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="content_id_seq")
+    private Long Id;
     @Getter
     String name = null;
     @Getter
@@ -15,8 +33,7 @@ public abstract class Content {
     // GMT.
     @Getter
     Date creationDate = null;
-    @Getter
-    ImageSet images = null;
+    @ManyToOne
     @Getter
     User creator = null;
     @Getter
