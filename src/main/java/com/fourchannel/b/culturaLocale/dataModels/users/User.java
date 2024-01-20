@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @Getter
 @Entity
-@Table(name="app_user")
+@Table(name="app_users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
