@@ -1,8 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -15,7 +13,8 @@ import lombok.*;
 public class Location
 {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="location_id_seq")
+    private Long Id;
     private float longitude;
     private float latitude;
 }

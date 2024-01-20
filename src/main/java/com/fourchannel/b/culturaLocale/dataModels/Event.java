@@ -13,7 +13,8 @@ import java.util.Date;
 @Table(name="event")
 public class Event extends Content {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="event_id_seq")
+    private Long Id;
     @Getter
     private Date startDate;
     @Getter
