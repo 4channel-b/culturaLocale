@@ -16,7 +16,8 @@ import lombok.*;
 @Table(name="report")
 public class Report {
     @Id
-    private Long ID;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="report_id_seq")
+    private Long Id;
     @ManyToOne
     private User reporter;
     private String description;

@@ -13,7 +13,8 @@ import lombok.*;
 public class PointOfInterest extends Content
 {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="pointOfInterest_id_seq")
+    private Long Id;
     @Getter
     private PointOfInterestCategory category;
     @ManyToOne

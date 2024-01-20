@@ -13,7 +13,8 @@ import java.util.Date;
 @Table(name="townhall")
 public class TownHall {
     @Id
-    private long Id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="townHall_id_seq")
+    private Long Id;
     private String name;
     private String description;
     @ManyToOne
