@@ -1,6 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels.users;
 
-import java.util.List;
+
 import java.util.Map;
 
 public class UserRoleProvider {

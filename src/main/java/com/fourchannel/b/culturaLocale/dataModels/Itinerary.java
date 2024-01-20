@@ -15,6 +15,7 @@ public class Itinerary extends Content {
     @Id
     private Long id;
     private double estimatedDuration;
+    @Getter
     private int difficultyLevel;
     @ManyToMany
     private List<PointOfInterest> contents;
@@ -28,9 +29,5 @@ public class Itinerary extends Content {
     @Override
     public String getContentType() {
         return "ITINERARY";
-    }
-
-    public int getDifficultyLevel() {
-        return difficultyLevel;
     }
 }

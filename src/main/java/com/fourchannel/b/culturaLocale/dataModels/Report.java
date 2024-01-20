@@ -4,7 +4,6 @@ import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
 import java.util.Date;
 
-import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +23,6 @@ public class Report {
     private Date reportingDate;
     private int status;
     private String resolution;
-    //dovrebbero essere content
     @ManyToOne
     private PointOfInterest content;
 }

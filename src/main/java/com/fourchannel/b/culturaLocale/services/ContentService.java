@@ -3,32 +3,29 @@ package com.fourchannel.b.culturaLocale.services;
 import com.fourchannel.b.culturaLocale.dataModels.Event;
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
-import com.fourchannel.b.culturaLocale.dataModels.PointOfInterestCategory;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface ContentService {
-    public  Itinerary createNewItinerary(Itinerary itinerario);
+    Itinerary createNewItinerary(Itinerary itinerario);
 
-    public  PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest);
+    PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest);
     
-    public Event createNewEvent(Event event);
+    Event createNewEvent(Event event);
     
-    public Itinerary getItinerary(int id);
+    Itinerary getItinerary(int id);
 
-    public PointOfInterest getPoi(int id);
+    PointOfInterest getPoi(int id);
 
-    public Event getEvent(int id);
+    Event getEvent(int id);
 
-    public List<Event> getAllEvent();
+    List<Event> getAllEvent();
 
-    public List<Itinerary> getAllItinerary();
+    List<Itinerary> getAllItinerary();
 
-    public List<PointOfInterest> getAllPoi();
+    List<PointOfInterest> getAllPoi();
 
-    public void updateEvent(Event event);
-    public void updatePoi(PointOfInterest pointOfInterest);
-    public void updateEvent(Itinerary itinerary);
+    void updateEvent(Event event);
+    void updatePoi(PointOfInterest pointOfInterest);
+    void updateEvent(Itinerary itinerary);
 }

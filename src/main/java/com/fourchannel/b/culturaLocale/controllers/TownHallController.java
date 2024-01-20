@@ -1,6 +1,5 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
-import com.fourchannel.b.culturaLocale.dataModels.Contest;
 import com.fourchannel.b.culturaLocale.dataModels.TownHall;
 import com.fourchannel.b.culturaLocale.services.TownHallService;
 import org.springframework.http.ResponseEntity;

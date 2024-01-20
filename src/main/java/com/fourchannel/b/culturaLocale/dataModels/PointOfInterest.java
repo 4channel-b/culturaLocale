@@ -14,6 +14,7 @@ public class PointOfInterest extends Content
 {
     @Id
     private Long id;
+    @Getter
     private PointOfInterestCategory category;
     @ManyToOne
     @JoinColumn(name = "location_id")
@@ -30,9 +31,5 @@ public class PointOfInterest extends Content
     @Override
     public String getContentType() {
         return "POINT_OF_INTEREST";
-    }
-
-    public PointOfInterestCategory getCategory() {
-        return category;
     }
 }

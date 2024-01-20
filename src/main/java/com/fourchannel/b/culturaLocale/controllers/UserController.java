@@ -1,6 +1,5 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
-import com.fourchannel.b.culturaLocale.dataModels.Contest;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,8 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody User user)
     {
-        User newUser= userService.createUser(user);
-        return ResponseEntity.ok(user);
+        User newUser = userService.createUser(user);
+        return ResponseEntity.ok(newUser);
     }
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllUser()

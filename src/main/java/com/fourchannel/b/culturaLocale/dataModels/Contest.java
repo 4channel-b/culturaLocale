@@ -23,15 +23,10 @@ public class Contest
     private Date initialDate;
     private Date endDate;
     private String rules;
+    @Getter
     private String type;
     @OneToMany
     private List<PointOfInterest> contents;
-
-    public String getType() {
-        return type;
-    }
-
-    //add content in given list
 
     /**
      * Add the given content in a specific list.

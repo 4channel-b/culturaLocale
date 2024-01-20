@@ -14,7 +14,9 @@ import java.util.Date;
 public class Event extends Content {
     @Id
     private Long id;
+    @Getter
     private Date startDate;
+    @Getter
     private Date endDate;
     @ManyToOne
     private Location location;
@@ -27,15 +29,5 @@ public class Event extends Content {
     @Override
     public String getContentType() {
         return "EVENT";
-    }
-
-
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
     }
 }

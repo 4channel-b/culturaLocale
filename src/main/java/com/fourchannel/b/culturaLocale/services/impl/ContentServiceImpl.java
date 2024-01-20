@@ -5,12 +5,9 @@ import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import java.util.stream.Collectors;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -18,11 +15,14 @@ public class ContentServiceImpl implements ContentService {
     private final PointOfInterestRepository pointOfInterestRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
-    public ContentServiceImpl(ItineraryRepository itinerarioRepository, PointOfInterestRepository puntoDiInteresseRepository, EventRepository eventoRepository, UserRepository userRepository) {
+    public ContentServiceImpl(ItineraryRepository itineraryRepository,
+                              PointOfInterestRepository pointOfInterestRepository,
+                              EventRepository eventRepository,
+                              UserRepository userRepository) {
 
-        this.itineraryRepository = itinerarioRepository;
-        this.pointOfInterestRepository = puntoDiInteresseRepository;
-        this.eventRepository = eventoRepository;
+        this.itineraryRepository = itineraryRepository;
+        this.pointOfInterestRepository = pointOfInterestRepository;
+        this.eventRepository = eventRepository;
         this.userRepository = userRepository;
     }
     public Itinerary createNewItinerary(Itinerary itinerary)
