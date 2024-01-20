@@ -18,7 +18,7 @@ public class TownHallController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TownHall> createItinerary(@RequestBody TownHall townHall) {
+    public ResponseEntity<TownHall> createTownhall(@RequestBody TownHall townHall) {
         TownHall newTownHall= townHallService.createTownHall(townHall);
         return ResponseEntity.ok(newTownHall);
     }
