@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTO.UserCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.TownHall;
 import com.fourchannel.b.culturaLocale.dataModels.users.Role;
 import com.fourchannel.b.culturaLocale.dataModels.users.TownHallRoleUser;
@@ -18,10 +19,11 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> createUser(@RequestBody AddUserRequestWrapper addUserRequestWrapper)
+    public ResponseEntity<?> createUser(@RequestBody UserCreationRequestDTO userCreationRequestDTO)
     {
-        User newUser = userService.createUser(addUserRequestWrapper.getUser(),
-                addUserRequestWrapper.getTownHall(), addUserRequestWrapper.getRole());
+        User newUser = userService.createUser(userCreationRequestDTO.toUser(),
+                                              userCreationRequestDTO.getRequiredTownHallId(),
+                                              userCreationRequestDTO.getRequiredRoleId());
         return ResponseEntity.ok(newUser);
     }
     @GetMapping("/getAll")

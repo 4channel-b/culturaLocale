@@ -27,4 +27,10 @@ public class User {
     @OneToMany
     private List<Notification> notificationList=null;
 
+    public User(String username, String fullName, String email, Date registrationDate) {
+        this.username = username;
+        this.fullName = fullName;
+        this.email = email;
+        this.registrationDate = registrationDate;
+    }
 }

@@ -8,6 +8,6 @@ import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import java.util.List;
 
 public interface UserService {
-    User createUser(User user, TownHall townHall, Role role);
+    User createUser(User user, Long townHall, int role);
     List<User> findAll();
 }
