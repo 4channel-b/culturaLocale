@@ -5,6 +5,7 @@ import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import java.util.Date;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
+//Class that rappresent a generic content
 public abstract class Content {
     String name = null;
     String description = null;
