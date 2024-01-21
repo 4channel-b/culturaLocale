@@ -4,9 +4,12 @@ import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("/poi")
 public class PointOfInterestController implements BaseCrudController<PointOfInterest, Long>
 {
     private final ContentService contentService;

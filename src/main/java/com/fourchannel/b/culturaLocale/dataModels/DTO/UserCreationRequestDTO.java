@@ -16,8 +16,8 @@ public class UserCreationRequestDTO
     private String username=null;
     private String fullName=null, email=null;
     private Date registrationDate=null;
-    private Long requiredTownHallId;
-    private int requiredRoleId;
+    private Long townhall;
+    private int role;
 
     public User toUser()
     {

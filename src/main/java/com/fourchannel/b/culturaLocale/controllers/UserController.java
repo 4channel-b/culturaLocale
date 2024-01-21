@@ -22,8 +22,8 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody UserCreationRequestDTO userCreationRequestDTO)
     {
         User newUser = userService.createUser(userCreationRequestDTO.toUser(),
-                                              userCreationRequestDTO.getRequiredTownHallId(),
-                                              userCreationRequestDTO.getRequiredRoleId());
+                                              userCreationRequestDTO.getTownhall(),
+                                              userCreationRequestDTO.getRole());
         return ResponseEntity.ok(newUser);
     }
     @GetMapping("/getAll")
@@ -31,4 +31,5 @@ public class UserController {
     {
         return ResponseEntity.ok(userService.findAll());
     }
+    //
 }
