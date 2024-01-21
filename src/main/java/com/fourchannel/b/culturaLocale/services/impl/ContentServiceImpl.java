@@ -126,7 +126,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public void updateEvent(Itinerary itinerary)
+    public void updateItinerary(Itinerary itinerary)
     {
         if(itinerary == null)
         {

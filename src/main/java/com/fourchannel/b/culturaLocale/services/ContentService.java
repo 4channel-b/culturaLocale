@@ -27,5 +27,5 @@ public interface ContentService {
 
     void updateEvent(Event event);
     void updatePoi(PointOfInterest pointOfInterest);
-    void updateEvent(Itinerary itinerary);
+    void updateItinerary(Itinerary itinerary);
 }
