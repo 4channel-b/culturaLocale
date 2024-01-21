@@ -3,6 +3,8 @@ package com.fourchannel.b.culturaLocale.dataModels;
 import lombok.*;
 
 import java.util.Date;
+
+//Generic Townhall
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
