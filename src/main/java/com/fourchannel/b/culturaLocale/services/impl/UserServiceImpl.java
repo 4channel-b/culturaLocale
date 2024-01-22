@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("| ERROR | User does not exist.");
         }
 
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id).get();
         user.setSuspended(newStatus);
         userRepository.save(user);
     }
