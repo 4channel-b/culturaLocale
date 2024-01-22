@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+
+//Generic Townhall
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
