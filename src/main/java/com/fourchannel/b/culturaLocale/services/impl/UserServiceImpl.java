@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("| ERROR | Role does not exist");
         }
 
-        if (userRepository.exists(user.getUsername(), user.getEmail())) {
+        if (!userRepository.exists(user.getUsername(), user.getEmail())) {
             throw new IllegalArgumentException("| ERROR | User does not exist");
         }
 
@@ -49,6 +49,16 @@ public class UserServiceImpl implements UserService {
         return newUser;
     }
 
+    @Override
+    public void updateSuspensionStatus(Long id, boolean newStatus) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("| ERROR | User does not exist.");
+        }
+
+        User user = userRepository.findById(id).orElseThrow();
+        user.setSuspended(newStatus);
+        userRepository.save(user);
+    }
     @Override
     public List<User> findAll() {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false)

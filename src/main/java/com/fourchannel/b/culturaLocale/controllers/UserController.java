@@ -1,6 +1,7 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserCreationRequestDTO;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserSuspensionDTO;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.mapper.UserMapper;
 import com.fourchannel.b.culturaLocale.services.UserService;
@@ -29,6 +30,19 @@ public class UserController {
     {
         return ResponseEntity.ok(userService.findAll());
     }
-    // TODO: Upgrade, downgrade, deletion, ban / suspend, unban / unsuspend, view
+
+    @PutMapping("/suspension/")
+    public ResponseEntity<?> changeSuspensionStatus(@RequestBody UserSuspensionDTO dto) {
+        try {
+            userService.updateSuspensionStatus(dto.getId(), dto.isNewSuspensionStatus());
+
+            return ResponseEntity.ok().body("Suspension change success.");
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
+    // TODO: Upgrade, downgrade <-- in their own controller
+    // TODO: deletion, view
     // TODO: Add suspended boolean to the User
 }

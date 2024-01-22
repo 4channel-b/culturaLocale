@@ -25,4 +25,5 @@ public class User {
     private PointOfInterestCategory preferredCategory;
     @OneToMany
     private List<Notification> notificationList;
+    private boolean suspended;
 }

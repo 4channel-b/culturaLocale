@@ -15,7 +15,6 @@ import lombok.*;
 public class TownHallRoleUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "townhallRole_id_seq")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY) // id is included in responses but ignored in requests
     private Long id;
     @ManyToOne
     private TownHall townHall;
