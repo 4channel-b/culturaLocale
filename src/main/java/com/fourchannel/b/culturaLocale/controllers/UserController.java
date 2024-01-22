@@ -44,5 +44,4 @@ public class UserController {
 
     // TODO: Upgrade, downgrade <-- in their own controller
     // TODO: deletion, view
-    // TODO: Add suspended boolean to the User
 }
