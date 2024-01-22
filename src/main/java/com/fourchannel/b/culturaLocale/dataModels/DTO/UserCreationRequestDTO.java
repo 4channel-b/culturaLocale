@@ -12,10 +12,10 @@ import java.util.Date;
 @Getter
 public class UserCreationRequestDTO
 {
-    //private Long Id;
-    private String username=null;
-    private String fullName=null, email=null;
-    private Date registrationDate=null;
+    private String username;
+    private String fullName;
+    private String email;
+    private Date registrationDate;
     private Long townhall;
     private int role;
 
