@@ -20,7 +20,7 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody UserCreationRequestDTO dto)
     {
         User newUser = userService.createUser(UserMapper.INSTANCE.userDtoToUser(dto),
-                                              dto.getTownhall(),
+                                              dto.getTownHall(),
                                               dto.getRole());
         return ResponseEntity.ok(newUser);
     }

@@ -1,6 +1,5 @@
 package com.fourchannel.b.culturaLocale.dataModels.DTOs;
 
-import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -31,7 +30,7 @@ public class UserCreationRequestDTO {
     private Date registrationDate;
 
     @NotNull(message = "Townhall cannot be null")
-    private Long townhall;
+    private Long townHall;
 
     @Min(value = 0, message = "Role must be a positive integer")
     private int role;
