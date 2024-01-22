@@ -6,11 +6,10 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.List;
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
 @Entity
 @Table(name="contest")
 public class Contest

@@ -7,11 +7,10 @@ import java.util.Date;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
 @Entity
 @Table(name="report")
 public class Report {

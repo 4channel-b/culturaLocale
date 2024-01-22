@@ -3,11 +3,10 @@ package com.fourchannel.b.culturaLocale.dataModels;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
 @Entity
 @Table(name="location")
 public class Location

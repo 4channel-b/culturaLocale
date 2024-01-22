@@ -7,12 +7,10 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.List;
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name="app_users")
 public class User {

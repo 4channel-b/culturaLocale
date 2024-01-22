@@ -5,12 +5,10 @@ import lombok.*;
 
 import java.util.Date;
 
-//Generic Townhall
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
 @Entity
 @Table(name="townhall")
 public class TownHall {

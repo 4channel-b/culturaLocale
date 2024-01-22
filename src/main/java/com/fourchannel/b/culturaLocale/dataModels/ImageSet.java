@@ -1,13 +1,14 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
 import com.fourchannel.b.culturaLocale.databaseModels.Image;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 public class ImageSet {
-    @Getter
-    @Setter
     private List<Image> images;
 }

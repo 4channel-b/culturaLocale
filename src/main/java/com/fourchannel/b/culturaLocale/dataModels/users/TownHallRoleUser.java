@@ -5,11 +5,10 @@ import com.fourchannel.b.culturaLocale.dataModels.TownHall;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
 @Entity
 @Table(name="TownHallRole")
 public class TownHallRoleUser {

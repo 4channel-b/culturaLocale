@@ -14,10 +14,9 @@ import lombok.Setter;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name="content")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
