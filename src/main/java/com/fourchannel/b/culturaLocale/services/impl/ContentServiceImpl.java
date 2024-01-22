@@ -61,7 +61,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Itinerary getItinerary(int id)
+    public Itinerary getItinerary(Long id)
     {
         if(id < 0)
         {
@@ -71,23 +71,23 @@ public class ContentServiceImpl implements ContentService {
     }
     
     @Override
-    public PointOfInterest getPoi(int id)
+    public PointOfInterest getPoi(Long id)
     {
         if(id < 0)
         {
             throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
         }
-        return pointOfInterestRepository.findById((long)id).orElse(null);
+        return pointOfInterestRepository.findById(id).orElse(null);
     }
     
     @Override
-    public Event getEvent(int id)
+    public Event getEvent(Long id)
     {
         if(id < 0)
         {
             throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
         }
-        return eventRepository.findById((long)id).orElse(null);
+        return eventRepository.findById(id).orElse(null);
     }
 
     public List<Event> getAllEvent() {

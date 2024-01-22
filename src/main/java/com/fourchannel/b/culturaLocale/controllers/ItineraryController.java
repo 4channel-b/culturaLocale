@@ -25,7 +25,7 @@ public class ItineraryController implements BaseCrudController<Itinerary, Long>
 
     @Override
     public ResponseEntity<Itinerary> getById(Long id) {
-        return ResponseEntity.ok(contentService.getItinerary(Math.toIntExact(id))); //Da rivedere
+        return ResponseEntity.ok(contentService.getItinerary(id));
     }
 
     @Override

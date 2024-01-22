@@ -29,5 +29,6 @@ public class UserController {
     {
         return ResponseEntity.ok(userService.findAll());
     }
-    //
+    // TODO: Upgrade, downgrade, deletion, ban / suspend, unban / unsuspend, view
+    // TODO: Add suspended boolean to the User
 }

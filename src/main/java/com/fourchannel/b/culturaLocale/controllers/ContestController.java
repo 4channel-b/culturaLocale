@@ -2,10 +2,7 @@ package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.Contest;
 import com.fourchannel.b.culturaLocale.services.ContestService;
-import com.fourchannel.b.culturaLocale.services.impl.ContestServiceImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +24,7 @@ public class ContestController implements BaseCrudController<Contest, Long> {
 
     @Override
     public ResponseEntity<Contest> getById(Long id) {
-        return ResponseEntity.ok(contestService.getContest(id)); //Da rivedere
+        return ResponseEntity.ok(contestService.getContest(id));
 
     }
 

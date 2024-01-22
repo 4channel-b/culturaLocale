@@ -25,7 +25,7 @@ public class EventController implements BaseCrudController<Event, Long>
 
     @Override
     public ResponseEntity<Event> getById(Long id) {
-        return ResponseEntity.ok(contentService.getEvent(Math.toIntExact(id))); //Da rivedere
+        return ResponseEntity.ok(contentService.getEvent(id));
     }
 
     @Override

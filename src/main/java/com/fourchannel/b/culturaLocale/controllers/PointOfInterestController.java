@@ -25,7 +25,7 @@ public class PointOfInterestController implements BaseCrudController<PointOfInte
 
     @Override
     public ResponseEntity<PointOfInterest> getById(Long id) {
-        return ResponseEntity.ok(contentService.getPoi(Math.toIntExact(id))); //Da rivedere
+        return ResponseEntity.ok(contentService.getPoi(id));
     }
 
     @Override

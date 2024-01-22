@@ -13,11 +13,11 @@ public interface ContentService {
     
     Event createNewEvent(Event event);
     
-    Itinerary getItinerary(int id);
+    Itinerary getItinerary(Long id);
 
-    PointOfInterest getPoi(int id);
+    PointOfInterest getPoi(Long id);
 
-    Event getEvent(int id);
+    Event getEvent(Long id);
 
     List<Event> getAllEvent();
 

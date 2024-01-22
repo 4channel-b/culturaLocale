@@ -19,7 +19,7 @@ public class TownHallController {
 
     @PostMapping("/add")
     public ResponseEntity<TownHall> createTownhall(@RequestBody TownHall townHall) {
-        TownHall newTownHall= townHallService.createTownHall(townHall);
+        TownHall newTownHall = townHallService.createTownHall(townHall);
         return ResponseEntity.ok(newTownHall);
     }
 }
