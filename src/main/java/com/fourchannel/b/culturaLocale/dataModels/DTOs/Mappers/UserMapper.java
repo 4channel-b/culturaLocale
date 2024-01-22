@@ -1,4 +1,4 @@
-package com.fourchannel.b.culturaLocale.mapper;
+package com.fourchannel.b.culturaLocale.dataModels.DTOs.Mappers;
 
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserBasicDTO;
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserCreationRequestDTO;
@@ -12,9 +12,5 @@ import org.mapstruct.factory.Mappers;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    // Existing mapping
-    @Mapping(target = "id", ignore = true) // Ignore id since it's auto-generated
-    @Mapping(target = "preferredCategory", ignore = true) // Ignore preferredCategory, not present in DTO
-    @Mapping(target = "notificationList", ignore = true) // Ignore notificationList, not present in DTO
     User userDtoToUser(UserCreationRequestDTO userDTO);
 }

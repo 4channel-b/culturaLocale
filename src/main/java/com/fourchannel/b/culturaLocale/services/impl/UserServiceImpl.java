@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user, Long townHall, int role) {
-        if(!this.townHallRepository.existsById(townHall)) {
+        if (!this.townHallRepository.existsById(townHall)) {
             throw new IllegalArgumentException("| ERROR | TownHall does not exist");
         }
 

@@ -3,7 +3,7 @@ package com.fourchannel.b.culturaLocale.controllers;
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserSuspensionDTO;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
-import com.fourchannel.b.culturaLocale.mapper.UserMapper;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.Mappers.UserMapper;
 import com.fourchannel.b.culturaLocale.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
