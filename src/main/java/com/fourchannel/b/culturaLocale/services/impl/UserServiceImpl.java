@@ -64,4 +64,18 @@ public class UserServiceImpl implements UserService {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void delete(Long id) {
+        if(!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("| ERROR | ID does not exist");
+        }
+
+        userRepository.delete(userRepository.findById(id).get());
+    }
+
+    @Override
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow();
+    }
 }
