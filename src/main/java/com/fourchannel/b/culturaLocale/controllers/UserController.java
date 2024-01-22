@@ -5,6 +5,7 @@ import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserSuspensionDTO;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.Mappers.UserMapper;
 import com.fourchannel.b.culturaLocale.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
