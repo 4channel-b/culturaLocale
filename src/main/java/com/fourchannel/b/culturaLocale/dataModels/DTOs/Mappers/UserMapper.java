@@ -13,9 +13,5 @@ import org.mapstruct.factory.Mappers;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(target = "Id", ignore = true) // Ignore the Id as it's auto-generated
-    @Mapping(target = "preferredCategory", ignore = true) // Ignore as it's not in DTO
-    @Mapping(target = "notificationList", ignore = true) // Ignore as it's not in DTO
-    @Mapping(target = "suspended", ignore = true) // Ignore as it's not in DTO
     User userDtoToUser(UserCreationRequestDTO userDTO);
 }
