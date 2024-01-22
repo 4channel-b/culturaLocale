@@ -12,12 +12,13 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
+@Setter
 @Entity
 @Table(name="app_users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
-    private Long Id;
+    private Long id;
     private String username;
     private String fullName;
     private String email;
