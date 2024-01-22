@@ -1,10 +1,8 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
-import com.fourchannel.b.culturaLocale.dataModels.DTO.UserCreationRequestDTO;
-import com.fourchannel.b.culturaLocale.dataModels.TownHall;
-import com.fourchannel.b.culturaLocale.dataModels.users.Role;
-import com.fourchannel.b.culturaLocale.dataModels.users.TownHallRoleUser;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
+import com.fourchannel.b.culturaLocale.mapper.UserMapper;
 import com.fourchannel.b.culturaLocale.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +17,11 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> createUser(@RequestBody UserCreationRequestDTO userCreationRequestDTO)
+    public ResponseEntity<?> createUser(@RequestBody UserCreationRequestDTO dto)
     {
-        User newUser = userService.createUser(userCreationRequestDTO.toUser(),
-                                              userCreationRequestDTO.getTownhall(),
-                                              userCreationRequestDTO.getRole());
+        User newUser = userService.createUser(UserMapper.INSTANCE.userDtoToUser(dto),
+                                              dto.getTownhall(),
+                                              dto.getRole());
         return ResponseEntity.ok(newUser);
     }
     @GetMapping("/getAll")
