@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+//Kind of POI
 public enum PointOfInterestCategory {
     HISTORICAL_SITE,
     MUSEUM,
