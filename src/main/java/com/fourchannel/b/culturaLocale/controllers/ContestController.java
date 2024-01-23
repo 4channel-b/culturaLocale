@@ -25,7 +25,6 @@ public class ContestController implements BaseCrudController<Contest, Long> {
     @Override
     public ResponseEntity<Contest> getById(Long id) {
         return ResponseEntity.ok(contestService.getContest(id));
-
     }
 
     @Override

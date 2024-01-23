@@ -134,6 +134,40 @@ public class ContentServiceImpl implements ContentService {
         }
         itineraryRepository.save(itinerary);
     }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approveEvent(Long id) {
+        eventRepository.findById(id).ifPresent(e -> {
+            e.setStatus(ApprovalStatus.ACCEPTED);
+            eventRepository.save(e);
+        });
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approvePointOfInterest(Long id) {
+        pointOfInterestRepository.findById(id).ifPresent(poi -> {
+            poi.setStatus(ApprovalStatus.ACCEPTED);
+            pointOfInterestRepository.save(poi);
+        });
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approveItinerary(Long id) {
+        itineraryRepository.findById(id).ifPresent(it -> {
+            it.setStatus(ApprovalStatus.ACCEPTED);
+            itineraryRepository.save(it);
+        });
+    }
+
     private void creatorExist(Content content){
         //if(userRepository.findById(content.getCreator()).isEmpty())
           //  throw new NullPointerException("creator doesn't exist");
