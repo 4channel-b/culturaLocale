@@ -7,6 +7,7 @@ import java.util.Date;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jdk.jshell.spi.ExecutionControl;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,7 @@ import lombok.*;
 @Entity
 @Table(name="content")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Content {
+public class Content implements IContent {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="content_id_seq")
     private Long Id;
@@ -38,5 +39,8 @@ public abstract class Content {
     @Setter
     ApprovalStatus status = null;
 
-    public abstract String getContentType(); // Needed to discern content types in class agnostic lists
+    @Override
+    public String getContentType() throws ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("Not implemented yet.");
+    }
 }

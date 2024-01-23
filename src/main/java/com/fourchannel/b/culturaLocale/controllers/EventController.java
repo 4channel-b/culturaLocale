@@ -1,5 +1,7 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.EventCreationRequestDTO;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.Mappers.EventMapper;
 import com.fourchannel.b.culturaLocale.dataModels.Event;
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.services.ContentService;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 @RestController
 @RequestMapping("/event")
-public class EventController implements BaseCrudController<Event, Long>
+public class EventController implements BaseCrudController<EventCreationRequestDTO, Long>
 {
     private final ContentService contentService;
 
@@ -18,8 +20,10 @@ public class EventController implements BaseCrudController<Event, Long>
         this.contentService = contentService;
     }
     @Override
-    public ResponseEntity<Event> create(Event entity) {
-        Event newEvent = contentService.createNewEvent(entity);
+    public ResponseEntity<Event> create(EventCreationRequestDTO eventCreationRequestDTO) {
+
+        Event newEvent = contentService.createNewEvent(EventMapper.INSTANCE.eventDtoToEvent(eventCreationRequestDTO),
+                                                       eventCreationRequestDTO.getCreator());
         return ResponseEntity.ok(newEvent);
     }
 
@@ -34,8 +38,8 @@ public class EventController implements BaseCrudController<Event, Long>
     }
 
     @Override
-    public ResponseEntity<?> update(Event entity) {
-        contentService.updateEvent(entity);
+    public ResponseEntity<?> update(EventCreationRequestDTO entity){
+        //contentService.updateEvent(entity);
         return ResponseEntity.ok("{}");
     }
 

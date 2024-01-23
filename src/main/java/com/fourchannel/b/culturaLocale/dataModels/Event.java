@@ -17,7 +17,8 @@ public class Event extends Content {
     private Date startDate;
     @Getter
     private Date endDate;
-    @ManyToOne
+    @Getter
+    @Embedded
     private Location location;
 
     /**

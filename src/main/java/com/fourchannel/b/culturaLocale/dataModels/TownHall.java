@@ -17,8 +17,7 @@ public class TownHall {
     private Long Id;
     private String name;
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "location_id")
+    @Embedded
     private Location location; // Assuming Location is a class you have defined elsewhere
     private double area;
     private Date establishmentDate;

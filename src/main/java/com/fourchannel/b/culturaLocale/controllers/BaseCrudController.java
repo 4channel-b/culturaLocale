@@ -20,7 +20,7 @@ public interface BaseCrudController<T, ID> {
      * @return the created entity wrapped in ResponseEntity
      */
     @PostMapping
-    ResponseEntity<T> create(@RequestBody T entity);
+    ResponseEntity<?> create(@RequestBody T entity);
 
     /**
      * Retrieves an entity by its identifier.
@@ -29,7 +29,7 @@ public interface BaseCrudController<T, ID> {
      * @return the retrieved entity wrapped in ResponseEntity
      */
     @GetMapping("/{id}")
-    ResponseEntity<T> getById(@PathVariable ID id);
+    ResponseEntity<?> getById(@PathVariable ID id);
 
     /**
      * Retrieves all entities.
@@ -37,7 +37,7 @@ public interface BaseCrudController<T, ID> {
      * @return list of all entities wrapped in ResponseEntity
      */
     @GetMapping("/getAll")
-    ResponseEntity<List<T>> getAll();
+    ResponseEntity<?> getAll();
 
     /**
      * Updates an existing entity.

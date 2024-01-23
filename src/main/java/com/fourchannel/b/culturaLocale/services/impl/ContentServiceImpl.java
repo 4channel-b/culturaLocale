@@ -1,6 +1,7 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
@@ -38,25 +39,33 @@ public class ContentServiceImpl implements ContentService {
 
     }
 
-    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest)
+    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest,Long creator)
     {
         if(pointOfInterest == null)
         {
-            throw new IllegalArgumentException("| ERROR | pointOfInterest is NULL");
+            throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
+
+        userRepository.findById(creator).orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
+
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
-        creatorExist(pointOfInterest);
+
         return pointOfInterestRepository.save(pointOfInterest);
     }
 
-    public Event createNewEvent(Event event)
+    public Event createNewEvent(Event event,Long creator)
     {
         if(event == null)
         {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
+
+        if(userRepository.existsById(creator))
+            event.setCreator(userRepository.findById(creator).get());
+        else
+            throw new IllegalArgumentException("| ERROR | Creator doesn't exist");
+
         //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
-        creatorExist(event);
         return eventRepository.save(event);
     }
 
@@ -133,9 +142,5 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
         itineraryRepository.save(itinerary);
-    }
-    private void creatorExist(Content content){
-        //if(userRepository.findById(content.getCreator()).isEmpty())
-          //  throw new NullPointerException("creator doesn't exist");
     }
 }

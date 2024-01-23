@@ -7,13 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Data
-@Entity
-@Table(name="location")
+@Embeddable
 public class Location
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="location_id_seq")
-    private Long Id;
     private float longitude;
     private float latitude;
 }

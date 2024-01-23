@@ -15,12 +15,12 @@ public class PointOfInterest extends Content
     private Long Id;
     @Getter
     private PointOfInterestCategory category;
-    @ManyToOne
-    @JoinColumn(name = "location_id")
+    @Getter
+    @Embedded
     private Location location;
     @ManyToOne
     @JoinColumn(name = "town_hall_id")
-    private TownHall townHall;
+    private TownHall townhall;
 
     /**
      * Retrieves the content type of the point of interest.
