@@ -20,22 +20,22 @@ public class ContentController {
         this.contentService = contentService;
     }
 
-    @PutMapping("/approve/event")
-    public ResponseEntity<Event> approveEvent(@RequestBody Event event)
+    @PutMapping("/approve/event/{id}")
+    public ResponseEntity<?> approveEvent(@PathVariable Long id)
     {
-        event.setStatus(ApprovalStatus.ACCEPTED);
-        return ResponseEntity.ok(event);
+        contentService.approveEvent(id);
+        return ResponseEntity.ok().body("{}");
     }
-    @PutMapping("/approve/poi")
-    public ResponseEntity<PointOfInterest> approvePoi(@RequestBody PointOfInterest pointOfInterest)
+    @PutMapping("/approve/poi/{id}")
+    public ResponseEntity<?> approvePoi(@PathVariable Long id)
     {
-        pointOfInterest.setStatus(ApprovalStatus.ACCEPTED);
-        return ResponseEntity.ok(pointOfInterest);
+        contentService.approvePointOfInterest(id);
+        return ResponseEntity.ok().body("{}");
     }
-    @PutMapping("/approve/itinerary")
-    public ResponseEntity<Itinerary> approveItinerary(@RequestBody Itinerary itinerary)
+    @PutMapping("/approve/itinerary/{id}")
+    public ResponseEntity<?> approveItinerary(@PathVariable Long id)
     {
-        itinerary.setStatus(ApprovalStatus.ACCEPTED);
-        return ResponseEntity.ok(itinerary);
+        contentService.approveItinerary(id);
+        return ResponseEntity.ok().body("{}");
     }
 }

@@ -1,7 +1,6 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
-import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
@@ -76,9 +75,9 @@ public class ContentServiceImpl implements ContentService {
         {
             throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
         }
-       return itineraryRepository.findById((long)id).orElse(null);
+        return itineraryRepository.findById((long)id).orElse(null);
     }
-    
+
     @Override
     public PointOfInterest getPoi(Long id)
     {
@@ -88,7 +87,7 @@ public class ContentServiceImpl implements ContentService {
         }
         return pointOfInterestRepository.findById(id).orElse(null);
     }
-    
+
     @Override
     public Event getEvent(Long id)
     {
@@ -142,5 +141,38 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
         itineraryRepository.save(itinerary);
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approveEvent(Long id) {
+        eventRepository.findById(id).ifPresent(e -> {
+            e.setStatus(ApprovalStatus.ACCEPTED);
+            eventRepository.save(e);
+        });
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approvePointOfInterest(Long id) {
+        pointOfInterestRepository.findById(id).ifPresent(poi -> {
+            poi.setStatus(ApprovalStatus.ACCEPTED);
+            pointOfInterestRepository.save(poi);
+        });
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approveItinerary(Long id) {
+        itineraryRepository.findById(id).ifPresent(it -> {
+            it.setStatus(ApprovalStatus.ACCEPTED);
+            itineraryRepository.save(it);
+        });
     }
 }
