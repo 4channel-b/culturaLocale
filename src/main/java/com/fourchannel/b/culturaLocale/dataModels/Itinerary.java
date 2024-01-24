@@ -44,6 +44,7 @@ public class Itinerary extends Content {
         this.estimatedDuration = itineraryCreationRequestDTO.getEstimatedDuration();
         this.difficultyLevel = itineraryCreationRequestDTO.getDifficultyLevel();
 
+        // TODO: Fix compilation error here, also review Itinerary's design?
         // this.contents = itineraryCreationRequestDTO.getContents().stream()
         //        .map(Content::new)
         //        .collect(Collectors.toList());
