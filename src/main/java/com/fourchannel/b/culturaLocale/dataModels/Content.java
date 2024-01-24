@@ -43,4 +43,16 @@ public class Content implements IContent {
     public String getContentType() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Not implemented yet.");
     }
+
+    public Content(String name, String description, Date creationDate, Long creator) {
+        this.name = name;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.creator = new User();
+        this.creator.setId(creator);
+    }
+
+    public Content(Long id) {
+        this.setId(id);
+    }
 }

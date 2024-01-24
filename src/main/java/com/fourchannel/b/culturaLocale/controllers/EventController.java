@@ -1,9 +1,7 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.EventCreationRequestDTO;
-import com.fourchannel.b.culturaLocale.dataModels.DTOs.Mappers.EventMapper;
 import com.fourchannel.b.culturaLocale.dataModels.Event;
-import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +20,7 @@ public class EventController implements BaseCrudController<EventCreationRequestD
     @Override
     public ResponseEntity<Event> create(EventCreationRequestDTO eventCreationRequestDTO) {
 
-        Event newEvent = contentService.createNewEvent(EventMapper.INSTANCE.eventDtoToEvent(eventCreationRequestDTO),
+        Event newEvent = contentService.createNewEvent(new Event(eventCreationRequestDTO),
                                                        eventCreationRequestDTO.getCreator());
         return ResponseEntity.ok(newEvent);
     }

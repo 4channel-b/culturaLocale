@@ -8,10 +8,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EventCreationRequestDTO extends ContentCreationRequestDTO{
+public class EventCreationRequestDTO extends ContentCreationRequestDTO {
     private Date startDate;
-
     private Date endDate;
-
     private Location location;
 }

@@ -1,9 +1,12 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.ItineraryCreationRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,4 +32,21 @@ public class Itinerary extends Content {
     public String getContentType() {
         return "ITINERARY";
     }
+
+    public Itinerary(ItineraryCreationRequestDTO itineraryCreationRequestDTO) {
+        super(
+                itineraryCreationRequestDTO.getName(),
+                itineraryCreationRequestDTO.getDescription(),
+                itineraryCreationRequestDTO.getCreationDate(),
+                itineraryCreationRequestDTO.getCreator()
+        );
+
+        this.estimatedDuration = itineraryCreationRequestDTO.getEstimatedDuration();
+        this.difficultyLevel = itineraryCreationRequestDTO.getDifficultyLevel();
+
+        this.contents = itineraryCreationRequestDTO.getContents().stream()
+                .map(Content::new)
+                .collect(Collectors.toList());
+    }
+
 }
