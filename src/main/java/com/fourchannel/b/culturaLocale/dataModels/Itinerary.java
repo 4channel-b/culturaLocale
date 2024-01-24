@@ -4,6 +4,7 @@ import com.fourchannel.b.culturaLocale.dataModels.DTOs.ItineraryCreationRequestD
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class Itinerary extends Content {
     @Getter
     private int difficultyLevel;
     @ManyToMany
-    private List<Content> contents;
+    private List<Content> contents= new ArrayList<>();
 
 
     /**
@@ -38,7 +39,7 @@ public class Itinerary extends Content {
                 itineraryCreationRequestDTO.getName(),
                 itineraryCreationRequestDTO.getDescription(),
                 itineraryCreationRequestDTO.getCreationDate(),
-                itineraryCreationRequestDTO.getCreator()
+                null
         );
 
         this.estimatedDuration = itineraryCreationRequestDTO.getEstimatedDuration();

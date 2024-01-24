@@ -16,17 +16,19 @@ public class ContentServiceImpl implements ContentService {
     private final PointOfInterestRepository pointOfInterestRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
+    private final ContentRepository contentRepository;
     public ContentServiceImpl(ItineraryRepository itineraryRepository,
                               PointOfInterestRepository pointOfInterestRepository,
                               EventRepository eventRepository,
-                              UserRepository userRepository) {
+                              UserRepository userRepository, ContentRepository contentRepository) {
 
         this.itineraryRepository = itineraryRepository;
         this.pointOfInterestRepository = pointOfInterestRepository;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.contentRepository = contentRepository;
     }
-    public Itinerary createNewItinerary(Itinerary itinerary, Long creator) {
+    public Itinerary createNewItinerary(Itinerary itinerary, Long creator, List<Long> contents) {
         if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
@@ -34,7 +36,12 @@ public class ContentServiceImpl implements ContentService {
         User user = userRepository.findById(creator)
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
         itinerary.setCreator(user);
-
+        for(Long id : contents)
+        {
+            Content content = contentRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+            itinerary.getContents().add(content);
+        }
         return itineraryRepository.save(itinerary);
     }
 
@@ -79,6 +86,11 @@ public class ContentServiceImpl implements ContentService {
     public Event getEvent(Long id)
     {
         return eventRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Content getContent(Long id) {
+        return contentRepository.findById(id).orElseThrow();
     }
 
     public List<Event> getAllEvent() {
