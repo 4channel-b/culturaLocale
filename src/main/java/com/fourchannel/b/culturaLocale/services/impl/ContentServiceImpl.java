@@ -128,10 +128,13 @@ public class ContentServiceImpl implements ContentService {
         pointOfInterestRepository.save(pointOfInterest);
     }
 
-    private Content fillOutContent(Content content) {
-        if (content == null) {
+    private Content fillOutContent(Long id) {
+        if (id == null) {
             throw new IllegalArgumentException("| ERROR | Content is NULL");
         }
+
+        Content content = contentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
 
         if (content instanceof Itinerary) {
             return itineraryRepository.findById(content.getId())
@@ -148,7 +151,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public void updateItinerary(Itinerary itinerary)
+    public void updateItinerary(Itinerary itinerary, List<Long> contents)
     {
         if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
@@ -166,10 +169,10 @@ public class ContentServiceImpl implements ContentService {
         itinerary.setCreator(user);
 
         // fill out its contents from the incomplete DTO mapping
-        for (Content itc : itinerary.getContents()) {
-            Content filledOut = fillOutContent(itc);
-            itinerary.getContents().remove(itc);
-            itinerary.getContents().add(filledOut);
+        for (Long id : contents)
+        {
+            Content content = fillOutContent(id);
+            itinerary.getContents().add(content);
         }
 
         // assumption

@@ -30,7 +30,7 @@ public interface ContentService {
 
     void updateEvent(Event event);
     void updatePoi(PointOfInterest pointOfInterest);
-    void updateItinerary(Itinerary itinerary);
+    void updateItinerary(Itinerary itinerary, List<Long> contents);
 
     void approveEvent(Long id);
     void approvePointOfInterest(Long id);

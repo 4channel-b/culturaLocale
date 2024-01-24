@@ -39,7 +39,7 @@ public class ItineraryController implements BaseCrudController<ItineraryCreation
         Itinerary it = new Itinerary(dto);
         it.setId(id);
 
-        contentService.updateItinerary(it);
+        contentService.updateItinerary(it, dto.getContents());
         return ResponseEntity.ok("{}");
     }
 
