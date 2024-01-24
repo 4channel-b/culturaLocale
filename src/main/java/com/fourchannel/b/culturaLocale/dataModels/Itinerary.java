@@ -44,9 +44,8 @@ public class Itinerary extends Content {
         this.estimatedDuration = itineraryCreationRequestDTO.getEstimatedDuration();
         this.difficultyLevel = itineraryCreationRequestDTO.getDifficultyLevel();
 
-        this.contents = itineraryCreationRequestDTO.getContents().stream()
-                .map(Content::new)
-                .collect(Collectors.toList());
+        // this.contents = itineraryCreationRequestDTO.getContents().stream()
+        //        .map(Content::new)
+        //        .collect(Collectors.toList());
     }
-
 }

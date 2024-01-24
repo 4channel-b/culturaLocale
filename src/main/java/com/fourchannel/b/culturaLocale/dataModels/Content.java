@@ -21,7 +21,7 @@ import lombok.*;
 @Entity
 @Table(name="content")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Content implements IContent {
+public abstract class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="content_id_seq")
     private Long Id;
@@ -39,7 +39,6 @@ public class Content implements IContent {
     @Setter
     ApprovalStatus status = null;
 
-    @Override
     public String getContentType() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Not implemented yet.");
     }

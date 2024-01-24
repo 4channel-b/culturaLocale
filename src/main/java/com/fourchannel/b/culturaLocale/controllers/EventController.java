@@ -36,7 +36,7 @@ public class EventController implements BaseCrudController<EventCreationRequestD
     }
 
     @Override
-    public ResponseEntity<?> update(EventCreationRequestDTO entity){
+    public ResponseEntity<?> update(EventCreationRequestDTO entity, Long id){
         //contentService.updateEvent(entity);
         return ResponseEntity.ok("{}");
     }

@@ -35,7 +35,7 @@ public class PointOfInterestController implements BaseCrudController<PointOfInte
     }
 
     @Override
-    public ResponseEntity<?> update(PointOfInterest entity) {
+    public ResponseEntity<?> update(PointOfInterest entity, Long id) {
         contentService.updatePoi(entity);
         return ResponseEntity.ok("{}");
     }

@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.TownHallCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.TownHall;
 import com.fourchannel.b.culturaLocale.services.TownHallService;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class TownHallController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TownHall> createTownhall(@RequestBody TownHall townHall) {
-        TownHall newTownHall = townHallService.createTownHall(townHall);
+    public ResponseEntity<TownHall> createTownhall(@RequestBody TownHallCreationRequestDTO dto) {
+        TownHall newTownHall = townHallService.createTownHall(new TownHall(dto));
         return ResponseEntity.ok(newTownHall);
     }
 }

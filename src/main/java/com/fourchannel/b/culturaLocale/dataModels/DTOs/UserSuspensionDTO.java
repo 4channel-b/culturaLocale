@@ -6,5 +6,5 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class UserSuspensionDTO extends UserBasicDTO {
-    boolean newSuspensionStatus;
+    private boolean newSuspensionStatus;
 }

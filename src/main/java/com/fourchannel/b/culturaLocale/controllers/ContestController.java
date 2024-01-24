@@ -33,7 +33,7 @@ public class ContestController implements BaseCrudController<Contest, Long> {
     }
 
     @Override
-    public ResponseEntity<?> update(Contest entity) {
+    public ResponseEntity<?> update(Contest entity, Long id) {
         contestService.updateContest(entity);
         return ResponseEntity.ok("{}");
     }
