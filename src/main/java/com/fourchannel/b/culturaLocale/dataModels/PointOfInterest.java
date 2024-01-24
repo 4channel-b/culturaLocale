@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.PointOfInterestCreationRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,5 +31,19 @@ public class PointOfInterest extends Content
     @Override
     public String getContentType() {
         return "POINT_OF_INTEREST";
+    }
+
+    public PointOfInterest(PointOfInterestCreationRequestDTO poiCreationRequestDTO) {
+        super(
+                poiCreationRequestDTO.getName(),
+                poiCreationRequestDTO.getDescription(),
+                poiCreationRequestDTO.getCreationDate(),
+                poiCreationRequestDTO.getCreator()
+        );
+
+        this.category = poiCreationRequestDTO.getCategory();
+        this.location = poiCreationRequestDTO.getLocation();
+        this.townhall = new TownHall();
+        this.townhall.setId(poiCreationRequestDTO.getTownHall());
     }
 }

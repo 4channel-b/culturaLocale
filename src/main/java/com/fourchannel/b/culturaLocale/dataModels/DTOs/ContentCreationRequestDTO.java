@@ -14,8 +14,6 @@ import java.util.Date;
 @Builder
 @Data
 public class ContentCreationRequestDTO {
-
-
     String name;
     String description;
     Date creationDate;

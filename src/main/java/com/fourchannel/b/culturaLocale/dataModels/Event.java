@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.EventCreationRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,5 +30,19 @@ public class Event extends Content {
     @Override
     public String getContentType() {
         return "EVENT";
+    }
+
+    // Constructor that takes EventCreationRequestDTO
+    public Event(EventCreationRequestDTO eventCreationRequestDTO) {
+        super(
+                eventCreationRequestDTO.getName(),
+                eventCreationRequestDTO.getDescription(),
+                eventCreationRequestDTO.getCreationDate(),
+                eventCreationRequestDTO.getCreator()
+        );
+
+        this.startDate = eventCreationRequestDTO.getStartDate();
+        this.endDate = eventCreationRequestDTO.getEndDate();
+        this.location = eventCreationRequestDTO.getLocation();
     }
 }

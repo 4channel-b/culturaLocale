@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.dataModels.users;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.Notification;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterestCategory;
 import jakarta.persistence.*;
@@ -25,4 +26,15 @@ public class User {
     @OneToMany
     private List<Notification> notificationList;
     private boolean suspended;
+
+    public User(UserCreationRequestDTO userCreationRequestDTO) {
+        this.username = userCreationRequestDTO.getUsername();
+        this.fullName = userCreationRequestDTO.getFullName();
+        this.email = userCreationRequestDTO.getEmail();
+        this.registrationDate = userCreationRequestDTO.getRegistrationDate();
+
+        this.preferredCategory = null;
+        this.notificationList = null;
+        this.suspended = false;
+    }
 }

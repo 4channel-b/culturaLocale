@@ -1,16 +1,9 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
-import com.fourchannel.b.culturaLocale.dataModels.ApprovalStatus;
-import com.fourchannel.b.culturaLocale.dataModels.DTOs.Mappers.UserMapper;
-import com.fourchannel.b.culturaLocale.dataModels.Event;
-import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
-import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
 import com.fourchannel.b.culturaLocale.services.ContentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 @RestController
 @RequestMapping("/content")
 public class ContentController {
