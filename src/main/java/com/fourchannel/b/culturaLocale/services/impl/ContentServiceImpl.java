@@ -36,12 +36,14 @@ public class ContentServiceImpl implements ContentService {
         User user = userRepository.findById(creator)
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
         itinerary.setCreator(user);
-        for(Long id : contents)
+
+        for (Long id : contents)
         {
-            Content content = contentRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+            Content content = fillOutContent(id);
+
             itinerary.getContents().add(content);
         }
+
         return itineraryRepository.save(itinerary);
     }
 
