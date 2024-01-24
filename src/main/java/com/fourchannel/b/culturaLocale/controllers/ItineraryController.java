@@ -1,6 +1,5 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
-import com.fourchannel.b.culturaLocale.dataModels.Content;
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.ItineraryCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.services.ContentService;

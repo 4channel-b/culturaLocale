@@ -2,7 +2,6 @@ package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.EventCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.Event;
-import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

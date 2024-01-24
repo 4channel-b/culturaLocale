@@ -1,6 +1,6 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
-import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.PointOfInterestCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 @RestController
 @RequestMapping("/poi")
-public class PointOfInterestController implements BaseCrudController<PointOfInterest, Long>
+public class PointOfInterestController implements BaseCrudController<PointOfInterestCreationRequestDTO, Long>
 {
     private final ContentService contentService;
 
@@ -18,10 +18,9 @@ public class PointOfInterestController implements BaseCrudController<PointOfInte
         this.contentService = contentService;
     }
     @Override
-    public ResponseEntity<PointOfInterest> create(PointOfInterest entity) {
-        //PointOfInterest newPointOfInterest = contentService.createNewPointOfInterest(entity);
-        //return ResponseEntity.ok(newPointOfInterest);
-        return null;
+    public ResponseEntity<PointOfInterest> create(PointOfInterestCreationRequestDTO dto) {
+        PointOfInterest newPointOfInterest = contentService.createNewPointOfInterest(new PointOfInterest(dto), dto.getCreator());
+        return ResponseEntity.ok(newPointOfInterest);
     }
 
     @Override
@@ -35,13 +34,15 @@ public class PointOfInterestController implements BaseCrudController<PointOfInte
     }
 
     @Override
-    public ResponseEntity<?> update(PointOfInterest entity, Long id) {
-        contentService.updatePoi(entity);
+    public ResponseEntity<?> update(PointOfInterestCreationRequestDTO dto, Long id) {
+        PointOfInterest elem = new PointOfInterest(dto);
+        elem.setId(id);
+
+        contentService.updatePoi(elem);
         return ResponseEntity.ok("{}");
     }
-
     @Override
-    public ResponseEntity<?> delete(Long aLong) {
+    public ResponseEntity<?> delete(Long id) {
         return null;
     }
 }
