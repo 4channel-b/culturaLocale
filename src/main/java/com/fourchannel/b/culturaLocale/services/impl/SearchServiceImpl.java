@@ -1,6 +1,9 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
+import com.fourchannel.b.culturaLocale.dataModels.users.Role;
+import com.fourchannel.b.culturaLocale.dataModels.users.TownHallRoleUser;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.SearchService;
 import jdk.jshell.spi.ExecutionControl;
@@ -17,18 +20,22 @@ public class SearchServiceImpl implements SearchService {
     private final PointOfInterestRepository pointOfInterestRepository;
     private final EventRepository eventRepository;
     private final ContentRepository contentRepository;
+    private final TownHallRoleRepository townHallRoleRepository;
+    private final UserRepository userRepository;
 
     public SearchServiceImpl(ContestRepository contestRepository,
                              ItineraryRepository itineraryRepository,
                              PointOfInterestRepository pointOfInterestRepository,
                              EventRepository eventRepository,
-                             ContentRepository contentRepository) {
+                             ContentRepository contentRepository, TownHallRoleRepository townHallRoleRepository, UserRepository userRepository) {
 
         this.contestRepository = contestRepository;
         this.itineraryRepository = itineraryRepository;
         this.pointOfInterestRepository = pointOfInterestRepository;
         this.eventRepository = eventRepository;
         this.contentRepository = contentRepository;
+        this.townHallRoleRepository = townHallRoleRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -70,5 +77,15 @@ public class SearchServiceImpl implements SearchService {
     public List<Event> searchEvents(String name, String description, Date startDate, Date endDate) {
         return eventRepository.findEventsByNameAndDescriptionWithinDateRange(
                 name, description, startDate, endDate);
+    }
+
+    @Override
+    public List<User> searchUsersByRole(int role) {
+        return townHallRoleRepository.findUserByRole(Role.values()[role]);
+    }
+
+    @Override
+    public List<User> searchUsersByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

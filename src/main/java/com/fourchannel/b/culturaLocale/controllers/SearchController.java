@@ -1,6 +1,7 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -58,5 +59,13 @@ public class SearchController {
                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
         return searchService.searchEvents(name, description, startDate, endDate);
+    }
+    @GetMapping("/usersByRole")
+    public List<User> searchUser(@RequestParam int role){
+        return searchService.searchUsersByRole(role);
+    }
+    @GetMapping("/usersByMail")
+    public List<User> searchUser(@RequestParam String email){
+        return searchService.searchUsersByEmail(email);
     }
 }
