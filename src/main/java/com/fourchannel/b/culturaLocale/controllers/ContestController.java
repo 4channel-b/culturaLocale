@@ -1,11 +1,11 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.Contest;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.ContentCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.ContestCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.services.ContestService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,6 +41,21 @@ public class ContestController implements BaseCrudController<ContestCreationRequ
         elem.setId(id);
 
         this.contestService.updateContest(elem);
+
+        return ResponseEntity.ok("{}");
+    }
+
+    @PutMapping("/subscribe/{contestId}")
+    public ResponseEntity<?> subscribeContent(@RequestBody  Long contentId,
+                                              @PathVariable Long contestId) {
+        contestService.subscribeContent(contentId, contestId);
+
+        return ResponseEntity.ok("{}");
+    }
+
+    @PutMapping("/terminate/{contestId}")
+    public ResponseEntity<?> terminateContest(@PathVariable Long contestId, @RequestBody Long winningContentId) {
+        contestService.terminateContest(contestId, winningContentId);
 
         return ResponseEntity.ok("{}");
     }

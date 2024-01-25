@@ -10,4 +10,7 @@ public interface ContestService {
     List<Contest> getAllContest();
     void updateContest(Contest contest);
 
+    void subscribeContent(Long contentId, Long contestId);
+
+    void terminateContest(Long contestId, Long winningContentId);
 }
