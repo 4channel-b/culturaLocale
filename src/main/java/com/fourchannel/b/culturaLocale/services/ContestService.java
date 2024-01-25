@@ -8,7 +8,7 @@ public interface ContestService {
     Contest createContest(Contest contest);
     Contest getContest(Long id);
     List<Contest> getAllContest();
-    void updateContest(Contest contest);
+    void updateContest(Contest contest, List<Long> contents);
 
     void subscribeContent(Long contentId, Long contestId);
 

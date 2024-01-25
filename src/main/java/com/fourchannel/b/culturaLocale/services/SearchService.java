@@ -1,6 +1,7 @@
 package com.fourchannel.b.culturaLocale.services;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
 import java.util.Date;
 import java.util.List;
@@ -11,4 +12,6 @@ public interface SearchService {
     List<Itinerary> searchItineraries(String name, String description, Date creationDate, int difficultyLevel, double estimatedDuration);
     List<PointOfInterest> searchPointsOfInterest(String name, String description, PointOfInterestCategory category, Location location);
     List<Event> searchEvents(String name, String description, Date startDate, Date endDate);
+    List <User> searchUsersByRole(int role);
+    List <User> searchUsersByEmail(String email);
 }

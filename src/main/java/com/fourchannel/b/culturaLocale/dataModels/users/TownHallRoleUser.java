@@ -10,6 +10,7 @@ import lombok.*;
 @Builder
 @Data
 @Entity
+@Getter
 @Table(name="TownHallRole")
 public class TownHallRoleUser {
     @Id
