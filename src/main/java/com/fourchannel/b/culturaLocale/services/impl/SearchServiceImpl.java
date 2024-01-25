@@ -67,8 +67,8 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<Event> searchEvents(String name, String description, Date startDate, Date endDate, Location location) {
-        return eventRepository.findByNameAndDescriptionAndStartDateBetweenAndLocation(
-                name, description, startDate, endDate, location);
+    public List<Event> searchEvents(String name, String description, Date startDate, Date endDate) {
+        return eventRepository.findEventsByNameAndDescriptionWithinDateRange(
+                name, description, startDate, endDate);
     }
 }

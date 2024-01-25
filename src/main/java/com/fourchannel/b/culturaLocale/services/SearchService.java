@@ -10,5 +10,5 @@ public interface SearchService {
     List<Content> searchContent(String name, String description, Date creationDate, String contentType);
     List<Itinerary> searchItineraries(String name, String description, Date creationDate, int difficultyLevel, double estimatedDuration);
     List<PointOfInterest> searchPointsOfInterest(String name, String description, PointOfInterestCategory category, Location location);
-    List<Event> searchEvents(String name, String description, Date startDate, Date endDate, Location location);
+    List<Event> searchEvents(String name, String description, Date startDate, Date endDate);
 }
