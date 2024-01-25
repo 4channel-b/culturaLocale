@@ -1,9 +1,12 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.ContestCreationRequestDTO;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.EventCreationRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @AllArgsConstructor
@@ -26,6 +29,16 @@ public class Contest
     private String type;
     @OneToMany
     private List<Content> contents;
+
+    public Contest(ContestCreationRequestDTO dto) {
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.initialDate = dto.getInitialDate();
+        this.endDate = dto.getEndDate();
+        this.rules = dto.getRules();;
+        this.type = dto.getType();
+        this.contents = new ArrayList<>();  //TODO
+    }
 
     /**
      * Add the given content in a specific list.
