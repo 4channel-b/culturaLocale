@@ -11,9 +11,6 @@ import java.util.Date;
 @Data
 @Entity
 public class Event extends Content {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="event_id_seq")
-    private Long Id;
     @Getter
     private Date startDate;
     @Getter

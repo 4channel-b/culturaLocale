@@ -39,7 +39,8 @@ public class ContentServiceImpl implements ContentService {
 
         for (Long id : contents)
         {
-            Content content = fillOutContent(id);
+            Content content = contentRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
 
             itinerary.getContents().add(content);
         }

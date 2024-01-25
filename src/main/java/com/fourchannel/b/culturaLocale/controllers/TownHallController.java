@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/TownHall")
+@RequestMapping("/townHall")
 public class TownHallController {
     private final TownHallService townHallService;
 
