@@ -19,7 +19,7 @@ public class PointOfInterestController implements BaseCrudController<PointOfInte
     }
     @Override
     public ResponseEntity<PointOfInterest> create(PointOfInterestCreationRequestDTO dto) {
-        PointOfInterest newPointOfInterest = contentService.createNewPointOfInterest(new PointOfInterest(dto), dto.getCreator());
+        PointOfInterest newPointOfInterest = contentService.createNewPointOfInterest(new PointOfInterest(dto));
         return ResponseEntity.ok(newPointOfInterest);
     }
 

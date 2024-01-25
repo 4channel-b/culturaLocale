@@ -9,11 +9,11 @@ import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import java.util.List;
 
 public interface ContentService {
-    Itinerary createNewItinerary(Itinerary itinerary, Long user, List<Long> contents);
+    Itinerary createNewItinerary(Itinerary itinerary, List<Long> contents);
 
-    PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest, Long user);
+    PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest);
     
-    Event createNewEvent(Event event, Long user);
+    Event createNewEvent(Event event);
     
     Itinerary getItinerary(Long id);
 

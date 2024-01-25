@@ -45,7 +45,7 @@ public class ContentServiceImpl implements ContentService {
         };
     }
     private Optional<ApprovalStatus> getDefaultApprovalStatusFromUser(Long id, Long townHallId) {
-        User user = userRepository.findById(id)
+        userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't exist"));
 
         townHallRepository.findById(townHallId).
@@ -61,18 +61,17 @@ public class ContentServiceImpl implements ContentService {
 
         return Optional.empty();
     }
-    public Itinerary createNewItinerary(Itinerary itinerary, Long creator, List<Long> contents) {
+    public Itinerary createNewItinerary(Itinerary itinerary,List<Long> contents) {
         if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
 
-        User user = userRepository.findById(creator)
-                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
 
-        itinerary.setCreator(user);
+        itinerary.setCreator(userRepository.findById(itinerary.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
 
-        townHallRepository.findById(itinerary.getTownHall().getId())
-                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
+        itinerary.setTownHall(townHallRepository.findById(itinerary.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
 
         for (Long id : contents)
         {
@@ -82,44 +81,41 @@ public class ContentServiceImpl implements ContentService {
             itinerary.getContents().add(content);
         }
 
-        itinerary.setStatus(getDefaultApprovalStatusFromUser(creator, itinerary.getTownHall().getId())
+        itinerary.setStatus(getDefaultApprovalStatusFromUser(itinerary.getCreator().getId(), itinerary.getTownHall().getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
 
         return itineraryRepository.save(itinerary);
     }
 
-    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest, Long creator) {
+    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest) {
         if (pointOfInterest == null) {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
 
-        User user = userRepository.findById(creator)
-                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
-        pointOfInterest.setCreator(user);
+        pointOfInterest.setCreator(userRepository.findById(pointOfInterest.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
 
-        townHallRepository.findById(pointOfInterest.getTownHall().getId())
-                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
+        pointOfInterest.setTownHall(townHallRepository.findById(pointOfInterest.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
 
-        pointOfInterest.setStatus(getDefaultApprovalStatusFromUser(creator, pointOfInterest.getTownHall().getId())
+        pointOfInterest.setStatus(getDefaultApprovalStatusFromUser(pointOfInterest.getCreator().getId(), pointOfInterest.getTownHall().getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
 
         return pointOfInterestRepository.save(pointOfInterest);
     }
 
-    public Event createNewEvent(Event event,Long creator)
+    public Event createNewEvent(Event event)
     {
         if (event == null) {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
 
-        User user = userRepository.findById(creator)
-                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
-        event.setCreator(user);
+        event.setCreator(userRepository.findById(event.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
 
-        townHallRepository.findById(event.getTownHall().getId())
-                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
-
-        event.setStatus(getDefaultApprovalStatusFromUser(creator, event.getTownHall().getId())
+        event.setTownHall(townHallRepository.findById(event.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+        event.setStatus(getDefaultApprovalStatusFromUser(event.getCreator().getId(), event.getTownHall().getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
 
         return eventRepository.save(event);

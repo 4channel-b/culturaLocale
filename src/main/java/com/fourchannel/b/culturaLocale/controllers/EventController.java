@@ -20,7 +20,7 @@ public class EventController implements BaseCrudController<EventCreationRequestD
     @Override
     public ResponseEntity<Event> create(EventCreationRequestDTO dto) {
 
-        Event newEvent = contentService.createNewEvent(new Event(dto), dto.getCreator());
+        Event newEvent = contentService.createNewEvent(new Event(dto));
         return ResponseEntity.ok(newEvent);
 
     }

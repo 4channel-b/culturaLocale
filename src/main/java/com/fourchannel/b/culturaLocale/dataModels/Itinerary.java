@@ -37,7 +37,7 @@ public class Itinerary extends Content {
                 itineraryCreationRequestDTO.getName(),
                 itineraryCreationRequestDTO.getDescription(),
                 itineraryCreationRequestDTO.getCreationDate(),
-                null
+                itineraryCreationRequestDTO.getCreator()
         );
 
         this.estimatedDuration = itineraryCreationRequestDTO.getEstimatedDuration();

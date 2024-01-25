@@ -20,7 +20,7 @@ public class ItineraryController implements BaseCrudController<ItineraryCreation
     }
     @Override
     public ResponseEntity<Itinerary> create(ItineraryCreationRequestDTO dto) {
-        Itinerary newItinerary = contentService.createNewItinerary(new Itinerary(dto), dto.getCreator(), dto.getContents());
+        Itinerary newItinerary = contentService.createNewItinerary(new Itinerary(dto), dto.getContents());
         return ResponseEntity.ok(newItinerary);
     }
 

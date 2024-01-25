@@ -35,7 +35,7 @@ public class Event extends Content {
                 eventCreationRequestDTO.getName(),
                 eventCreationRequestDTO.getDescription(),
                 eventCreationRequestDTO.getCreationDate(),
-                null
+                eventCreationRequestDTO.getCreator()
         );
 
         this.startDate = eventCreationRequestDTO.getStartDate();
