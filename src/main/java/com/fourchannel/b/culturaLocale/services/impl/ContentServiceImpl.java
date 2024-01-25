@@ -189,28 +189,6 @@ public class ContentServiceImpl implements ContentService {
         pointOfInterestRepository.save(pointOfInterest);
     }
 
-    private Content fillOutContent(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("| ERROR | Content is NULL");
-        }
-
-        Content content = contentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
-
-        if (content instanceof Itinerary) {
-            return itineraryRepository.findById(content.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Itinerary doesn't exist"));
-        } else if (content instanceof PointOfInterest) {
-            return pointOfInterestRepository.findById(content.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | PointOfInterest doesn't exist"));
-        } else if (content instanceof Event) {
-            return eventRepository.findById(content.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Event doesn't exist"));
-        } else {
-            throw new IllegalArgumentException("| ERROR | Content is not a valid type");
-        }
-    }
-
     @Override
     public void updateItinerary(Itinerary itinerary, List<Long> contents)
     {
@@ -232,7 +210,8 @@ public class ContentServiceImpl implements ContentService {
         // fill out its contents from the incomplete DTO mapping
         for (Long id : contents)
         {
-            Content content = fillOutContent(id);
+            Content content = contentRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
             itinerary.getContents().add(content);
         }
 
