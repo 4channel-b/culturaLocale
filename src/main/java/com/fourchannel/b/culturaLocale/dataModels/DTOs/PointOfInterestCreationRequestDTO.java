@@ -10,5 +10,4 @@ import lombok.*;
 public class PointOfInterestCreationRequestDTO extends ContentCreationRequestDTO {
     private PointOfInterestCategory category;
     private Location location;
-    private Long townHall;
 }

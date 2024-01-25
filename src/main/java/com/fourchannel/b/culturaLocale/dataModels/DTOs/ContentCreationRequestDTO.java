@@ -17,5 +17,6 @@ public class ContentCreationRequestDTO {
     private String name;
     private String description;
     private Date creationDate;
-    private Long creator ;
+    private Long creator;
+    private Long townHall;
 }

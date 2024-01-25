@@ -43,5 +43,7 @@ public class Itinerary extends Content {
         this.estimatedDuration = itineraryCreationRequestDTO.getEstimatedDuration();
         this.difficultyLevel = itineraryCreationRequestDTO.getDifficultyLevel();
         this.contents = new ArrayList<>();
+        this.townHall = new TownHall();
+        this.townHall.setId(itineraryCreationRequestDTO.getTownHall());
     }
 }

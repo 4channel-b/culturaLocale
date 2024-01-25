@@ -41,5 +41,7 @@ public class Event extends Content {
         this.startDate = eventCreationRequestDTO.getStartDate();
         this.endDate = eventCreationRequestDTO.getEndDate();
         this.location = eventCreationRequestDTO.getLocation();
+        this.townHall = new TownHall();
+        this.townHall.setId(eventCreationRequestDTO.getTownHall());
     }
 }

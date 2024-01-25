@@ -71,6 +71,9 @@ public class ContentServiceImpl implements ContentService {
 
         itinerary.setCreator(user);
 
+        townHallRepository.findById(itinerary.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
+
         for (Long id : contents)
         {
             Content content = contentRepository.findById(id)
@@ -78,6 +81,9 @@ public class ContentServiceImpl implements ContentService {
 
             itinerary.getContents().add(content);
         }
+
+        itinerary.setStatus(getDefaultApprovalStatusFromUser(creator, itinerary.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
 
         return itineraryRepository.save(itinerary);
     }
@@ -91,6 +97,12 @@ public class ContentServiceImpl implements ContentService {
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
         pointOfInterest.setCreator(user);
 
+        townHallRepository.findById(pointOfInterest.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
+
+        pointOfInterest.setStatus(getDefaultApprovalStatusFromUser(creator, pointOfInterest.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
+
         return pointOfInterestRepository.save(pointOfInterest);
     }
 
@@ -103,6 +115,12 @@ public class ContentServiceImpl implements ContentService {
         User user = userRepository.findById(creator)
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
         event.setCreator(user);
+
+        townHallRepository.findById(event.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
+
+        event.setStatus(getDefaultApprovalStatusFromUser(creator, event.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
 
         return eventRepository.save(event);
     }
@@ -152,15 +170,25 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
 
+        event.setTownHall(townHallRepository.findById(event.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+        event.setCreator(userRepository.findById(event.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
+
         eventRepository.save(event);
     }
 
     @Override
     public void updatePoi(PointOfInterest pointOfInterest)
     {
-        if(pointOfInterest == null) {
+        if (pointOfInterest == null) {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
+
+        pointOfInterest.setTownHall(townHallRepository.findById(pointOfInterest.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+        pointOfInterest.setCreator(userRepository.findById(pointOfInterest.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
 
         pointOfInterestRepository.save(pointOfInterest);
     }
@@ -211,9 +239,6 @@ public class ContentServiceImpl implements ContentService {
             Content content = fillOutContent(id);
             itinerary.getContents().add(content);
         }
-
-        // assumption
-        itinerary.setStatus(ApprovalStatus.ACCEPTED);
 
         itineraryRepository.save(itinerary);
     }

@@ -38,6 +38,8 @@ public abstract class Content {
     @Getter
     @Setter
     ApprovalStatus status = null;
+    @ManyToOne
+    TownHall townHall;
 
     public String getContentType() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Not implemented yet.");

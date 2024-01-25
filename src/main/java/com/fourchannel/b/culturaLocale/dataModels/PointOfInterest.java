@@ -16,9 +16,6 @@ public class PointOfInterest extends Content
     @Getter
     @Embedded
     private Location location;
-    @ManyToOne
-    @JoinColumn(name = "town_hall_id")
-    private TownHall townhall;
 
     /**
      * Retrieves the content type of the point of interest.
@@ -40,7 +37,8 @@ public class PointOfInterest extends Content
 
         this.category = poiCreationRequestDTO.getCategory();
         this.location = poiCreationRequestDTO.getLocation();
-        this.townhall = new TownHall();
-        this.townhall.setId(poiCreationRequestDTO.getTownHall());
+
+        this.townHall = new TownHall();
+        this.townHall.setId(poiCreationRequestDTO.getTownHall());
     }
 }
