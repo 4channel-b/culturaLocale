@@ -35,4 +35,5 @@ public interface ContentService {
     void approveEvent(Long id);
     void approvePointOfInterest(Long id);
     void approveItinerary(Long id);
+    boolean canUserApproveContent(Long contentId, Long userId);
 }

@@ -275,4 +275,17 @@ public class ContentServiceImpl implements ContentService {
             itineraryRepository.save(it);
         });
     }
+
+    public boolean canUserApproveContent(Long contentId, Long userId) {
+        Content content = contentRepository.findById(contentId)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+        Role role = townHallRoleRepository.findTownHallRolesByUserId(userId)
+                .stream()
+                .filter(townHallRoleUser -> townHallRoleUser.getTownHall().getId().equals(content.getTownHall().getId()))
+                .map(TownHallRoleUser::getRole)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have a role in this town hall"));
+
+        return role == Role.Curator;
+    }
 }
