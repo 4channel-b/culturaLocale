@@ -1,6 +1,8 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
+import com.fourchannel.b.culturaLocale.dataModels.Content;
 import com.fourchannel.b.culturaLocale.dataModels.Contest;
+import com.fourchannel.b.culturaLocale.repositories.ContentRepository;
 import com.fourchannel.b.culturaLocale.repositories.ContestRepository;
 import com.fourchannel.b.culturaLocale.services.ContestService;
 import org.springframework.stereotype.Service;
@@ -11,14 +13,12 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class ContestServiceImpl implements ContestService {
-    ContestRepository contestRepository;
-    public ContestServiceImpl(ContestRepository contestRepository)
+    private final ContestRepository contestRepository;
+    private final ContentRepository contentRepository;
+    public ContestServiceImpl(ContestRepository contestRepository, ContentRepository contentRepository)
     {
-        if(contestRepository == null)
-        {
-            throw new IllegalArgumentException("| ERROR | ContestRepository is NULL");
-        }
         this.contestRepository=contestRepository;
+        this.contentRepository = contentRepository;
     }
     @Override
     public Contest createContest(Contest contest)
@@ -43,8 +43,26 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
-    public void updateContest(Contest contest)
+    public void updateContest(Contest contest, List<Long> contents)
     {
+        if (contest == null) {
+            throw new IllegalArgumentException("| ERROR | Contest is NULL");
+        }
+
+        //ID's check
+        contestRepository.findById(contest.getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Contest doesn't exist"));
+
+
+        for (Long id : contents)
+        {
+            Content elem = this.contentRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+            contest.getContents().add(elem);
+        }
+
+        //Assicurami id esistente
+
         contestRepository.save(contest);
     }
 }

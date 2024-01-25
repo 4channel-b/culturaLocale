@@ -40,7 +40,7 @@ public class ContestController implements BaseCrudController<ContestCreationRequ
         Contest elem = new Contest(dto);
         elem.setId(id);
 
-        this.contestService.updateContest(elem);
+        this.contestService.updateContest(elem, dto.getContents());
 
         return ResponseEntity.ok("{}");
     }
