@@ -2,8 +2,12 @@ package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.Content;
 import com.fourchannel.b.culturaLocale.dataModels.Contest;
+import com.fourchannel.b.culturaLocale.dataModels.Notification;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.repositories.ContentRepository;
 import com.fourchannel.b.culturaLocale.repositories.ContestRepository;
+import com.fourchannel.b.culturaLocale.repositories.NotificationRepository;
+import com.fourchannel.b.culturaLocale.repositories.UserRepository;
 import com.fourchannel.b.culturaLocale.services.ContestService;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +19,17 @@ import java.util.stream.StreamSupport;
 public class ContestServiceImpl implements ContestService {
     private final ContestRepository contestRepository;
     private final ContentRepository contentRepository;
-    public ContestServiceImpl(ContestRepository contestRepository, ContentRepository contentRepository)
+    private final UserRepository userRepository;
+    private final NotificationRepository notificationRepository;
+    public ContestServiceImpl(ContestRepository contestRepository,
+                              ContentRepository contentRepository,
+                              UserRepository userRepository,
+                              NotificationRepository notificationRepository)
     {
-        this.contestRepository=contestRepository;
+        this.contestRepository = contestRepository;
         this.contentRepository = contentRepository;
+        this.userRepository = userRepository;
+        this.notificationRepository = notificationRepository;
     }
     @Override
     public Contest createContest(Contest contest)
@@ -49,7 +60,6 @@ public class ContestServiceImpl implements ContestService {
             throw new IllegalArgumentException("| ERROR | Contest is NULL");
         }
 
-        //ID's check
         contestRepository.findById(contest.getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | Contest doesn't exist"));
 
@@ -61,8 +71,78 @@ public class ContestServiceImpl implements ContestService {
             contest.getContents().add(elem);
         }
 
-        //Assicurami id esistente
-
         contestRepository.save(contest);
+    }
+
+    /**
+     * @param contentId
+     * @param contestId
+     */
+    @Override
+    public void subscribeContent(Long contentId, Long contestId) {
+
+        Contest contest = contestRepository.findById(contestId)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Contest doesn't exist"));
+
+        Content content = contentRepository.findById(contentId)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+
+        contest.subscribe(content);
+        contestRepository.save(contest);
+    }
+
+    private Notification buildDefaultLosingNotification(String username, String contestName) {
+        Notification notification = new Notification(String.format("Sorry %s!", username),
+                String.format("Unfortunately, you did not win our %s contest.",
+                        contestName));
+
+        return notification;
+    }
+
+    private Notification buildDefaultWinningNotification(String username, String contestName) {
+        Notification notification = new Notification(String.format("Congratulations %s!", username),
+                String.format("You won our %s contest!", contestName));
+
+        return notification;
+    }
+
+    /**
+     * @param contestId
+     * @param winningContentId
+     */
+    @Override
+    public void terminateContest(Long contestId, Long winningContentId) {
+        Contest contest = contestRepository.findById(contestId)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Contest doesn't exist"));
+
+        Content winningContent = contentRepository.findById(winningContentId)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+
+        // get the list of losing users
+        List<Long> losers = contest.closeContest(winningContentId);
+
+        // save the contest status
+        contestRepository.save(contest);
+
+        // notify all losers
+        for (Long loserId : losers) {
+            User user = userRepository.findById(loserId)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't exist"));
+
+            Notification notification = buildDefaultLosingNotification(user.getUsername(), contest.getName());
+            notification = notificationRepository.save(notification);
+
+            user.addNotification(notification);
+
+            userRepository.save(user);
+        }
+
+        // notify the winner!
+        User winner = winningContent.getCreator();
+        Notification notification = buildDefaultWinningNotification(winner.getUsername(), contest.getName());
+        notification = notificationRepository.save(notification);
+
+        winner.addNotification(notification);
+        userRepository.save(winner);
     }
 }

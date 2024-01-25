@@ -45,7 +45,16 @@ public class Contest
         this.contents = new ArrayList<>();
     }
 
-    public void subscribe(Content content) { this.contents.add(content); }
+    public void subscribe(Content content) {
+        // make sure it's not here already
+        for (Content c : contents) {
+            if (c.getId().equals(content.getId())) {
+                throw new IllegalStateException("Content already subscribed to contest.");
+            }
+        }
+
+        this.contents.add(content);
+    }
     public List<Long> closeContest(Long winnerContentId) {
         if (!this.contestOpen) {
             throw new IllegalStateException("Contest is already closed.");

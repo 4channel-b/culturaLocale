@@ -37,4 +37,8 @@ public class User {
         this.notificationList = null;
         this.suspended = false;
     }
+
+    public void addNotification(Notification n) {
+        this.notificationList.add(n);
+    }
 }
