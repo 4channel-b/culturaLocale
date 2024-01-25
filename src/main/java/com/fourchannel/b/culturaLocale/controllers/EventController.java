@@ -19,7 +19,6 @@ public class EventController implements BaseCrudController<EventCreationRequestD
     }
     @Override
     public ResponseEntity<Event> create(EventCreationRequestDTO dto) {
-
         Event newEvent = contentService.createNewEvent(new Event(dto));
         return ResponseEntity.ok(newEvent);
 
@@ -47,7 +46,7 @@ public class EventController implements BaseCrudController<EventCreationRequestD
     }
 
     @Override
-    public ResponseEntity<?> delete(Long aLong) {
+    public ResponseEntity<?> delete(Long id) {
         return null;
     }
 }

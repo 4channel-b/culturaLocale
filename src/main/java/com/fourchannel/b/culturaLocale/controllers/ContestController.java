@@ -1,6 +1,7 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.Contest;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.ContestCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.services.ContestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contest")
-public class ContestController implements BaseCrudController<Contest, Long> {
+public class ContestController implements BaseCrudController<ContestCreationRequestDTO, Long> {
     private final ContestService contestService;
 
     public ContestController(ContestService contestService) {
@@ -18,8 +19,10 @@ public class ContestController implements BaseCrudController<Contest, Long> {
     }
 
     @Override
-    public ResponseEntity<Contest> create(Contest entity) {
-        return ResponseEntity.ok(contestService.createContest(entity));
+    public ResponseEntity<Contest> create(ContestCreationRequestDTO dto) {
+        Contest elem = contestService.createContest(new Contest(dto));
+
+        return ResponseEntity.ok(elem);
     }
 
     @Override
@@ -33,13 +36,17 @@ public class ContestController implements BaseCrudController<Contest, Long> {
     }
 
     @Override
-    public ResponseEntity<?> update(Contest entity, Long id) {
-        contestService.updateContest(entity);
+    public ResponseEntity<?> update(ContestCreationRequestDTO dto, Long id) {
+        Contest elem = new Contest(dto);
+        elem.setId(id);
+
+        this.contestService.updateContest(elem);
+
         return ResponseEntity.ok("{}");
     }
 
     @Override
-    public ResponseEntity<?> delete(Long aLong) {
+    public ResponseEntity<?> delete(Long id) {
         return null;
     }
 }
