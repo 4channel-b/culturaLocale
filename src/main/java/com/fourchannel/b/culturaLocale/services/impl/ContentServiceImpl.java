@@ -1,12 +1,15 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
+import com.fourchannel.b.culturaLocale.dataModels.users.Role;
+import com.fourchannel.b.culturaLocale.dataModels.users.TownHallRoleUser;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -17,16 +20,46 @@ public class ContentServiceImpl implements ContentService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
     private final ContentRepository contentRepository;
+    private final TownHallRoleRepository townHallRoleRepository;
+    private final TownHallRepository townHallRepository;
+
     public ContentServiceImpl(ItineraryRepository itineraryRepository,
                               PointOfInterestRepository pointOfInterestRepository,
                               EventRepository eventRepository,
-                              UserRepository userRepository, ContentRepository contentRepository) {
+                              UserRepository userRepository, ContentRepository contentRepository,
+                              TownHallRoleRepository townHallRoleRepository,
+                              TownHallRepository townHallRepository) {
 
         this.itineraryRepository = itineraryRepository;
         this.pointOfInterestRepository = pointOfInterestRepository;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.contentRepository = contentRepository;
+        this.townHallRoleRepository = townHallRoleRepository;
+        this.townHallRepository = townHallRepository;
+    }
+    private ApprovalStatus genericApprovalDecision(Role role) {
+        return switch (role) {
+            case PlatformManager, Animator, Curator, AuthorizedContributor -> ApprovalStatus.ACCEPTED;
+            default -> ApprovalStatus.PENDING;
+        };
+    }
+    private Optional<ApprovalStatus> getDefaultApprovalStatusFromUser(Long id, Long townHallId) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't exist"));
+
+        townHallRepository.findById(townHallId).
+                orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
+
+        List<TownHallRoleUser> roles = townHallRoleRepository.findTownHallRolesByUserId(id);
+
+        for (TownHallRoleUser role : roles) {
+            if (role.getTownHall().getId().equals(townHallId)) {
+                return Optional.of(genericApprovalDecision(role.getRole()));
+            }
+        }
+
+        return Optional.empty();
     }
     public Itinerary createNewItinerary(Itinerary itinerary, Long creator, List<Long> contents) {
         if (itinerary == null) {
@@ -35,6 +68,7 @@ public class ContentServiceImpl implements ContentService {
 
         User user = userRepository.findById(creator)
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
+
         itinerary.setCreator(user);
 
         for (Long id : contents)
