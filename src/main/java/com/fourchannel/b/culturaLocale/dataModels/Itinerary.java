@@ -4,6 +4,7 @@ import com.fourchannel.b.culturaLocale.dataModels.DTOs.ItineraryCreationRequestD
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,9 +14,7 @@ import java.util.stream.Collectors;
 @Data
 @Entity
 public class Itinerary extends Content {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="itinerary_id_seq")
-    private Long Id;
+
     private double estimatedDuration;
     @Getter
     private int difficultyLevel;
@@ -38,15 +37,11 @@ public class Itinerary extends Content {
                 itineraryCreationRequestDTO.getName(),
                 itineraryCreationRequestDTO.getDescription(),
                 itineraryCreationRequestDTO.getCreationDate(),
-                itineraryCreationRequestDTO.getCreator()
+                null
         );
 
         this.estimatedDuration = itineraryCreationRequestDTO.getEstimatedDuration();
         this.difficultyLevel = itineraryCreationRequestDTO.getDifficultyLevel();
-
-        this.contents = itineraryCreationRequestDTO.getContents().stream()
-                .map(Content::new)
-                .collect(Collectors.toList());
+        this.contents = new ArrayList<>();
     }
-
 }

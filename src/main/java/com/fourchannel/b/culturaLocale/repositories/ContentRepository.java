@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.repositories;
 
+import com.fourchannel.b.culturaLocale.dataModels.Content;
 import com.fourchannel.b.culturaLocale.dataModels.Contest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -10,11 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface ContestRepository extends CrudRepository<Contest,Long> {
-    @Query("SELECT c FROM Contest c WHERE c.name = :name AND c.initialDate BETWEEN :startDate AND :endDate AND c.type = :type")
-    List<Contest> findByNameAndInitialDateBetweenAndType(
+public interface ContentRepository extends CrudRepository<Content,Long> {
+    @Query("SELECT c FROM Content c WHERE c.name = :name AND c.description = :description AND c.creationDate = :creationDate")
+    List<Content> findByNameAndDescriptionAndCreationDate(
             @Param("name") String name,
-            @Param("startDate") Date startDate,
-            @Param("endDate") Date endDate,
-            @Param("type") String type);
+            @Param("description") String description,
+            @Param("creationDate") Date creationDate);
 }

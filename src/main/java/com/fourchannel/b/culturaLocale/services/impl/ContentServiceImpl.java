@@ -1,6 +1,7 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
@@ -15,87 +16,84 @@ public class ContentServiceImpl implements ContentService {
     private final PointOfInterestRepository pointOfInterestRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
+    private final ContentRepository contentRepository;
     public ContentServiceImpl(ItineraryRepository itineraryRepository,
                               PointOfInterestRepository pointOfInterestRepository,
                               EventRepository eventRepository,
-                              UserRepository userRepository) {
+                              UserRepository userRepository, ContentRepository contentRepository) {
 
         this.itineraryRepository = itineraryRepository;
         this.pointOfInterestRepository = pointOfInterestRepository;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.contentRepository = contentRepository;
     }
-    public Itinerary createNewItinerary(Itinerary itinerary)
-    {
-        if(itinerary == null)
-        {
+    public Itinerary createNewItinerary(Itinerary itinerary, Long creator, List<Long> contents) {
+        if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
 
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
-        //creatorExist(itinerary);
-        return itineraryRepository.save(itinerary);
+        User user = userRepository.findById(creator)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
+        itinerary.setCreator(user);
 
+        for (Long id : contents)
+        {
+            Content content = contentRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+
+            itinerary.getContents().add(content);
+        }
+
+        return itineraryRepository.save(itinerary);
     }
 
-    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest,Long creator)
-    {
-        if(pointOfInterest == null)
-        {
+    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest, Long creator) {
+        if (pointOfInterest == null) {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
 
-        userRepository.findById(creator).orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
-
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
+        User user = userRepository.findById(creator)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
+        pointOfInterest.setCreator(user);
 
         return pointOfInterestRepository.save(pointOfInterest);
     }
 
     public Event createNewEvent(Event event,Long creator)
     {
-        if(event == null)
-        {
+        if (event == null) {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
 
-        if(userRepository.existsById(creator))
-            event.setCreator(userRepository.findById(creator).get());
-        else
-            throw new IllegalArgumentException("| ERROR | Creator doesn't exist");
+        User user = userRepository.findById(creator)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist"));
+        event.setCreator(user);
 
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
         return eventRepository.save(event);
     }
 
     @Override
     public Itinerary getItinerary(Long id)
     {
-        if(id < 0)
-        {
-            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
-        }
-        return itineraryRepository.findById((long)id).orElse(null);
+        return itineraryRepository.findById(id).orElseThrow();
     }
 
     @Override
     public PointOfInterest getPoi(Long id)
     {
-        if(id < 0)
-        {
-            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
-        }
-        return pointOfInterestRepository.findById(id).orElse(null);
+        return pointOfInterestRepository.findById(id).orElseThrow();
     }
 
     @Override
     public Event getEvent(Long id)
     {
-        if(id < 0)
-        {
-            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
-        }
-        return eventRepository.findById(id).orElse(null);
+        return eventRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Content getContent(Long id) {
+        return contentRepository.findById(id).orElseThrow();
     }
 
     public List<Event> getAllEvent() {
@@ -116,30 +114,73 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public void updateEvent(Event event)
     {
-        if(event == null)
-        {
+        if (event == null) {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
+
         eventRepository.save(event);
     }
 
     @Override
     public void updatePoi(PointOfInterest pointOfInterest)
     {
-        if(pointOfInterest == null)
-        {
+        if(pointOfInterest == null) {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
+
         pointOfInterestRepository.save(pointOfInterest);
     }
 
+    private Content fillOutContent(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("| ERROR | Content is NULL");
+        }
+
+        Content content = contentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+
+        if (content instanceof Itinerary) {
+            return itineraryRepository.findById(content.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Itinerary doesn't exist"));
+        } else if (content instanceof PointOfInterest) {
+            return pointOfInterestRepository.findById(content.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | PointOfInterest doesn't exist"));
+        } else if (content instanceof Event) {
+            return eventRepository.findById(content.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Event doesn't exist"));
+        } else {
+            throw new IllegalArgumentException("| ERROR | Content is not a valid type");
+        }
+    }
+
     @Override
-    public void updateItinerary(Itinerary itinerary)
+    public void updateItinerary(Itinerary itinerary, List<Long> contents)
     {
-        if(itinerary == null)
-        {
+        if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
+
+        // find the original, make sure we're not editing something that's not there
+        itineraryRepository.findById(itinerary.getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Itinerary doesn't exist"));
+
+        // build a new itinerary object correctly filled out for the purposes of replacing the old database one
+
+        // fill out its user from the incomplete DTO mapping
+        User user = userRepository.findById(itinerary.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't exist"));
+        itinerary.setCreator(user);
+
+        // fill out its contents from the incomplete DTO mapping
+        for (Long id : contents)
+        {
+            Content content = fillOutContent(id);
+            itinerary.getContents().add(content);
+        }
+
+        // assumption
+        itinerary.setStatus(ApprovalStatus.ACCEPTED);
+
         itineraryRepository.save(itinerary);
     }
 

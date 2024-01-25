@@ -11,9 +11,6 @@ import lombok.*;
 @Entity
 public class PointOfInterest extends Content
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="pointOfInterest_id_seq")
-    private Long Id;
     @Getter
     private PointOfInterestCategory category;
     @Getter

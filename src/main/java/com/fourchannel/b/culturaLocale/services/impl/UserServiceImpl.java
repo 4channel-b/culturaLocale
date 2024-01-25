@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("| ERROR | Role does not exist");
         }
 
-        if (!userRepository.exists(user.getUsername(), user.getEmail())) {
-            throw new IllegalArgumentException("| ERROR | User does not exist");
+        if (userRepository.exists(user.getUsername(), user.getEmail())) {
+            throw new IllegalArgumentException("| ERROR | User already exists");
         }
 
         User newUser = userRepository.save(user);

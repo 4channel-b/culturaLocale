@@ -45,8 +45,8 @@ public interface BaseCrudController<T, ID> {
      * @param entity the entity to update
      * @return the updated entity wrapped in ResponseEntity
      */
-    @PutMapping
-    ResponseEntity<?> update(@RequestBody T entity);
+    @PutMapping("/{id}")
+    ResponseEntity<?> update(@RequestBody T entity, @PathVariable ID id);
 
     /**
      * Deletes an entity by its identifier.

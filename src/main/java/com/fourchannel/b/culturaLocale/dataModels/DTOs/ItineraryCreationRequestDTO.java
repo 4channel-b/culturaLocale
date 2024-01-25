@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ItineraryCreationRequestDTO extends ContentCreationRequestDTO{
+public class ItineraryCreationRequestDTO extends ContentCreationRequestDTO {
     private double estimatedDuration;
     private int difficultyLevel;
     private List<Long> contents;

@@ -11,20 +11,20 @@ public class TownHallServiceImpl implements TownHallService{
 
     public TownHallServiceImpl(TownHallRepository townHallRepository)
     {
-        if(townHallRepository == null)
-        {
+        if(townHallRepository == null) {
             throw new IllegalArgumentException("| ERROR | TownHallRepository is NULL");
         }
+
         this.townHallRepository = townHallRepository;
     }
 
     @Override
     public TownHall createTownHall(TownHall townHall)
     {
-        if(townHall == null)
-        {
+        if (townHall == null) {
             throw new IllegalArgumentException("| ERROR | TownHall is NULL");
         }
+
         return townHallRepository.save(townHall);
     }
 }

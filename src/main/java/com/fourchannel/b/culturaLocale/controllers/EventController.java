@@ -18,11 +18,11 @@ public class EventController implements BaseCrudController<EventCreationRequestD
         this.contentService = contentService;
     }
     @Override
-    public ResponseEntity<Event> create(EventCreationRequestDTO eventCreationRequestDTO) {
+    public ResponseEntity<Event> create(EventCreationRequestDTO dto) {
 
-        Event newEvent = contentService.createNewEvent(new Event(eventCreationRequestDTO),
-                                                       eventCreationRequestDTO.getCreator());
+        Event newEvent = contentService.createNewEvent(new Event(dto), dto.getCreator());
         return ResponseEntity.ok(newEvent);
+
     }
 
     @Override
@@ -36,8 +36,13 @@ public class EventController implements BaseCrudController<EventCreationRequestD
     }
 
     @Override
-    public ResponseEntity<?> update(EventCreationRequestDTO entity){
-        //contentService.updateEvent(entity);
+    public ResponseEntity<?> update(EventCreationRequestDTO dto, Long id){
+
+        //Save up event id
+        Event elem = new Event(dto);
+        elem.setId(id);
+
+        contentService.updateEvent(elem);
         return ResponseEntity.ok("{}");
     }
 

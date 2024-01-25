@@ -1,5 +1,6 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.ItineraryCreationRequestDTO;
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itinerary")
-public class ItineraryController implements BaseCrudController<Itinerary, Long>
+public class ItineraryController implements BaseCrudController<ItineraryCreationRequestDTO, Long>
 {
     private final ContentService contentService;
 
@@ -18,8 +19,8 @@ public class ItineraryController implements BaseCrudController<Itinerary, Long>
         this.contentService = contentService;
     }
     @Override
-    public ResponseEntity<Itinerary> create(Itinerary entity) {
-        Itinerary newItinerary = contentService.createNewItinerary(entity);
+    public ResponseEntity<Itinerary> create(ItineraryCreationRequestDTO dto) {
+        Itinerary newItinerary = contentService.createNewItinerary(new Itinerary(dto), dto.getCreator(), dto.getContents());
         return ResponseEntity.ok(newItinerary);
     }
 
@@ -34,8 +35,11 @@ public class ItineraryController implements BaseCrudController<Itinerary, Long>
     }
 
     @Override
-    public ResponseEntity<?> update(Itinerary entity) {
-        contentService.updateItinerary(entity);
+    public ResponseEntity<?> update(ItineraryCreationRequestDTO dto, Long id) {
+        Itinerary it = new Itinerary(dto);
+        it.setId(id);
+
+        contentService.updateItinerary(it, dto.getContents());
         return ResponseEntity.ok("{}");
     }
 
