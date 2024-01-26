@@ -1,33 +1,39 @@
 package com.fourchannel.b.culturaLocale.services;
 
+import com.fourchannel.b.culturaLocale.dataModels.Content;
 import com.fourchannel.b.culturaLocale.dataModels.Event;
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
-import com.fourchannel.b.culturaLocale.dataModels.PointOfInterestCategory;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ContentService {
-    public Itinerary createNewItinerary(Itinerary itinerario);
+    Itinerary createNewItinerary(Itinerary itinerary, List<Long> contents);
 
-    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest);
+    PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest);
     
-    public Event createNewEvent(Event event);
+    Event createNewEvent(Event event);
     
-    public Itinerary getItinerary(int id);
+    Itinerary getItinerary(Long id);
 
-    public PointOfInterest getPoi(int id);
+    PointOfInterest getPoi(Long id);
 
-    public Event getEvent(int id);
+    Event getEvent(Long id);
+    Content getContent(Long id);
 
-    public List<Event> getAllEvent();
+    List<Event> getAllEvent();
 
-    public List<Itinerary> getAllItinerary();
+    List<Itinerary> getAllItinerary();
 
-    public List<PointOfInterest> getAllPoi();
+    List<PointOfInterest> getAllPoi();
 
-    public void updateEvent(Event event);
-    public void updatePoi(PointOfInterest pointOfInterest);
-    public void updateEvent(Itinerary itinerary);
+    void updateEvent(Event event);
+    void updatePoi(PointOfInterest pointOfInterest);
+    void updateItinerary(Itinerary itinerary, List<Long> contents);
+
+    void approveEvent(Long id);
+    void approvePointOfInterest(Long id);
+    void approveItinerary(Long id);
+    boolean canUserApproveContent(Long contentId, Long userId);
 }

@@ -1,18 +1,21 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.PointOfInterestCreationRequestDTO;
+import jakarta.persistence.*;
 import lombok.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
+@Entity
 public class PointOfInterest extends Content
 {
-    private String ID;
+    @Getter
     private PointOfInterestCategory category;
+    @Getter
+    @Embedded
     private Location location;
-    private TownHall townHall;
 
     /**
      * Retrieves the content type of the point of interest.
@@ -24,7 +27,18 @@ public class PointOfInterest extends Content
         return "POINT_OF_INTEREST";
     }
 
-    public PointOfInterestCategory getCategory() {
-        return category;
+    public PointOfInterest(PointOfInterestCreationRequestDTO poiCreationRequestDTO) {
+        super(
+                poiCreationRequestDTO.getName(),
+                poiCreationRequestDTO.getDescription(),
+                poiCreationRequestDTO.getCreationDate(),
+                poiCreationRequestDTO.getCreator()
+        );
+
+        this.category = poiCreationRequestDTO.getCategory();
+        this.location = poiCreationRequestDTO.getLocation();
+
+        this.townHall = new TownHall();
+        this.townHall.setId(poiCreationRequestDTO.getTownHall());
     }
 }

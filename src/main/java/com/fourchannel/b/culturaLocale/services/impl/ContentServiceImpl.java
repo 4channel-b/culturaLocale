@@ -1,127 +1,266 @@
 package com.fourchannel.b.culturaLocale.services.impl;
 
 import com.fourchannel.b.culturaLocale.dataModels.*;
-import com.fourchannel.b.culturaLocale.repositories.EventRepository;
-import com.fourchannel.b.culturaLocale.repositories.IVectorRepository;
-import com.fourchannel.b.culturaLocale.repositories.ItineraryRepository;
-import com.fourchannel.b.culturaLocale.repositories.PointOfInterestRepository;
+import com.fourchannel.b.culturaLocale.dataModels.users.Role;
+import com.fourchannel.b.culturaLocale.dataModels.users.TownHallRoleUser;
+import com.fourchannel.b.culturaLocale.dataModels.users.User;
+import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ContentServiceImpl implements ContentService {
     private final ItineraryRepository itineraryRepository;
     private final PointOfInterestRepository pointOfInterestRepository;
     private final EventRepository eventRepository;
-    public ContentServiceImpl(ItineraryRepository itinerarioRepository, PointOfInterestRepository puntoDiInteresseRepository, EventRepository eventoRepository) {
+    private final UserRepository userRepository;
+    private final ContentRepository contentRepository;
+    private final TownHallRoleRepository townHallRoleRepository;
+    private final TownHallRepository townHallRepository;
 
-        this.itineraryRepository = itinerarioRepository;
-        this.pointOfInterestRepository = puntoDiInteresseRepository;
-        this.eventRepository = eventoRepository;
+    public ContentServiceImpl(ItineraryRepository itineraryRepository,
+                              PointOfInterestRepository pointOfInterestRepository,
+                              EventRepository eventRepository,
+                              UserRepository userRepository, ContentRepository contentRepository,
+                              TownHallRoleRepository townHallRoleRepository,
+                              TownHallRepository townHallRepository) {
+
+        this.itineraryRepository = itineraryRepository;
+        this.pointOfInterestRepository = pointOfInterestRepository;
+        this.eventRepository = eventRepository;
+        this.userRepository = userRepository;
+        this.contentRepository = contentRepository;
+        this.townHallRoleRepository = townHallRoleRepository;
+        this.townHallRepository = townHallRepository;
     }
-    public Itinerary createNewItinerary(Itinerary itinerario)
-    {
-        if(itinerario == null)
-        {
+    private ApprovalStatus genericApprovalDecision(Role role) {
+        return switch (role) {
+            case PlatformManager, Animator, Curator, AuthorizedContributor -> ApprovalStatus.ACCEPTED;
+            default -> ApprovalStatus.PENDING;
+        };
+    }
+    private Optional<ApprovalStatus> getDefaultApprovalStatusFromUser(Long id, Long townHallId) {
+        userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't exist"));
+
+        townHallRepository.findById(townHallId).
+                orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist"));
+
+        List<TownHallRoleUser> roles = townHallRoleRepository.findTownHallRolesByUserId(id);
+
+        for (TownHallRoleUser role : roles) {
+            if (role.getTownHall().getId().equals(townHallId)) {
+                return Optional.of(genericApprovalDecision(role.getRole()));
+            }
+        }
+
+        return Optional.empty();
+    }
+    public Itinerary createNewItinerary(Itinerary itinerary,List<Long> contents) {
+        if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
-        return itineraryRepository.save(itinerario);
+
+
+        itinerary.setCreator(userRepository.findById(itinerary.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
+
+        itinerary.setTownHall(townHallRepository.findById(itinerary.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+
+        for (Long id : contents)
+        {
+            Content content = contentRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+
+            itinerary.getContents().add(content);
+        }
+
+        itinerary.setStatus(getDefaultApprovalStatusFromUser(itinerary.getCreator().getId(), itinerary.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
+
+        return itineraryRepository.save(itinerary);
     }
 
-    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest)
-    {
-        if(pointOfInterest == null)
-        {
-            throw new IllegalArgumentException("| ERROR | pointOfInterest is NULL");
+    public PointOfInterest createNewPointOfInterest(PointOfInterest pointOfInterest) {
+        if (pointOfInterest == null) {
+            throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
+
+        pointOfInterest.setCreator(userRepository.findById(pointOfInterest.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
+
+        pointOfInterest.setTownHall(townHallRepository.findById(pointOfInterest.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+
+        pointOfInterest.setStatus(getDefaultApprovalStatusFromUser(pointOfInterest.getCreator().getId(), pointOfInterest.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
+
         return pointOfInterestRepository.save(pointOfInterest);
     }
 
     public Event createNewEvent(Event event)
     {
-        if(event == null)
-        {
+        if (event == null) {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
-        //TODO gestire creazione di contenuti non in pending da parte di utenti che non lo possono fare
+
+        event.setCreator(userRepository.findById(event.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
+
+        event.setTownHall(townHallRepository.findById(event.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+        event.setStatus(getDefaultApprovalStatusFromUser(event.getCreator().getId(), event.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have an approval status")));
+
         return eventRepository.save(event);
     }
 
     @Override
-    public Itinerary getItinerary(int id)
+    public Itinerary getItinerary(Long id)
     {
-        if(id < 0)
-        {
-            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
-        }
-       return itineraryRepository.findById(String.valueOf(id));
+        return itineraryRepository.findById(id).orElseThrow();
     }
-    
+
     @Override
-    public PointOfInterest getPoi(int id)
+    public PointOfInterest getPoi(Long id)
     {
-        if(id < 0)
-        {
-            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
-        }
-        return pointOfInterestRepository.findById(String.valueOf(id));
+        return pointOfInterestRepository.findById(id).orElseThrow();
     }
-    
+
     @Override
-    public Event getEvent(int id)
+    public Event getEvent(Long id)
     {
-        if(id < 0)
-        {
-            throw  new IllegalArgumentException("| ERROR | Id must not be negative :(");
-        }
-        return eventRepository.findById(String.valueOf(id));
+        return eventRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Content getContent(Long id) {
+        return contentRepository.findById(id).orElseThrow();
     }
 
     public List<Event> getAllEvent() {
-        return eventRepository.findAll();
+        return StreamSupport.stream(eventRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public List<Itinerary> getAllItinerary() {
-        return itineraryRepository.findAll();
+        return StreamSupport.stream(itineraryRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public List<PointOfInterest> getAllPoi() {
-        return pointOfInterestRepository.findAll();
+        return StreamSupport.stream(pointOfInterestRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void updateEvent(Event event)
     {
-        if(event == null)
-        {
+        if (event == null) {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
-        eventRepository.update(event);
+
+        event.setTownHall(townHallRepository.findById(event.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+        event.setCreator(userRepository.findById(event.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
+
+        eventRepository.save(event);
     }
 
     @Override
     public void updatePoi(PointOfInterest pointOfInterest)
     {
-        if(pointOfInterest == null)
-        {
+        if (pointOfInterest == null) {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
-        pointOfInterestRepository.update(pointOfInterest);
+
+        pointOfInterest.setTownHall(townHallRepository.findById(pointOfInterest.getTownHall().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
+        pointOfInterest.setCreator(userRepository.findById(pointOfInterest.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Creator doesn't exist")));
+
+        pointOfInterestRepository.save(pointOfInterest);
     }
 
     @Override
-    public void updateEvent(Itinerary itinerary)
+    public void updateItinerary(Itinerary itinerary, List<Long> contents)
     {
-        if(itinerary == null)
-        {
+        if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
         }
-        itineraryRepository.update(itinerary);
+
+        // find the original, make sure we're not editing something that's not there
+        itineraryRepository.findById(itinerary.getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Itinerary doesn't exist"));
+
+        // build a new itinerary object correctly filled out for the purposes of replacing the old database one
+
+        // fill out its user from the incomplete DTO mapping
+        User user = userRepository.findById(itinerary.getCreator().getId())
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't exist"));
+        itinerary.setCreator(user);
+
+        // fill out its contents from the incomplete DTO mapping
+        for (Long id : contents)
+        {
+            Content content = contentRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+            itinerary.getContents().add(content);
+        }
+
+        itineraryRepository.save(itinerary);
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approveEvent(Long id) {
+        eventRepository.findById(id).ifPresent(e -> {
+            e.setStatus(ApprovalStatus.ACCEPTED);
+            eventRepository.save(e);
+        });
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approvePointOfInterest(Long id) {
+        pointOfInterestRepository.findById(id).ifPresent(poi -> {
+            poi.setStatus(ApprovalStatus.ACCEPTED);
+            pointOfInterestRepository.save(poi);
+        });
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void approveItinerary(Long id) {
+        itineraryRepository.findById(id).ifPresent(it -> {
+            it.setStatus(ApprovalStatus.ACCEPTED);
+            itineraryRepository.save(it);
+        });
+    }
+
+    public boolean canUserApproveContent(Long contentId, Long userId) {
+        Content content = contentRepository.findById(contentId)
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
+        Role role = townHallRoleRepository.findTownHallRolesByUserId(userId)
+                .stream()
+                .filter(townHallRoleUser -> townHallRoleUser.getTownHall().getId().equals(content.getTownHall().getId()))
+                .map(TownHallRoleUser::getRole)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't have a role in this town hall"));
+
+        return role == Role.Curator;
     }
 }

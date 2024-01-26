@@ -1,20 +1,33 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.TownHallCreationRequestDTO;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
 
-//Generic Townhall
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
+@Entity
+@Table(name="townhall")
 public class TownHall {
-    private String ID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="townHall_id_seq")
+    private Long Id;
     private String name;
     private String description;
-    private Location location; // Assuming Location is a class you have defined elsewhere
+    @Embedded
+    private Location location;
     private double area;
     private Date establishmentDate;
+
+    public TownHall(TownHallCreationRequestDTO dto) {
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.location = dto.getLocation();
+        this.area = dto.getArea();
+        this.establishmentDate = dto.getEstablishmentDate();
+    }
 }

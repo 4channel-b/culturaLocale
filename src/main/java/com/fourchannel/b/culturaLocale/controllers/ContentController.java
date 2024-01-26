@@ -1,16 +1,8 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
-import com.fourchannel.b.culturaLocale.dataModels.ApprovalStatus;
-import com.fourchannel.b.culturaLocale.dataModels.Event;
-import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
-import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
 import com.fourchannel.b.culturaLocale.services.ContentService;
-import com.fourchannel.b.culturaLocale.services.impl.ContentServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/content")
@@ -20,67 +12,32 @@ public class ContentController {
     public ContentController(ContentService contentService) {
         this.contentService = contentService;
     }
-    @PostMapping("/add/itinerary")
-    public ResponseEntity<Itinerary> createItinerary(@RequestBody Itinerary itinerary) {
-        Itinerary newItinerary = contentService.createNewItinerary(itinerary);
-        return ResponseEntity.ok(newItinerary);
-    }
-    @PostMapping("/add/event")
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        Event newEvent = contentService.createNewEvent(event);
-        return ResponseEntity.ok(newEvent);
-    }
-    @PostMapping("/add/poi")
-    public ResponseEntity<PointOfInterest> createPoi(@RequestBody PointOfInterest pointOfInterest) {
-        PointOfInterest newPoi = contentService.createNewPointOfInterest(pointOfInterest);
-        return ResponseEntity.ok(newPoi);
-    }
 
-    @GetMapping("/get/itinerary/{id}")
-    public ResponseEntity<Itinerary> getItinerary(@PathVariable int id) {
-        return ResponseEntity.ok(contentService.getItinerary(id));
-    }
-
-    @GetMapping("/get/event/{id}")
-    public ResponseEntity<Event> getEvent(@PathVariable int id) {
-        return ResponseEntity.ok(contentService.getEvent(id));
-    }
-
-    @GetMapping("/get/poi/{id}")
-    public ResponseEntity<PointOfInterest> getPoi(@PathVariable int id) {
-        return ResponseEntity.ok(contentService.getPoi(id));
-    }
-
-    @GetMapping("/getAll/poi")
-    public ResponseEntity<List<PointOfInterest>> getAllPoi(){
-        return ResponseEntity.ok(contentService.getAllPoi());
-    }
-    @GetMapping("/getAll/event")
-    public ResponseEntity<List<Event>> getAllEvent(){
-        return ResponseEntity.ok(contentService.getAllEvent());
-    }
-    @GetMapping("/getAll/itinerary")
-    public ResponseEntity<List<Itinerary>> getAllItinerary(){
-        return ResponseEntity.ok(contentService.getAllItinerary());
-    }
-
-    @PutMapping("/approve/event")
-    public ResponseEntity<Event> approvateEvent(@RequestBody Event event)
+    @PutMapping("/approve/event/{id}")
+    public ResponseEntity<?> approveEvent(@PathVariable Long id, @RequestBody Long userId)
     {
-        event.setStatus(ApprovalStatus.ACCEPTED);
-        return ResponseEntity.ok(event);
+        if (contentService.canUserApproveContent(id, userId))
+            return ResponseEntity.badRequest().body("You cannot approve the content.");
+
+        contentService.approveEvent(id);
+        return ResponseEntity.ok().body("{}");
     }
-    @PutMapping("/approve/poi")
-    public ResponseEntity<PointOfInterest> approvatePoi(@RequestBody PointOfInterest pointOfInterest)
+    @PutMapping("/approve/poi/{id}")
+    public ResponseEntity<?> approvePoi(@PathVariable Long id, @RequestBody Long userId)
     {
-        pointOfInterest.setStatus(ApprovalStatus.ACCEPTED);
-        return ResponseEntity.ok(pointOfInterest);
+        if (contentService.canUserApproveContent(id, userId))
+            return ResponseEntity.badRequest().body("You cannot approve the content.");
+
+        contentService.approvePointOfInterest(id);
+        return ResponseEntity.ok().body("{}");
     }
-    @PutMapping("/approve/itinerary")
-    public ResponseEntity<Itinerary> approvateItinerary(@RequestBody Itinerary itinerary)
+    @PutMapping("/approve/itinerary/{id}")
+    public ResponseEntity<?> approveItinerary(@PathVariable Long id, @RequestBody Long userId)
     {
-        itinerary.setStatus(ApprovalStatus.ACCEPTED);
-        return ResponseEntity.ok(itinerary);
+        if (contentService.canUserApproveContent(id, userId))
+            return ResponseEntity.badRequest().body("You cannot approve the content.");
+
+        contentService.approveItinerary(id);
+        return ResponseEntity.ok().body("{}");
     }
-    //TODO add search by parameters
 }

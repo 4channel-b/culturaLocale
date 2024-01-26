@@ -1,12 +1,13 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
+@Data
+@Embeddable
 public class Location
 {
     private float longitude;

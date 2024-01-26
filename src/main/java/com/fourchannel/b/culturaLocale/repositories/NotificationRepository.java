@@ -1,10 +1,9 @@
 package com.fourchannel.b.culturaLocale.repositories;
 
-import com.fourchannel.b.culturaLocale.dataModels.TownHall;
+import com.fourchannel.b.culturaLocale.dataModels.Notification;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TownHallRepository extends CrudRepository<TownHall,Long> {
-
+public interface NotificationRepository extends CrudRepository<Notification, Long> {
 }
