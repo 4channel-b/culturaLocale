@@ -38,8 +38,6 @@ public abstract class Content {
     @ManyToOne
     TownHall townHall;
 
-    private LocalDateTime estimatedDuration;
-
     public String getContentType() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Not implemented yet.");
     }
@@ -50,28 +48,10 @@ public abstract class Content {
         this.creationDate = creationDate;
         this.creator = new User();
         this.creator.setId(creator);
-        this.estimateDurationInheritance();
     }
 
     public Content(Long id) {
         this.setId(id);
     }
 
-    public boolean isExpired()
-    {
-        LocalDateTime actualTime = LocalDateTime.now();
-        return this.estimatedDuration.isAfter(actualTime);
-    }
-
-    //Set ten min from now that represent expiration time
-    private void estimateDurationInheritance()
-    {
-        //Created a LocalDateTime elem
-        LocalDateTime elem = LocalDateTime.now();
-
-        //Time till expirations are 10 min
-        //Set into estimateDuration
-        //TODO: if anyone wants just replace 10 w/ something else
-        this.estimatedDuration = elem.plusMinutes(10);
-    }
 }

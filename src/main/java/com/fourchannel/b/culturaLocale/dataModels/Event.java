@@ -4,6 +4,7 @@ import com.fourchannel.b.culturaLocale.dataModels.DTOs.EventCreationRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,9 +13,9 @@ import java.util.Date;
 @Entity
 public class Event extends Content {
     @Getter
-    private Date startDate;
+    private LocalDateTime startDate;
     @Getter
-    private Date endDate;
+    private LocalDateTime endDate;
     @Getter
     @Embedded
     private Location location;

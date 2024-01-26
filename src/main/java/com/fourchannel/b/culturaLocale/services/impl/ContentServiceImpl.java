@@ -24,6 +24,8 @@ public class ContentServiceImpl implements ContentService {
     private final TownHallRoleRepository townHallRoleRepository;
     private final TownHallRepository townHallRepository;
 
+    private LocalDateTime actualTime;
+
     public ContentServiceImpl(ItineraryRepository itineraryRepository,
                               PointOfInterestRepository pointOfInterestRepository,
                               EventRepository eventRepository,
@@ -38,6 +40,7 @@ public class ContentServiceImpl implements ContentService {
         this.contentRepository = contentRepository;
         this.townHallRoleRepository = townHallRoleRepository;
         this.townHallRepository = townHallRepository;
+        this.actualTime = LocalDateTime.now();
     }
     private ApprovalStatus genericApprovalDecision(Role role) {
         return switch (role) {
@@ -167,6 +170,12 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
 
+        if (actualTime.isAfter(event.getEndDate())) {
+            throw new IllegalArgumentException("| ERROR | Event is already Expired");
+        }
+
+
+
         //Does not have isExpired() check cause already has endDate in it
 
         event.setTownHall(townHallRepository.findById(event.getTownHall().getId())
@@ -184,10 +193,6 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
 
-        if (pointOfInterest.isExpired()) {
-            throw new IllegalArgumentException("| ERROR | Point of Interest duration time is Expired");
-        }
-
         pointOfInterest.setTownHall(townHallRepository.findById(pointOfInterest.getTownHall().getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
         pointOfInterest.setCreator(userRepository.findById(pointOfInterest.getCreator().getId())
@@ -201,10 +206,6 @@ public class ContentServiceImpl implements ContentService {
     {
         if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
-        }
-
-        if (itinerary.isExpired()) {
-            throw new IllegalArgumentException("| ERROR | Itinerary duration time is Expired");
         }
 
         // find the original, make sure we're not editing something that's not there
