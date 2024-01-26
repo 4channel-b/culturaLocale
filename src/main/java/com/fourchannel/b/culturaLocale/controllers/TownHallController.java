@@ -11,16 +11,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/townHall")
-public class TownHallController {
+public class TownHallController implements BaseCrudController<TownHallCreationRequestDTO, Long> {
     private final TownHallService townHallService;
 
     public TownHallController(TownHallService townHallService) {
         this.townHallService = townHallService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<TownHall> createTownhall(@RequestBody TownHallCreationRequestDTO dto) {
+    @Override
+    public ResponseEntity<TownHall> create(@RequestBody TownHallCreationRequestDTO dto) {
         TownHall newTownHall = townHallService.createTownHall(new TownHall(dto));
         return ResponseEntity.ok(newTownHall);
+    }
+
+    @Override
+    public ResponseEntity<?> getById(Long aLong) {
+        return ResponseEntity.ok(townHallService.getById(aLong));
+    }
+
+    @Override
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(townHallService.getAll());
+    }
+
+    @Override
+    public ResponseEntity<?> update(TownHallCreationRequestDTO entity, Long aLong) {
+        return ResponseEntity.ok(townHallService.update(new TownHall(entity), aLong));
+    }
+
+    @Override
+    public ResponseEntity<?> delete(Long aLong) {
+        townHallService.delete(aLong);
+        return ResponseEntity.ok("{}");
     }
 }
