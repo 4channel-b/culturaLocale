@@ -8,6 +8,7 @@ import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -166,6 +167,8 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
 
+        //Does not have isExpired() check cause already has endDate in it
+
         event.setTownHall(townHallRepository.findById(event.getTownHall().getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
         event.setCreator(userRepository.findById(event.getCreator().getId())
@@ -181,6 +184,10 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | PointOfInterest is NULL");
         }
 
+        if (pointOfInterest.isExpired()) {
+            throw new IllegalArgumentException("| ERROR | Point of Interest duration time is Expired");
+        }
+
         pointOfInterest.setTownHall(townHallRepository.findById(pointOfInterest.getTownHall().getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
         pointOfInterest.setCreator(userRepository.findById(pointOfInterest.getCreator().getId())
@@ -194,6 +201,10 @@ public class ContentServiceImpl implements ContentService {
     {
         if (itinerary == null) {
             throw new IllegalArgumentException("| ERROR | Itinerary is NULL");
+        }
+
+        if (itinerary.isExpired()) {
+            throw new IllegalArgumentException("| ERROR | Itinerary duration time is Expired");
         }
 
         // find the original, make sure we're not editing something that's not there
@@ -263,4 +274,5 @@ public class ContentServiceImpl implements ContentService {
 
         return role == Role.Curator;
     }
+
 }
