@@ -325,21 +325,31 @@ function createUserButton() {
     document.getElementById("role").value = "";
 }
 
-/*
-* setup the data
-*
-* const sampleUserData = {
-    username: "johndoe123", // must be 3-50 characters
-    fullName: "John Doe", // must be 2-100 characters
-    email: "johndoe@example.com", // must be a valid email
-    registrationDate: new Date().toISOString(), // current date in ISO format
-    townHall: 1, // assuming 1 is a valid town hall ID
-    role: 2 // assuming 2 is a valid role ID
-};
+function createEventButton() {
+    const eventData = {
 
-* then call the function
-*
-* createUser(sampleUserData)
-    .then(user => console.log("Created User:", user))
-    .catch(error => console.error("Error creating user:", error));
-* */
+        name: document.getElementById("name").value,
+        description: document.getElementById("description").value,
+        creationDate: document.getElementById("creationDate").value,
+        creator: document.getElementById("creator").value,
+        townHall: document.getElementById("eventTownHall").value,
+        startDate: document.getElementById("startDate").value,
+        endDate: document.getElementById("endDate").value,
+        location: document.getElementById("location").value,
+    };
+
+    // Call the API
+    createUser(eventData)
+        .then(user => console.log("Created Event:", user))
+        .catch(error => console.error("| ERROR | Something went wrong on creating event:", error));
+
+    // Clean up the UI
+    document.getElementById("name").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("creationDate").value = "";
+    document.getElementById("creator").value = "";
+    document.getElementById("eventTownHall").value = "";
+    document.getElementById("startDate").value = "";
+    document.getElementById("endDate").value = "";
+    document.getElementById("location").value = "";
+}

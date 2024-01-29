@@ -24,9 +24,16 @@
 
 <br>
 <div>
-    <label for="event">Event:</label>
-    <input type="text" id="event" name="event">
-    <button onclick="return false;">Submit</button>
+    Event:
+    <input type="text" id="name" name="event">
+    <input type="text" id="description" name="event">
+    <input type="text" id="creationDate" name="event">
+    <input type="text" id="creator" name="event">
+    <input type="text" id="eventTownHall" name="event">
+    <input type="text" id="startDate" name="event">
+    <input type="text" id="endDate" name="event">
+    <input type="text" id="location" name="event">
+    <button onclick="createEventButton();">Create Event</button>
 </div>
 
 <br>
@@ -66,7 +73,7 @@
     <input type="text" id="registrationDate" name="user">
     <input type="text" id="userTownHall" name="user">
     <input type="text" id="role" name="user">
-    <button onclick="createUserButton();">Create</button>
+    <button onclick="createUserButton();">Create User</button>
 </div>
 
 <script src="library.js"></script>
