@@ -300,6 +300,31 @@ function deleteUser(id) {
     }).then(response => response.json());
 }
 
+function createUserButton() {
+    // Grab data from the DOM and fill out the object
+    const sampleUserData = {
+        username: document.getElementById("username").value,
+        fullName: document.getElementById("fullName").value,
+        email: document.getElementById("email").value,
+        registrationDate: document.getElementById("registrationDate").value, // current date in ISO format
+        townHall: parseInt(document.getElementById("userTownHall").value),
+        role: parseInt(document.getElementById("role").value)
+    };
+
+    // Call the API
+    createUser(sampleUserData)
+        .then(user => console.log("Created User:", user))
+        .catch(error => console.error("Error creating user:", error));
+
+    // Clean up the UI
+    document.getElementById("username").value = "";
+    document.getElementById("fullName").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("registrationDate").value = "";
+    document.getElementById("userTownHall").value = "";
+    document.getElementById("role").value = "";
+}
+
 /*
 * setup the data
 *
