@@ -337,7 +337,7 @@ function createEventButton() {
         endDate: document.getElementById("endDate").value,
         location: {
             latitude: parseFloat(document.getElementById("locationLongitude").value),
-            longitude: parseFloat(document.getElementById("locationLatitude").value),
+            longitude: parseFloat(document.getElementById("locationLatitude").value)
         },
     };
 
