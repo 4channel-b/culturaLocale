@@ -299,3 +299,22 @@ function deleteUser(id) {
         method: 'DELETE'
     }).then(response => response.json());
 }
+
+/*
+* setup the data
+*
+* const sampleUserData = {
+    username: "johndoe123", // must be 3-50 characters
+    fullName: "John Doe", // must be 2-100 characters
+    email: "johndoe@example.com", // must be a valid email
+    registrationDate: new Date().toISOString(), // current date in ISO format
+    townHall: 1, // assuming 1 is a valid town hall ID
+    role: 2 // assuming 2 is a valid role ID
+};
+
+* then call the function
+*
+* createUser(sampleUserData)
+    .then(user => console.log("Created User:", user))
+    .catch(error => console.error("Error creating user:", error));
+* */
