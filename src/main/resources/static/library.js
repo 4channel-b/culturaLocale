@@ -1,5 +1,15 @@
 const BASE_URL = 'http://localhost:8080';
 
+document.getElementById("name").value = "Deputation";
+document.getElementById("description").value = "Deputation";
+document.getElementById("creationDate").value = "2024-01-24T15:00:00Z";
+document.getElementById("creator").value = "1";
+document.getElementById("eventTownHall").value = "1";
+document.getElementById("startDate").value = "2024-01-24T15:00:00";
+document.getElementById("endDate").value = "2024-01-24T15:00:00";
+document.getElementById("locationLatitude").value = "99";
+document.getElementById("locationLongitude").value = "99";
+
 function approveEvent(eventId, userId) {
     return fetch(`${BASE_URL}/content/approve/event/${eventId}`, {
         method: 'PUT',
@@ -332,7 +342,7 @@ function createEventButton() {
         description: document.getElementById("description").value,
         creationDate: document.getElementById("creationDate").value,
         creator: document.getElementById("creator").value,
-        townHall: document.getElementById("eventTownHall").value,
+        townHall: parseInt(document.getElementById("eventTownHall").value),
         startDate: document.getElementById("startDate").value,
         endDate: document.getElementById("endDate").value,
         location: {
