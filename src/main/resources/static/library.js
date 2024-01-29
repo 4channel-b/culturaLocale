@@ -335,11 +335,14 @@ function createEventButton() {
         townHall: document.getElementById("eventTownHall").value,
         startDate: document.getElementById("startDate").value,
         endDate: document.getElementById("endDate").value,
-        location: document.getElementById("location").value,
+        location: {
+            latitude: parseFloat(document.getElementById("locationLongitude").value),
+            longitude: parseFloat(document.getElementById("locationLatitude").value),
+        },
     };
 
     // Call the API
-    createUser(eventData)
+    createEvent(eventData)
         .then(user => console.log("Created Event:", user))
         .catch(error => console.error("| ERROR | Something went wrong on creating event:", error));
 
@@ -351,5 +354,6 @@ function createEventButton() {
     document.getElementById("eventTownHall").value = "";
     document.getElementById("startDate").value = "";
     document.getElementById("endDate").value = "";
-    document.getElementById("location").value = "";
+    document.getElementById("locationLongitude").value = "";
+    document.getElementById("locationLatitude").value = "";
 }
