@@ -25,24 +25,85 @@
 <br>
 <div>
     Event:
-    <input type="text" id="name" name="event">
-    <input type="text" id="description" name="event">
-    <input type="text" id="creationDate" name="event">
-    <input type="text" id="creator" name="event">
-    <input type="text" id="eventTownHall" name="event">
-    <input type="text" id="startDate" name="event">
-    <input type="text" id="endDate" name="event">
-    <input type="text" id="locationLongitude" name="event">
-    <input type="text" id="locationLatitude" name="event">
-    <button onclick="createEventButton();">Create Event</button>
+    <div>
+        <div>
+            <label>Name:</label>
+            <input type="text" id="evName" />
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" id="evDescription" />
+        </div>
+        <div>
+            <label>Creation Date:</label>
+            <input type="date" id="evCreationDate" />
+        </div>
+        <div>
+            <label>Creator ID:</label>
+            <input type="number" id="evCreator" />
+        </div>
+        <div>
+            <label>Town Hall ID:</label>
+            <input type="number" id="evTownHall" />
+        </div>
+        <div>
+            <label>Start Date:</label>
+            <input type="date" id="evStartDate" />
+        </div>
+        <div>
+            <label>End Date:</label>
+            <input type="date" id="evEndDate" />
+        </div>
+        <div>
+            <label>Location Longitude:</label>
+            <input type="text" id="evLocationLongitude" />
+        </div>
+        <div>
+            <label>Location Latitude:</label>
+            <input type="text" id="evLocationLatitude" />
+        </div>
+        <button onclick="createEventButton();">Create Event</button>
+    </div>
 </div>
 
 <br>
 <div>
     Itinerary:
-    <input type="text" id="estimateDuration" name="itinerary">
-    <input type="text" id="difficultyLevel" name="itinerary">
-    <button onclick="createItineraryButton();">Create Itinerary</button>
+    <div>
+        <div>
+            <label>Name:</label>
+            <input type="text" id="itName" />
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" id="itDescription" />
+        </div>
+        <div>
+            <label>Creation Date:</label>
+            <input type="date" id="itCreationDate" />
+        </div>
+        <div>
+            <label>Creator ID:</label>
+            <input type="number" id="itCreator" />
+        </div>
+        <div>
+            <label>Town Hall ID:</label>
+            <input type="number" id="itTownHall" />
+        </div>
+        <div>
+            <label>Estimated Duration:</label>
+            <input type="text" id="itEstimateDuration" name="itinerary" />
+        </div>
+        <div>
+            <label>Difficulty Level:</label>
+            <input type="number" id="itDifficultyLevel" name="itinerary" />
+        </div>
+        <div>
+            <label>Content IDs (comma-separated):</label>
+            <input type="text" id="itContents" placeholder="1,2,3" />
+        </div>
+        <button onclick="createItineraryButton();">Create Itinerary</button>
+    </div>
 </div>
 
 <br>
@@ -62,25 +123,65 @@
 <br>
 <div>
     TownHall:
-    <input type="text" id="townHallName" name="townHall">
-    <input type="text" id="townHallDescription" name="townHall">
-    <input type="text" id="townHallLocationLongitude" name="townHall">
-    <input type="text" id="townHallLocationLatitude" name="townHall">
-    <input type="text" id="area" name="townHall">
-    <input type="text" id="establishment" name="townHall">
-    <button onclick="createTownHallButton();">Create Event</button>
+    <div>
+        <div>
+            <label>Name:</label>
+            <input type="text" id="thName" />
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" id="thDescription" />
+        </div>
+        <div>
+            <label>Location Longitude:</label>
+            <input type="text" id="thLocationLongitude" />
+        </div>
+        <div>
+            <label>Location Latitude:</label>
+            <input type="text" id="thLocationLatitude" />
+        </div>
+        <div>
+            <label>Area (sq km):</label>
+            <input type="text" id="thArea" />
+        </div>
+        <div>
+            <label>Establishment Date:</label>
+            <input type="date" id="thEstablishment" />
+        </div>
+        <button onclick="createTownHallButton();">Create TownHall</button>
+    </div>
 </div>
 
 <br>
 <div>
     User:
-    <input type="text" id="username" name="user">
-    <input type="text" id="fullName" name="user">
-    <input type="text" id="email" name="user">
-    <input type="text" id="registrationDate" name="user">
-    <input type="text" id="userTownHall" name="user">
-    <input type="text" id="role" name="user">
-    <button onclick="createUserButton();">Create User</button>
+    <div>
+        <div>
+            <label>Username:</label>
+            <input type="text" id="usUsername" />
+        </div>
+        <div>
+            <label>Full Name:</label>
+            <input type="text" id="usFullName" />
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="text" id="usEmail" />
+        </div>
+        <div>
+            <label>Registration Date:</label>
+            <input type="date" id="usRegistrationDate" />
+        </div>
+        <div>
+            <label>Town Hall ID:</label>
+            <input type="number" id="usUserTownHall" />
+        </div>
+        <div>
+            <label>Role ID:</label>
+            <input type="number" id="usRole" />
+        </div>
+        <button onclick="createUserButton();">Create User</button>
+    </div>
 </div>
 
 <script src="library.js"></script>

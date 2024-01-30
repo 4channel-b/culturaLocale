@@ -1,15 +1,5 @@
 const BASE_URL = 'http://localhost:8080';
 
-document.getElementById("name").value = "Deputation";
-document.getElementById("description").value = "Deputation";
-document.getElementById("creationDate").value = "2024-01-24T15:00:00Z";
-document.getElementById("creator").value = "1";
-document.getElementById("eventTownHall").value = "1";
-document.getElementById("startDate").value = "2024-01-24T15:00:00";
-document.getElementById("endDate").value = "2024-01-24T15:00:00";
-document.getElementById("locationLatitude").value = "99";
-document.getElementById("locationLongitude").value = "99";
-
 function approveEvent(eventId, userId) {
     return fetch(`${BASE_URL}/content/approve/event/${eventId}`, {
         method: 'PUT',
@@ -311,104 +301,110 @@ function deleteUser(id) {
 }
 
 function createUserButton() {
-    // Grab data from the DOM and fill out the object
-    const sampleUserData = {
-        username: document.getElementById("username").value,
-        fullName: document.getElementById("fullName").value,
-        email: document.getElementById("email").value,
-        registrationDate: document.getElementById("registrationDate").value, // current date in ISO format
-        townHall: parseInt(document.getElementById("userTownHall").value),
-        role: parseInt(document.getElementById("role").value)
+    const userData = {
+        username: document.getElementById("usUsername").value,
+        fullName: document.getElementById("usFullName").value,
+        email: document.getElementById("usEmail").value,
+        registrationDate: new Date(document.getElementById("usRegistrationDate").value),
+        townHall: parseInt(document.getElementById("usUserTownHall").value),
+        role: parseInt(document.getElementById("usRole").value)
     };
 
-    // Call the API
-    createUser(sampleUserData)
+    createUser(userData)
         .then(user => console.log("Created User:", user))
         .catch(error => console.error("Error creating user:", error));
 
     // Clean up the UI
-    document.getElementById("username").value = "";
-    document.getElementById("fullName").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("registrationDate").value = "";
-    document.getElementById("userTownHall").value = "";
-    document.getElementById("role").value = "";
+    document.getElementById("usUsername").value = "";
+    document.getElementById("usFullName").value = "";
+    document.getElementById("usEmail").value = "";
+    document.getElementById("usRegistrationDate").value = "";
+    document.getElementById("usUserTownHall").value = "";
+    document.getElementById("usRole").value = "";
 }
 
 function createItineraryButton() {
-    const itineraryData = {
+    const contentsInput = document.getElementById("itContents").value;
+    const contentsArray = contentsInput.split(',').map(id => parseInt(id.trim()));
 
-        estimateDuration: parseFloat(document.getElementById("estimateDuration").value),
-        difficultyLevel: parseInt(document.getElementById("difficultyLevel").value),
-        //TODO: Need to pass a list of Content i dont now how to do that, remember to change html field as well
+    const itineraryData = {
+        name: document.getElementById("itName").value,
+        description: document.getElementById("itDescription").value,
+        creationDate: new Date(document.getElementById("itCreationDate").value),
+        creator: parseInt(document.getElementById("itCreator").value),
+        townHall: parseInt(document.getElementById("itTownHall").value),
+        estimatedDuration: parseFloat(document.getElementById("itEstimateDuration").value),
+        difficultyLevel: parseInt(document.getElementById("itDifficultyLevel").value),
+        contents: contentsArray
     };
 
-    // Call the API
     createItinerary(itineraryData)
         .then(user => console.log("Created Itinerary:", user))
         .catch(error => console.error("| ERROR | Something went wrong on creating Itinerary:", error));
 
     // Clean up the UI
-    document.getElementById("estimateDuration").value = "";
-    document.getElementById("difficultyLevel").value = "";
+    document.getElementById("itName").value = "";
+    document.getElementById("itDescription").value = "";
+    document.getElementById("itCreationDate").value = "";
+    document.getElementById("itCreator").value = "";
+    document.getElementById("itTownHall").value = "";
+    document.getElementById("itEstimateDuration").value = "";
+    document.getElementById("itDifficultyLevel").value = "";
+    document.getElementById("itContents").value = "";
 }
 
 function createEventButton() {
     const eventData = {
-
-        name: document.getElementById("name").value,
-        description: document.getElementById("description").value,
-        creationDate: document.getElementById("creationDate").value,
-        creator: document.getElementById("creator").value,
-        townHall: parseInt(document.getElementById("eventTownHall").value),
-        startDate: document.getElementById("startDate").value,
-        endDate: document.getElementById("endDate").value,
+        name: document.getElementById("evName").value,
+        description: document.getElementById("evDescription").value,
+        creationDate: new Date(document.getElementById("evCreationDate").value),
+        creator: parseInt(document.getElementById("evCreator").value),
+        townHall: parseInt(document.getElementById("evTownHall").value),
+        startDate: new Date(document.getElementById("evStartDate").value),
+        endDate: new Date(document.getElementById("evEndDate").value),
         location: {
-            latitude: parseFloat(document.getElementById("locationLongitude").value),
-            longitude: parseFloat(document.getElementById("locationLatitude").value)
+            longitude: parseFloat(document.getElementById("evLocationLongitude").value),
+            latitude: parseFloat(document.getElementById("evLocationLatitude").value)
         },
     };
 
-    // Call the API
     createEvent(eventData)
         .then(user => console.log("Created Event:", user))
         .catch(error => console.error("| ERROR | Something went wrong on creating event:", error));
 
     // Clean up the UI
-    document.getElementById("name").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("creationDate").value = "";
-    document.getElementById("creator").value = "";
-    document.getElementById("eventTownHall").value = "";
-    document.getElementById("startDate").value = "";
-    document.getElementById("endDate").value = "";
-    document.getElementById("locationLongitude").value = "";
-    document.getElementById("locationLatitude").value = "";
+    document.getElementById("evName").value = "";
+    document.getElementById("evDescription").value = "";
+    document.getElementById("evCreationDate").value = "";
+    document.getElementById("evCreator").value = "";
+    document.getElementById("evTownHall").value = "";
+    document.getElementById("evStartDate").value = "";
+    document.getElementById("evEndDate").value = "";
+    document.getElementById("evLocationLongitude").value = "";
+    document.getElementById("evLocationLatitude").value = "";
 }
 
 function createTownHallButton() {
     const townHallData = {
-
-        townHallName: document.getElementById("townHallName").value,
-        townHallDescription: document.getElementById("townHallDescription").value,
-        townHallLocation: {
-            latitude: parseFloat(document.getElementById("townHallLocationLongitude").value),
-            longitude: parseFloat(document.getElementById("townHallLocationLatitude").value)
+        name: document.getElementById("thName").value,
+        description: document.getElementById("thDescription").value,
+        location: {
+            longitude: parseFloat(document.getElementById("thLocationLongitude").value),
+            latitude: parseFloat(document.getElementById("thLocationLatitude").value)
         },
-        area: parseFloat(document.getElementById("area").value),
-        establishment: document.getElementById("establishment").value,
+        area: parseFloat(document.getElementById("thArea").value),
+        establishment: new Date(document.getElementById("thEstablishment").value)
     };
 
-    // Call the API
     createTownHall(townHallData)
         .then(user => console.log("Created TownHall:", user))
         .catch(error => console.error("| ERROR | Something went wrong on creating TownHall:", error));
 
     // Clean up the UI
-    document.getElementById("townHallName").value = "";
-    document.getElementById("townHallDescription").value = "";
-    document.getElementById("townHallLocationLongitude").value = "";
-    document.getElementById("townHallLocationLatitude").value = "";
-    document.getElementById("area").value = "";
-    document.getElementById("establishment").value = "";
+    document.getElementById("thName").value = "";
+    document.getElementById("thDescription").value = "";
+    document.getElementById("thLocationLongitude").value = "";
+    document.getElementById("thLocationLatitude").value = "";
+    document.getElementById("thArea").value = "";
+    document.getElementById("thEstablishment").value = "";
 }
