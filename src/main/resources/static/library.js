@@ -335,6 +335,24 @@ function createUserButton() {
     document.getElementById("role").value = "";
 }
 
+function createItineraryButton() {
+    const itineraryData = {
+
+        estimateDuration: parseFloat(document.getElementById("estimateDuration").value),
+        difficultyLevel: parseInt(document.getElementById("difficultyLevel").value),
+        //TODO: Need to pass a list of Content i dont now how to do that, remember to change html field as well
+    };
+
+    // Call the API
+    createItinerary(itineraryData)
+        .then(user => console.log("Created Event:", user))
+        .catch(error => console.error("| ERROR | Something went wrong on creating event:", error));
+
+    // Clean up the UI
+    document.getElementById("estimateDuration").value = ""
+    document.getElementById("difficultyLevel").value = ""
+}
+
 function createEventButton() {
     const eventData = {
 
