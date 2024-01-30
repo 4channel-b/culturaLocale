@@ -408,3 +408,86 @@ function createTownHallButton() {
     document.getElementById("thArea").value = "";
     document.getElementById("thEstablishment").value = "";
 }
+
+function createContestButton() {
+    const contentsArray = document.getElementById("cstContents").value.split(',').map(id => parseInt(id.trim()));
+
+    const contestData = {
+        name: document.getElementById("cstName").value,
+        description: document.getElementById("cstDescription").value,
+        initialDate: new Date(document.getElementById("cstInitialDate").value),
+        endDate: new Date(document.getElementById("cstEndDate").value),
+        rules: document.getElementById("cstRules").value,
+        type: document.getElementById("cstType").value,
+        contents: contentsArray
+    };
+
+    createContest(contestData)
+        .then(contest => console.log("Created Contest:", contest))
+        .catch(error => console.error("Error creating contest:", error));
+
+    // Clean up the UI
+    document.getElementById("cstName").value = "";
+    document.getElementById("cstDescription").value = "";
+    document.getElementById("cstInitialDate").value = "";
+    document.getElementById("cstEndDate").value = "";
+    document.getElementById("cstRules").value = "";
+    document.getElementById("cstType").value = "";
+    document.getElementById("cstContents").value = "";
+}
+
+function categoryStringToInteger(categoryString) {
+    switch(categoryString) {
+        case "HISTORICAL_SITE":
+            return 0;
+        case "MUSEUM":
+            return 1;
+        case "PARK":
+            return 2;
+        case "ART_GALLERY":
+            return 3;
+        case "RELIGIOUS_SITE":
+            return 4;
+        case "NATURAL_ATTRACTION":
+            return 5;
+        case "SHOPPING_AREA":
+            return 6;
+        case "ENTERTAINMENT_VENUE":
+            return 7;
+        case "SPORTS_FACILITY":
+            return 8;
+        case "EDUCATIONAL_INSTITUTION":
+            return 9;
+        default:
+            throw new Error("Invalid category string");
+    }
+}
+
+function createPointOfInterestButton() {
+    const poiData = {
+        name: document.getElementById("poiName").value,
+        description: document.getElementById("poiDescription").value,
+        creationDate: new Date(document.getElementById("poiCreationDate").value),
+        creator: parseInt(document.getElementById("poiCreator").value),
+        townHall: parseInt(document.getElementById("poiTownHall").value),
+        category: categoryStringToInteger(document.getElementById("poiCategory").value),
+        location: {
+            longitude: parseFloat(document.getElementById("poiLongitude").value),
+            latitude: parseFloat(document.getElementById("poiLatitude").value)
+        }
+    };
+
+    createPointOfInterest(poiData)
+        .then(poi => console.log("Created Point of Interest:", poi))
+        .catch(error => console.error("Error creating point of interest:", error));
+
+    // Clean up the UI
+    document.getElementById("poiName").value = "";
+    document.getElementById("poiDescription").value = "";
+    document.getElementById("poiCreationDate").value = "";
+    document.getElementById("poiCreator").value = "";
+    document.getElementById("poiTownHall").value = "";
+    document.getElementById("poiCategory").value = "HISTORICAL_SITE";
+    document.getElementById("poiLongitude").value = "";
+    document.getElementById("poiLatitude").value = "";
+}

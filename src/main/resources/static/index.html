@@ -10,16 +10,38 @@
 
 <br>
 <div>
-    <label for="content">Content:</label>
-    <input type="text" id="content" name="content">
-    <button onclick="return false;">Submit</button>
-</div>
-
-<br>
-<div>
-    <label for="contest">Contest:</label>
-    <input type="text" id="contest" name="contest">
-    <button onclick="return false;">Submit</button>
+    Contest:
+    <div>
+        <div>
+            <label>Name:</label>
+            <input type="text" id="cstName" />
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" id="cstDescription" />
+        </div>
+        <div>
+            <label>Initial Date:</label>
+            <input type="date" id="cstInitialDate" />
+        </div>
+        <div>
+            <label>End Date:</label>
+            <input type="date" id="cstEndDate" />
+        </div>
+        <div>
+            <label>Rules:</label>
+            <textarea id="cstRules"></textarea>
+        </div>
+        <div>
+            <label>Type:</label>
+            <input type="text" id="cstType" />
+        </div>
+        <div>
+            <label>Content IDs (comma-separated):</label>
+            <input type="text" id="cstContents" placeholder="1,2,3" />
+        </div>
+        <button onclick="createContestButton();">Create Contest</button>
+    </div>
 </div>
 
 <br>
@@ -108,9 +130,53 @@
 
 <br>
 <div>
-    <label for="pointOfInterest">Point of Interest:</label>
-    <input type="text" id="pointOfInterest" name="pointOfInterest">
-    <button onclick="return false;">Submit</button>
+    Point of Interest:
+    <div>
+        <div>
+            <label>Name:</label>
+            <input type="text" id="poiName" />
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" id="poiDescription" />
+        </div>
+        <div>
+            <label>Creation Date:</label>
+            <input type="date" id="poiCreationDate" />
+        </div>
+        <div>
+            <label>Creator ID:</label>
+            <input type="number" id="poiCreator" />
+        </div>
+        <div>
+            <label>Town Hall ID:</label>
+            <input type="number" id="poiTownHall" />
+        </div>
+        <div>
+            <label>Category:</label>
+            <select id="poiCategory">
+                <option value="HISTORICAL_SITE">Historical Site</option>
+                <option value="MUSEUM">Museum</option>
+                <option value="PARK">Park</option>
+                <option value="ART_GALLERY">Art Gallery</option>
+                <option value="RELIGIOUS_SITE">Religious Site</option>
+                <option value="NATURAL_ATTRACTION">Natural Attraction</option>
+                <option value="SHOPPING_AREA">Shopping Area</option>
+                <option value="ENTERTAINMENT_VENUE">Entertainment Venue</option>
+                <option value="SPORTS_FACILITY">Sports Facility</option>
+                <option value="EDUCATIONAL_INSTITUTION">Educational Institution</option>
+            </select>
+        </div>
+        <div>
+            <label>Longitude:</label>
+            <input type="text" id="poiLongitude" />
+        </div>
+        <div>
+            <label>Latitude:</label>
+            <input type="text" id="poiLatitude" />
+        </div>
+        <button onclick="createPointOfInterestButton();">Create Point of Interest</button>
+    </div>
 </div>
 
 <br>
