@@ -345,12 +345,12 @@ function createItineraryButton() {
 
     // Call the API
     createItinerary(itineraryData)
-        .then(user => console.log("Created Event:", user))
-        .catch(error => console.error("| ERROR | Something went wrong on creating event:", error));
+        .then(user => console.log("Created Itinerary:", user))
+        .catch(error => console.error("| ERROR | Something went wrong on creating Itinerary:", error));
 
     // Clean up the UI
-    document.getElementById("estimateDuration").value = ""
-    document.getElementById("difficultyLevel").value = ""
+    document.getElementById("estimateDuration").value = "";
+    document.getElementById("difficultyLevel").value = "";
 }
 
 function createEventButton() {
@@ -384,4 +384,31 @@ function createEventButton() {
     document.getElementById("endDate").value = "";
     document.getElementById("locationLongitude").value = "";
     document.getElementById("locationLatitude").value = "";
+}
+
+function createTownHallButton() {
+    const townHallData = {
+
+        townHallName: document.getElementById("townHallName").value,
+        townHallDescription: document.getElementById("townHallDescription").value,
+        townHallLocation: {
+            latitude: parseFloat(document.getElementById("townHallLocationLongitude").value),
+            longitude: parseFloat(document.getElementById("townHallLocationLatitude").value)
+        },
+        area: parseFloat(document.getElementById("area").value),
+        establishment: document.getElementById("establishment").value,
+    };
+
+    // Call the API
+    createTownHall(townHallData)
+        .then(user => console.log("Created TownHall:", user))
+        .catch(error => console.error("| ERROR | Something went wrong on creating TownHall:", error));
+
+    // Clean up the UI
+    document.getElementById("townHallName").value = "";
+    document.getElementById("townHallDescription").value = "";
+    document.getElementById("townHallLocationLongitude").value = "";
+    document.getElementById("townHallLocationLatitude").value = "";
+    document.getElementById("area").value = "";
+    document.getElementById("establishment").value = "";
 }
