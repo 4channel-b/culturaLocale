@@ -3,250 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <title>Cultura Locale</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .button-container {
+            text-align: right;
+        }
+
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+            margin-bottom: 0;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .collapsible.active:after {
+            content: "\2212";
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out, padding 0.2s ease-out; /* Add padding to the transition */
+            background-color: #f1f1f1;
+        }
+
+        /* Necessary, otherwise buttons and text will stick to the edges. */
+        .collapsible.active + .content {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Cultura Locale Controllers</h1>
+<h1>culturaLocale.Showcase</h1>
 
-<br>
-<div>
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="search">
-    <button onclick="return false;">Submit</button>
-</div>
-
-<br>
-<div>
-    Contest:
-    <div>
-        <div>
-            <label>Name:</label>
-            <input type="text" id="cstName" />
+<div class="container">
+    <div class="section">
+        <button type="button" class="collapsible">Search:</button>
+        <div class="content">
+            <input type="text" id="search" name="search">
+            <button onclick="return false;">Submit</button>
         </div>
-        <div>
-            <label>Description:</label>
-            <input type="text" id="cstDescription" />
-        </div>
-        <div>
-            <label>Initial Date:</label>
-            <input type="date" id="cstInitialDate" />
-        </div>
-        <div>
-            <label>End Date:</label>
-            <input type="date" id="cstEndDate" />
-        </div>
-        <div>
-            <label>Rules:</label>
-            <textarea id="cstRules"></textarea>
-        </div>
-        <div>
-            <label>Type:</label>
-            <input type="text" id="cstType" />
-        </div>
-        <div>
-            <label>Content IDs (comma-separated):</label>
-            <input type="text" id="cstContents" placeholder="1,2,3" />
-        </div>
-        <button onclick="createContestButton();">Create Contest</button>
     </div>
-</div>
 
-<br>
-<div>
-    Event:
-    <div>
-        <div>
-            <label>Name:</label>
-            <input type="text" id="evName" />
+    <div class="section">
+        <button type="button" class="collapsible">Contest</button>
+        <div class="content">
+            <div>
+                <label>Name:</label>
+                <input type="text" id="cstName" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <input type="text" id="cstDescription" />
+            </div>
+            <div>
+                <label>Initial Date:</label>
+                <input type="date" id="cstInitialDate" />
+            </div>
+            <div>
+                <label>End Date:</label>
+                <input type="date" id="cstEndDate" />
+            </div>
+            <div>
+                <label>Rules:</label>
+                <textarea id="cstRules"></textarea>
+            </div>
+            <div>
+                <label>Type:</label>
+                <input type="text" id="cstType" />
+            </div>
+            <div>
+                <label>Content IDs (comma-separated):</label>
+                <input type="text" id="cstContents" placeholder="1,2,3" />
+            </div>
+            <button onclick="createContestButton();">Create Contest</button>
         </div>
-        <div>
-            <label>Description:</label>
-            <input type="text" id="evDescription" />
-        </div>
-        <div>
-            <label>Creation Date:</label>
-            <input type="date" id="evCreationDate" />
-        </div>
-        <div>
-            <label>Creator ID:</label>
-            <input type="number" id="evCreator" />
-        </div>
-        <div>
-            <label>Town Hall ID:</label>
-            <input type="number" id="evTownHall" />
-        </div>
-        <div>
-            <label>Start Date:</label>
-            <input type="date" id="evStartDate" />
-        </div>
-        <div>
-            <label>End Date:</label>
-            <input type="date" id="evEndDate" />
-        </div>
-        <div>
-            <label>Location Longitude:</label>
-            <input type="text" id="evLocationLongitude" />
-        </div>
-        <div>
-            <label>Location Latitude:</label>
-            <input type="text" id="evLocationLatitude" />
-        </div>
-        <button onclick="createEventButton();">Create Event</button>
     </div>
-</div>
 
-<br>
-<div>
-    Itinerary:
-    <div>
-        <div>
-            <label>Name:</label>
-            <input type="text" id="itName" />
+    <div class="section">
+        <button type="button" class="collapsible">Event:</button>
+        <div class="content">
+            <div>
+                <label>Name:</label>
+                <input type="text" id="evName" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <input type="text" id="evDescription" />
+            </div>
+            <div>
+                <label>Creation Date:</label>
+                <input type="date" id="evCreationDate" />
+            </div>
+            <div>
+                <label>Creator ID:</label>
+                <input type="number" id="evCreator" />
+            </div>
+            <div>
+                <label>Town Hall ID:</label>
+                <input type="number" id="evTownHall" />
+            </div>
+            <div>
+                <label>Start Date:</label>
+                <input type="date" id="evStartDate" />
+            </div>
+            <div>
+                <label>End Date:</label>
+                <input type="date" id="evEndDate" />
+            </div>
+            <div>
+                <label>Location Longitude:</label>
+                <input type="text" id="evLocationLongitude" />
+            </div>
+            <div>
+                <label>Location Latitude:</label>
+                <input type="text" id="evLocationLatitude" />
+            </div>
+            <button onclick="createEventButton();">Create Event</button>
         </div>
-        <div>
-            <label>Description:</label>
-            <input type="text" id="itDescription" />
-        </div>
-        <div>
-            <label>Creation Date:</label>
-            <input type="date" id="itCreationDate" />
-        </div>
-        <div>
-            <label>Creator ID:</label>
-            <input type="number" id="itCreator" />
-        </div>
-        <div>
-            <label>Town Hall ID:</label>
-            <input type="number" id="itTownHall" />
-        </div>
-        <div>
-            <label>Estimated Duration:</label>
-            <input type="text" id="itEstimateDuration" name="itinerary" />
-        </div>
-        <div>
-            <label>Difficulty Level:</label>
-            <input type="number" id="itDifficultyLevel" name="itinerary" />
-        </div>
-        <div>
-            <label>Content IDs (comma-separated):</label>
-            <input type="text" id="itContents" placeholder="1,2,3" />
-        </div>
-        <button onclick="createItineraryButton();">Create Itinerary</button>
     </div>
-</div>
 
-<br>
-<div>
-    Point of Interest:
-    <div>
-        <div>
-            <label>Name:</label>
-            <input type="text" id="poiName" />
+    <div class="section">
+        <button type="button" class="collapsible">Itinerary:</button>
+        <div class="content">
+            <div>
+                <label>Name:</label>
+                <input type="text" id="itName" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <input type="text" id="itDescription" />
+            </div>
+            <div>
+                <label>Creation Date:</label>
+                <input type="date" id="itCreationDate" />
+            </div>
+            <div>
+                <label>Creator ID:</label>
+                <input type="number" id="itCreator" />
+            </div>
+            <div>
+                <label>Town Hall ID:</label>
+                <input type="number" id="itTownHall" />
+            </div>
+            <div>
+                <label>Estimated Duration:</label>
+                <input type="text" id="itEstimateDuration" name="itinerary" />
+            </div>
+            <div>
+                <label>Difficulty Level:</label>
+                <input type="number" id="itDifficultyLevel" name="itinerary" />
+            </div>
+            <div>
+                <label>Content IDs (comma-separated):</label>
+                <input type="text" id="itContents" placeholder="1,2,3" />
+            </div>
+            <button onclick="createItineraryButton();">Create Itinerary</button>
         </div>
-        <div>
-            <label>Description:</label>
-            <input type="text" id="poiDescription" />
-        </div>
-        <div>
-            <label>Creation Date:</label>
-            <input type="date" id="poiCreationDate" />
-        </div>
-        <div>
-            <label>Creator ID:</label>
-            <input type="number" id="poiCreator" />
-        </div>
-        <div>
-            <label>Town Hall ID:</label>
-            <input type="number" id="poiTownHall" />
-        </div>
-        <div>
-            <label>Category:</label>
-            <select id="poiCategory">
-                <option value="HISTORICAL_SITE">Historical Site</option>
-                <option value="MUSEUM">Museum</option>
-                <option value="PARK">Park</option>
-                <option value="ART_GALLERY">Art Gallery</option>
-                <option value="RELIGIOUS_SITE">Religious Site</option>
-                <option value="NATURAL_ATTRACTION">Natural Attraction</option>
-                <option value="SHOPPING_AREA">Shopping Area</option>
-                <option value="ENTERTAINMENT_VENUE">Entertainment Venue</option>
-                <option value="SPORTS_FACILITY">Sports Facility</option>
-                <option value="EDUCATIONAL_INSTITUTION">Educational Institution</option>
-            </select>
-        </div>
-        <div>
-            <label>Longitude:</label>
-            <input type="text" id="poiLongitude" />
-        </div>
-        <div>
-            <label>Latitude:</label>
-            <input type="text" id="poiLatitude" />
-        </div>
-        <button onclick="createPointOfInterestButton();">Create Point of Interest</button>
     </div>
-</div>
 
-<br>
-<div>
-    TownHall:
-    <div>
-        <div>
-            <label>Name:</label>
-            <input type="text" id="thName" />
+    <div class="section">
+        <button type="button" class="collapsible">Point of Interest:</button>
+        <div class="content">
+            <div>
+                <label>Name:</label>
+                <input type="text" id="poiName" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <input type="text" id="poiDescription" />
+            </div>
+            <div>
+                <label>Creation Date:</label>
+                <input type="date" id="poiCreationDate" />
+            </div>
+            <div>
+                <label>Creator ID:</label>
+                <input type="number" id="poiCreator" />
+            </div>
+            <div>
+                <label>Town Hall ID:</label>
+                <input type="number" id="poiTownHall" />
+            </div>
+            <div>
+                <label>Category:</label>
+                <select id="poiCategory">
+                    <option value="HISTORICAL_SITE">Historical Site</option>
+                    <option value="MUSEUM">Museum</option>
+                    <option value="PARK">Park</option>
+                    <option value="ART_GALLERY">Art Gallery</option>
+                    <option value="RELIGIOUS_SITE">Religious Site</option>
+                    <option value="NATURAL_ATTRACTION">Natural Attraction</option>
+                    <option value="SHOPPING_AREA">Shopping Area</option>
+                    <option value="ENTERTAINMENT_VENUE">Entertainment Venue</option>
+                    <option value="SPORTS_FACILITY">Sports Facility</option>
+                    <option value="EDUCATIONAL_INSTITUTION">Educational Institution</option>
+                </select>
+            </div>
+            <div>
+                <label>Longitude:</label>
+                <input type="text" id="poiLongitude" />
+            </div>
+            <div>
+                <label>Latitude:</label>
+                <input type="text" id="poiLatitude" />
+            </div>
+            <button onclick="createPointOfInterestButton();">Create Point of Interest</button>
         </div>
-        <div>
-            <label>Description:</label>
-            <input type="text" id="thDescription" />
-        </div>
-        <div>
-            <label>Location Longitude:</label>
-            <input type="text" id="thLocationLongitude" />
-        </div>
-        <div>
-            <label>Location Latitude:</label>
-            <input type="text" id="thLocationLatitude" />
-        </div>
-        <div>
-            <label>Area (sq km):</label>
-            <input type="text" id="thArea" />
-        </div>
-        <div>
-            <label>Establishment Date:</label>
-            <input type="date" id="thEstablishment" />
-        </div>
-        <button onclick="createTownHallButton();">Create TownHall</button>
     </div>
-</div>
 
-<br>
-<div>
-    User:
-    <div>
-        <div>
-            <label>Username:</label>
-            <input type="text" id="usUsername" />
+    <div class="section">
+        <button type="button" class="collapsible">TownHall:</button>
+        <div class="content">
+            <div>
+                <label>Name:</label>
+                <input type="text" id="thName" />
+            </div>
+            <div>
+                <label>Description:</label>
+                <input type="text" id="thDescription" />
+            </div>
+            <div>
+                <label>Location Longitude:</label>
+                <input type="text" id="thLocationLongitude" />
+            </div>
+            <div>
+                <label>Location Latitude:</label>
+                <input type="text" id="thLocationLatitude" />
+            </div>
+            <div>
+                <label>Area (sq km):</label>
+                <input type="text" id="thArea" />
+            </div>
+            <div>
+                <label>Establishment Date:</label>
+                <input type="date" id="thEstablishment" />
+            </div>
+            <button onclick="createTownHallButton();">Create TownHall</button>
         </div>
-        <div>
-            <label>Full Name:</label>
-            <input type="text" id="usFullName" />
+    </div>
+
+    <div class="section">
+        <button type="button" class="collapsible">User:</button>
+        <div class="content">
+            <div>
+                <label>Username:</label>
+                <input type="text" id="usUsername" />
+            </div>
+            <div>
+                <label>Full Name:</label>
+                <input type="text" id="usFullName" />
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="text" id="usEmail" />
+            </div>
+            <div>
+                <label>Registration Date:</label>
+                <input type="date" id="usRegistrationDate" />
+            </div>
+            <div>
+                <label>Town Hall ID:</label>
+                <input type="number" id="usUserTownHall" />
+            </div>
+            <div>
+                <label>Role ID:</label>
+                <input type="number" id="usRole" />
+            </div>
+            <button onclick="createUserButton();">Create User</button>
         </div>
-        <div>
-            <label>Email:</label>
-            <input type="text" id="usEmail" />
-        </div>
-        <div>
-            <label>Registration Date:</label>
-            <input type="date" id="usRegistrationDate" />
-        </div>
-        <div>
-            <label>Town Hall ID:</label>
-            <input type="number" id="usUserTownHall" />
-        </div>
-        <div>
-            <label>Role ID:</label>
-            <input type="number" id="usRole" />
-        </div>
-        <button onclick="createUserButton();">Create User</button>
     </div>
 </div>
 

@@ -65,6 +65,27 @@ if (SHOWCASE_MODE) {
     setupShowcaseMode();
 }
 
+// Handle collapsible animations
+document.addEventListener('DOMContentLoaded', (event) => {
+    const coll = document.getElementsByClassName("collapsible");
+
+    for (let i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            const content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
+        // Initially collapse all sections
+        coll[i].nextElementSibling.style.maxHeight = null;
+    }
+});
+
+
 function approveEvent(eventId, userId) {
     return fetch(`${BASE_URL}/content/approve/event/${eventId}`, {
         method: 'PUT',
