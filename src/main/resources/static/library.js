@@ -1,4 +1,69 @@
 const BASE_URL = 'http://localhost:8080';
+const SHOWCASE_MODE = true;
+
+function setupShowcaseMode() {
+    // Contest data
+    document.getElementById("cstName").value = "Art Festival";
+    document.getElementById("cstDescription").value = "An annual festival showcasing local artists and their work.";
+    document.getElementById("cstInitialDate").value = "2024-05-01";
+    document.getElementById("cstEndDate").value = "2024-05-07";
+    document.getElementById("cstRules").value = "All artwork must be original and created within the last year.";
+    document.getElementById("cstType").value = "Art";
+    document.getElementById("cstContents").value = ""; // IDs unknown
+
+    // Event data
+    document.getElementById("evName").value = "Music Concert";
+    document.getElementById("evDescription").value = "Outdoor music concert featuring various artists.";
+    document.getElementById("evCreationDate").value = "2024-03-20";
+    document.getElementById("evCreator").value = ""; // ID unknown
+    document.getElementById("evTownHall").value = ""; // ID unknown
+    document.getElementById("evStartDate").value = "2024-07-12";
+    document.getElementById("evEndDate").value = "2024-07-14";
+    document.getElementById("evLocationLongitude").value = "12.9716";
+    document.getElementById("evLocationLatitude").value = "77.5946";
+
+    // Itinerary data
+    document.getElementById("itName").value = "Cultural Heritage Tour";
+    document.getElementById("itDescription").value = "A guided tour of the city's historical landmarks.";
+    document.getElementById("itCreationDate").value = "2024-04-10";
+    document.getElementById("itCreator").value = ""; // ID unknown
+    document.getElementById("itTownHall").value = ""; // ID unknown
+    document.getElementById("itEstimateDuration").value = "3.5";
+    document.getElementById("itDifficultyLevel").value = "2";
+    document.getElementById("itContents").value = ""; // IDs unknown
+
+    // Point of Interest data
+    document.getElementById("poiName").value = "Liberty Statue";
+    document.getElementById("poiDescription").value = "Famous statue with historical significance.";
+    document.getElementById("poiCreationDate").value = "2024-01-15";
+    document.getElementById("poiCreator").value = ""; // ID unknown
+    document.getElementById("poiTownHall").value = ""; // ID unknown
+    document.getElementById("poiCategory").value = "HISTORICAL_SITE";
+    document.getElementById("poiLongitude").value = "40.6892";
+    document.getElementById("poiLatitude").value = "74.0445";
+
+    // TownHall data
+    document.getElementById("thName").value = "Greenwood Municipality";
+    document.getElementById("thDescription").value = "Administrative body for the Greenwood area.";
+    document.getElementById("thLocationLongitude").value = "44.9680";
+    document.getElementById("thLocationLatitude").value = "94.4203";
+    document.getElementById("thArea").value = "120";
+    document.getElementById("thEstablishment").value = "1856-03-11";
+
+    // User data
+    document.getElementById("usUsername").value = "johndoe123";
+    document.getElementById("usFullName").value = "John Doe";
+    document.getElementById("usEmail").value = "johndoe@example.com";
+    document.getElementById("usRegistrationDate").value = "2024-02-20";
+    document.getElementById("usUserTownHall").value = ""; // ID unknown
+    document.getElementById("usRole").value = ""; // ID unknown
+}
+
+// Fill out input boxes with data if we are in showcase mode
+// let's not waste time trying to fill them out ourselves, we need to show and tell!
+if (SHOWCASE_MODE) {
+    setupShowcaseMode();
+}
 
 function approveEvent(eventId, userId) {
     return fetch(`${BASE_URL}/content/approve/event/${eventId}`, {
