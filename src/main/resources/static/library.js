@@ -622,3 +622,30 @@ function displayResults(results) {
     pre.textContent = JSON.stringify(results, null, 2);
     resultsContainer.appendChild(pre);
 }
+
+function processApproval() {
+    const contentId = document.getElementById("contentId").value;
+    const userId = document.getElementById("userId").value;
+    const approvalType = document.getElementById("approvalType").value;
+
+    if (!contentId || !userId) {
+        alert("Both Content ID and User ID are required.");
+        return;
+    }
+
+    switch (approvalType) {
+        case 'event':
+            approveEvent(contentId, userId).then(displayResults);
+            break;
+        case 'poi':
+            approvePoi(contentId, userId).then(displayResults);
+            break;
+        case 'itinerary':
+            approveItinerary(contentId, userId).then(displayResults);
+            break;
+        default:
+            // Should probably make it a UI element, but it'll work for now.
+            alert("Invalid approval type selected.");
+            break;
+    }
+}

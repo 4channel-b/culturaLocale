@@ -381,6 +381,26 @@
             <button onclick="createUserButton();">Create User</button>
         </div>
     </div>
+
+    <div class="section">
+        <button type="button" class="collapsible">Approvals:</button>
+        <div class="content">
+            <label for="contentId">Content ID:</label>
+            <input type="number" id="contentId" name="contentId" placeholder="Enter content ID">
+
+            <label for="userId">User ID:</label>
+            <input type="number" id="userId" name="userId" placeholder="Enter user ID">
+
+            <label for="approvalType">Approval Type:</label>
+            <select id="approvalType">
+                <option value="event">Event</option>
+                <option value="poi">Point of Interest</option>
+                <option value="itinerary">Itinerary</option>
+            </select>
+
+            <button onclick="processApproval();">Approve</button>
+        </div>
+    </div>
 </div>
 
 <script src="library.js"></script>
