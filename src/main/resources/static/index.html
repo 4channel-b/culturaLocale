@@ -99,7 +99,7 @@
 
         .content {
             padding: 0 18px;
-            max-height: 0;
+            height: 0;
             overflow: hidden;
             transition: max-height 0.2s ease-out, padding 0.2s ease-out; /* Add padding to the transition */
             background-color: #f1f1f1;
@@ -107,8 +107,9 @@
 
         /* Necessary, otherwise buttons and text will stick to the edges. */
         .collapsible.active + .content {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding: 10px 18px;
+            height: auto;
+            max-height: 500px;
         }
     </style>
 </head>
@@ -423,6 +424,23 @@
             <pre id="contentDisplay"></pre> <!-- Label to display raw JSON -->
         </div>
     </div>
+
+    <div class="section">
+        <button type="button" class="collapsible">Object Dumper:</button>
+        <div class="content">
+            <select id="dumpType">
+                <option value="contests">Contests</option>
+                <option value="events">Events</option>
+                <option value="itineraries">Itineraries</option>
+                <option value="pois">Points Of Interest</option>
+                <option value="townHalls">Town Halls</option>
+                <option value="users">Users</option>
+            </select>
+            <button onclick="dumpContent();">Dump Content</button>
+            <div id="dumpContainer"></div> <!-- Container for displaying dumped content -->
+        </div>
+    </div>
+
 </div>
 
 <script src="library.js"></script>

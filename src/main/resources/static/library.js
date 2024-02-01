@@ -65,6 +65,15 @@ if (SHOWCASE_MODE) {
     setupShowcaseMode();
 }
 
+function updateContentHeight() {
+    const contentDiv = document.querySelector('.collapsible.active + .content');
+    if (contentDiv) {
+        contentDiv.style.maxHeight = 'none'; // Temporarily remove max height
+        const scrollHeight = contentDiv.scrollHeight;
+        contentDiv.style.maxHeight = scrollHeight + 'px'; // Set max height to new content height
+    }
+}
+
 // Handle collapsible animations
 document.addEventListener('DOMContentLoaded', (event) => {
     const coll = document.getElementsByClassName("collapsible");
@@ -79,11 +88,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
         });
-
-        // Initially collapse all sections
-        coll[i].nextElementSibling.style.maxHeight = null;
     }
 });
+
 
 
 function approveEvent(eventId, userId) {
@@ -690,9 +697,53 @@ function viewContent() {
         .then(data => {
             const display = document.getElementById("contentDisplay");
             display.textContent = JSON.stringify(data, null, 2);
+            updateContentHeight();
         })
         .catch(error => {
             console.error('Error fetching data: ', error);
             alert("Failed to fetch data. See console for more details.");
         });
+}
+
+function dumpContent() {
+    const selectedType = document.getElementById("dumpType").value;
+    let fetchFunction;
+
+    switch (selectedType) {
+        case 'contests':
+            fetchFunction = getAllContests;
+            break;
+        case 'events':
+            fetchFunction = getAllEvents;
+            break;
+        case 'itineraries':
+            fetchFunction = getAllItineraries;
+            break;
+        case 'pois':
+            fetchFunction = getAllPointsOfInterest;
+            break;
+        case 'townHalls':
+            fetchFunction = getAllTownHalls;
+            break;
+        case 'users':
+            fetchFunction = getAllUsers;
+            break;
+        default:
+            alert("Invalid type selected for dumping.");
+            return;
+    }
+
+    fetchFunction().then(data => {
+        const dumpContainer = document.getElementById("dumpContainer");
+        dumpContainer.innerHTML = ''; // Clear existing content
+
+        const pre = document.createElement('pre');
+        pre.textContent = `Dumping ${selectedType}:\n` + JSON.stringify(data, null, 2);
+
+        dumpContainer.appendChild(pre);
+        updateContentHeight();
+    }).catch(error => {
+        console.error('Error fetching data: ', error);
+        alert("Failed to fetch data. See console for more details.");
+    });
 }
