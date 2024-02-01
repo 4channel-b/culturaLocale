@@ -120,8 +120,35 @@
     <div class="section">
         <button type="button" class="collapsible">Search:</button>
         <div class="content">
-            <input type="text" id="search" name="search">
-            <button onclick="return false;">Submit</button>
+            <div>
+                <label for="searchType">Search Type:</label>
+                <select id="searchType">
+                    <option value="contests">Contests</option>
+                    <option value="content">Content</option>
+                    <option value="itineraries">Itineraries</option>
+                    <option value="pois">Points Of Interest</option>
+                    <option value="events">Events</option>
+                    <option value="usersByRole">Users by Role</option>
+                    <option value="usersByEmail">Users by Email</option>
+                </select>
+            </div>
+            <div>
+                <label for="searchTerm">Search Term:</label>
+                <input type="text" id="searchTerm" name="searchTerm">
+            </div>
+            <div>
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate">
+            </div>
+            <div>
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate">
+            </div>
+            <div>
+                <label for="additionalParam">Additional Parameter:</label>
+                <input type="text" id="additionalParam">
+            </div>
+            <button onclick="performSearch();">Submit</button>
         </div>
     </div>
 
@@ -157,6 +184,7 @@
                 <input type="text" id="cstContents" placeholder="1,2,3" />
             </div>
             <button onclick="createContestButton();">Create Contest</button>
+            <div id="searchResults"></div>
         </div>
     </div>
 

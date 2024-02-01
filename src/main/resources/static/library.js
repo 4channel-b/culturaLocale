@@ -577,3 +577,48 @@ function createPointOfInterestButton() {
     document.getElementById("poiLongitude").value = "";
     document.getElementById("poiLatitude").value = "";
 }
+
+function performSearch() {
+    const searchType = document.getElementById("searchType").value;
+    const searchTerm = document.getElementById("searchTerm").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    const additionalParam = document.getElementById("additionalParam").value;
+
+    switch (searchType) {
+        case 'contests':
+            searchContests(searchTerm, startDate, endDate, additionalParam).then(displayResults);
+            break;
+        case 'content':
+            searchContent(searchTerm, searchTerm, startDate, additionalParam).then(displayResults);
+            break;
+        case 'itineraries':
+            searchItineraries(searchTerm, searchTerm, startDate, additionalParam, additionalParam).then(displayResults);
+            break;
+        case 'pois':
+            searchPointsOfInterest(searchTerm, searchTerm, additionalParam, additionalParam).then(displayResults);
+            break;
+        case 'events':
+            searchEvents(searchTerm, searchTerm, startDate, endDate).then(displayResults);
+            break;
+        case 'usersByRole':
+            searchUsersByRole(additionalParam).then(displayResults);
+            break;
+        case 'usersByEmail':
+            searchUsersByEmail(searchTerm).then(displayResults);
+            break;
+        default:
+            console.error('Invalid search type');
+            break;
+    }
+}
+
+function displayResults(results) {
+    const resultsContainer = document.getElementById("searchResults");
+    resultsContainer.innerHTML = ''; // Clear previous results
+
+    const pre = document.createElement('pre');
+
+    pre.textContent = JSON.stringify(results, null, 2);
+    resultsContainer.appendChild(pre);
+}
