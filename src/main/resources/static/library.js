@@ -649,3 +649,50 @@ function processApproval() {
             break;
     }
 }
+
+function viewContent() {
+    const id = document.getElementById("entityId").value;
+    const entityType = document.getElementById("entityType").value;
+
+    if (!id) {
+        alert("Please enter an ID to view.");
+        return;
+    }
+
+    // Yeah, I know I'm not writing C, but it's a dynamically typed lang!
+    let fetchFunction;
+
+    switch (entityType) {
+        case 'townHall':
+            fetchFunction = getTownHallById;
+            break;
+        case 'poi':
+            fetchFunction = getPointOfInterestById;
+            break;
+        case 'itinerary':
+            fetchFunction = getItineraryById;
+            break;
+        case 'contest':
+            fetchFunction = getContestById;
+            break;
+        case 'event':
+            fetchFunction = getEventById;
+            break;
+        case 'user':
+            fetchFunction = getUserById;
+            break;
+        default:
+            alert("Please select a valid content type.");
+            return;
+    }
+
+    fetchFunction(id)
+        .then(data => {
+            const display = document.getElementById("contentDisplay");
+            display.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            console.error('Error fetching data: ', error);
+            alert("Failed to fetch data. See console for more details.");
+        });
+}
