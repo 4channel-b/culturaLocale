@@ -747,3 +747,11 @@ function dumpContent() {
         alert("Failed to fetch data. See console for more details.");
     });
 }
+
+function deleteTownhallButton() {
+    const id = parseInt(document.getElementById("toBeDeletedId").value);
+
+    deleteTownHall(id)
+        .then(data => { console.log('Townhall deleted successfully:', data); })
+        .catch(error => { console.error('Error deleting townhall: ', error); });
+}

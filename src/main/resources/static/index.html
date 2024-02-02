@@ -441,6 +441,16 @@
         </div>
     </div>
 
+    <div class="section">
+        <button type="button" class="collapsible">Object Wiper:</button>
+         <div class="content">
+             <!-- Ignored in code as there are no more use cases than deleting townHall-->
+             <select id="loadType">
+                 <option value="townHalls">Town Halls</option>
+             </select>
+             <input type="number" id="toBeDeletedId" placeholder="Enter ID" />
+             <button onclick="deleteTownhallButton();">Wipe Object</button>
+    </div>
 </div>
 
 <script src="library.js"></script>
