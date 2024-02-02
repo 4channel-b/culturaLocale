@@ -56,8 +56,8 @@ public class UserController implements BaseCrudController<UserCreationRequestDTO
     }
 
     @Override
-    public ResponseEntity<?> getById(Long aLong) {
-        return ResponseEntity.ok(userService.getUser(aLong));
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.getUser(id));
     }
 
     @Override
@@ -72,8 +72,8 @@ public class UserController implements BaseCrudController<UserCreationRequestDTO
     }
 
     @Override
-    public ResponseEntity<?> delete(Long aLong) {
-        userService.delete(aLong);
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        userService.delete(id);
 
         return ResponseEntity.ok().body("User successfully deleted.");
     }
