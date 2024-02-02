@@ -59,6 +59,10 @@ public class TownHallServiceImpl implements TownHallService{
 
     @Override
     public void delete(Long aLong) {
+        // make sure it exists
+        townHallRepository.findById(aLong)
+                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall not found"));
+
         contentService.deleteTownHallReferences(aLong);
         townHallRepository.deleteById(aLong);
     }
