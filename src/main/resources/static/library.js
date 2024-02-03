@@ -74,6 +74,17 @@ function updateContentHeight() {
     }
 }
 
+// Overriding the alert function here to show a notification instead of an alert
+window.alert = function(message, duration = 3000) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = 'notification show';
+
+    setTimeout(() => {
+        notification.className = 'notification';
+    }, duration);
+};
+
 // Handle collapsible animations
 document.addEventListener('DOMContentLoaded', (event) => {
     const coll = document.getElementsByClassName("collapsible");
@@ -90,7 +101,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     }
 });
-
 
 
 function approveEvent(eventId, userId) {
@@ -404,7 +414,10 @@ function createUserButton() {
     };
 
     createUser(userData)
-        .then(user => console.log("Created User:", user))
+        .then(user => {
+            console.log("Created User:", user);
+            alert("User created!");
+        })
         .catch(error => console.error("Error creating user:", error));
 
     // Clean up the UI
@@ -432,7 +445,10 @@ function createItineraryButton() {
     };
 
     createItinerary(itineraryData)
-        .then(user => console.log("Created Itinerary:", user))
+        .then(user => {
+            console.log("Created Itinerary:", user);
+            alert('Itinerary created.');
+        })
         .catch(error => console.error("| ERROR | Something went wrong on creating Itinerary:", error));
 
     // Clean up the UI
@@ -462,7 +478,10 @@ function createEventButton() {
     };
 
     createEvent(eventData)
-        .then(user => console.log("Created Event:", user))
+        .then(user => {
+            console.log("Created Event:", user);
+            alert('Event created.');
+        })
         .catch(error => console.error("| ERROR | Something went wrong on creating event:", error));
 
     // Clean up the UI
@@ -490,7 +509,10 @@ function createTownHallButton() {
     };
 
     createTownHall(townHallData)
-        .then(user => console.log("Created TownHall:", user))
+        .then(user => {
+            console.log("Created TownHall:", user);
+            alert('Created TownHall.');
+        })
         .catch(error => console.error("| ERROR | Something went wrong on creating TownHall:", error));
 
     // Clean up the UI
@@ -516,7 +538,10 @@ function createContestButton() {
     };
 
     createContest(contestData)
-        .then(contest => console.log("Created Contest:", contest))
+        .then(contest => {
+            console.log("Created Contest:", contest);
+            alert('Contest created.');
+        })
         .catch(error => console.error("Error creating contest:", error));
 
     // Clean up the UI
@@ -571,7 +596,10 @@ function createPointOfInterestButton() {
     };
 
     createPointOfInterest(poiData)
-        .then(poi => console.log("Created Point of Interest:", poi))
+        .then(poi => {
+            console.log("Created Point of Interest:", poi);
+            alert('Point of interest created successfully.');
+        })
         .catch(error => console.error("Error creating point of interest:", error));
 
     // Clean up the UI
@@ -628,6 +656,8 @@ function displayResults(results) {
 
     pre.textContent = JSON.stringify(results, null, 2);
     resultsContainer.appendChild(pre);
+
+    alert('Search complete');
 }
 
 function processApproval() {
@@ -698,6 +728,7 @@ function viewContent() {
             const display = document.getElementById("contentDisplay");
             display.textContent = JSON.stringify(data, null, 2);
             updateContentHeight();
+            alert("Content successfully fetched.");
         })
         .catch(error => {
             console.error('Error fetching data: ', error);
@@ -742,6 +773,8 @@ function dumpContent() {
 
         dumpContainer.appendChild(pre);
         updateContentHeight();
+
+        alert('Data loaded successfully');
     }).catch(error => {
         console.error('Error fetching data: ', error);
         alert("Failed to fetch data. See console for more details.");
@@ -752,6 +785,8 @@ function deleteTownhallButton() {
     const id = parseInt(document.getElementById("toBeDeletedId").value);
 
     deleteTownHall(id)
-        .then(data => { console.log('Townhall deleted successfully:', data); })
+        .then(data => {
+            console.log('Townhall deleted successfully:', data);
+            alert('Townhall deleted successfully');})
         .catch(error => { console.error('Error deleting townhall: ', error); });
 }
