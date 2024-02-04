@@ -32,12 +32,19 @@ public class ContestServiceImpl implements ContestService {
         this.notificationRepository = notificationRepository;
     }
     @Override
-    public Contest createContest(Contest contest)
+    public Contest createContest(Contest contest, List<Long> contents)
     {
         if(contest == null)
         {
             throw new IllegalArgumentException("| ERROR | Contest is NULL");
         }
+
+        // subscribe all passed contents to the contest!
+        contents.forEach(c -> {
+            contest.subscribe(contentRepository.findById(c)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Cannot add contents that don't exist!")));
+        });
+
         return contestRepository.save(contest);
     }
 

@@ -20,7 +20,7 @@ public class ContestController implements BaseCrudController<ContestCreationRequ
 
     @Override
     public ResponseEntity<Contest> create(ContestCreationRequestDTO dto) {
-        Contest elem = contestService.createContest(new Contest(dto));
+        Contest elem = contestService.createContest(new Contest(dto), dto.getContents());
 
         return ResponseEntity.ok(elem);
     }

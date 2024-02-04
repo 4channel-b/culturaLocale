@@ -43,6 +43,7 @@ public class Contest
         this.rules = dto.getRules();
         this.type = dto.getType();
         this.contents = new ArrayList<>();
+        this.contestOpen = true;
     }
 
     public void subscribe(Content content) {

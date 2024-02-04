@@ -492,6 +492,24 @@
          </div>
     </div>
 
+    <div class="section">
+        <button type="button" class="collapsible">Contest Subscription:</button>
+        <div class="content">
+            <input type="number" id="contentToBeSubscribedId" placeholder="Enter Content ID" />
+            <input type="number" id="contestIdToSubTo" placeholder="Enter Contest ID" />
+            <button onclick="subscribeContestButton();">Subscribe Content</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <button type="button" class="collapsible">Contest Termination:</button>
+        <div class="content">
+            <input type="number" id="winningContentId" placeholder="Enter Winning Content ID" />
+            <input type="number" id="winningContestId" placeholder="Enter Contest ID" />
+            <button onclick="closeContestButton();">Terminate Contest</button>
+        </div>
+    </div>
+
     <div id="notification" class="notification"></div>
     <div id="error_notification" class="error_notification"></div>
 </div>

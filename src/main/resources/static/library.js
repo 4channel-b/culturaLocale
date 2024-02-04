@@ -77,7 +77,7 @@ function updateContentHeight() {
 // Overriding the alert function here to show a notification instead of an alert
 window.alert = function(message, duration = 3000) {
     const notification = document.getElementById('notification');
-    notification.textContent = message;
+    notification.textContent = '✅ ' + message;
     notification.className = 'notification show';
 
     setTimeout(() => {
@@ -88,7 +88,7 @@ window.alert = function(message, duration = 3000) {
 // Let's handle the error alerts manually then
 function error_alert(text, duration = 3000) {
     const notification = document.getElementById('error_notification');
-    notification.textContent = text;
+    notification.textContent = '❌ ' + text;
     notification.className = 'error_notification show';
 
     setTimeout(() => {
@@ -1056,4 +1056,28 @@ function deleteTownhallButton() {
             console.error('Error deleting townhall: ', error);
             error_alert('There was an error performing the requested operation.');
         });
+}
+
+function subscribeContestButton() {
+    const contentId = parseInt(document.getElementById("contentToBeSubscribedId").value);
+    const contestId = parseInt(document.getElementById("contestIdToSubTo").value);
+
+    subscribeContentToContest(contentId, contestId).then(data => {
+        alert('Content subscribed!');
+    }).catch(error => {
+        console.error('Error subscribing to contest: ', error);
+        error_alert('There was an error performing the requested operation.');
+    });
+}
+
+function closeContestButton() {
+    const winningContentId = parseInt(document.getElementById("winningContentId").value);
+    const contestId = parseInt(document.getElementById("winningContestId").value);
+
+    terminateContest(contestId, winningContentId).then(data => {
+        alert('Contest terminated with a winner!');
+    }).catch(error => {
+        console.error('Error terminating contest: ', error);
+        error_alert('There was an error performing the requested operation.');
+    });
 }
