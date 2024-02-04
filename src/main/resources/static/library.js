@@ -947,8 +947,11 @@ function processApproval() {
         default:
             // Should probably make it a UI element, but it'll work for now.
             error_alert("Invalid approval type selected.");
-            break;
+            return; // Don't clear the boxes
     }
+
+    document.getElementById("contentId").value = '';
+    document.getElementById("userId").value = '';
 }
 
 function viewContent() {
@@ -1056,6 +1059,8 @@ function deleteTownhallButton() {
             console.error('Error deleting townhall: ', error);
             error_alert('There was an error performing the requested operation.');
         });
+
+    document.getElementById("toBeDeletedId").value = '';
 }
 
 function subscribeContestButton() {
@@ -1068,6 +1073,9 @@ function subscribeContestButton() {
         console.error('Error subscribing to contest: ', error);
         error_alert('There was an error performing the requested operation.');
     });
+
+    document.getElementById("contentToBeSubscribedId").value = '';
+    document.getElementById("contestIdToSubTo").value = '';
 }
 
 function closeContestButton() {
@@ -1080,4 +1088,7 @@ function closeContestButton() {
         console.error('Error terminating contest: ', error);
         error_alert('There was an error performing the requested operation.');
     });
+
+    document.getElementById("winningContentId").value = '';
+    document.getElementById("winningContestId").value = '';
 }
