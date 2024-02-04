@@ -85,6 +85,17 @@ window.alert = function(message, duration = 3000) {
     }, duration);
 };
 
+// Let's handle the error alerts manually then
+function error_alert(text, duration = 3000) {
+    const notification = document.getElementById('error_notification');
+    notification.textContent = text;
+    notification.className = 'error_notification show';
+
+    setTimeout(() => {
+        notification.className = 'error_notification';
+    }, duration)
+}
+
 // Handle collapsible animations
 document.addEventListener('DOMContentLoaded', (event) => {
     const coll = document.getElementsByClassName("collapsible");
@@ -110,7 +121,13 @@ function approveEvent(eventId, userId) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(userId),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function approvePoi(poiId, userId) {
@@ -120,7 +137,13 @@ function approvePoi(poiId, userId) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(userId),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function approveItinerary(itineraryId, userId) {
@@ -130,7 +153,13 @@ function approveItinerary(itineraryId, userId) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(userId),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function createContest(contestData) {
@@ -140,19 +169,37 @@ function createContest(contestData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(contestData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getContestById(id) {
     return fetch(`${BASE_URL}/contest/${id}`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getAllContests() {
     return fetch(`${BASE_URL}/contest/getAll`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function updateContest(contestData, id) {
@@ -162,7 +209,13 @@ function updateContest(contestData, id) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(contestData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function subscribeContentToContest(contentId, contestId) {
@@ -172,7 +225,13 @@ function subscribeContentToContest(contentId, contestId) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(contentId),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function terminateContest(contestId, winningContentId) {
@@ -182,7 +241,13 @@ function terminateContest(contestId, winningContentId) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(winningContentId),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function createEvent(eventData) {
@@ -192,19 +257,37 @@ function createEvent(eventData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(eventData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getEventById(id) {
     return fetch(`${BASE_URL}/event/${id}`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getAllEvents() {
     return fetch(`${BASE_URL}/event/getAll`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function updateEvent(eventData, id) {
@@ -214,7 +297,13 @@ function updateEvent(eventData, id) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(eventData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function createItinerary(itineraryData) {
@@ -224,19 +313,37 @@ function createItinerary(itineraryData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(itineraryData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getItineraryById(id) {
     return fetch(`${BASE_URL}/itinerary/${id}`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getAllItineraries() {
     return fetch(`${BASE_URL}/itinerary/getAll`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function updateItinerary(itineraryData, id) {
@@ -246,7 +353,13 @@ function updateItinerary(itineraryData, id) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(itineraryData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function createPointOfInterest(poiData) {
@@ -256,19 +369,37 @@ function createPointOfInterest(poiData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(poiData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getPointOfInterestById(id) {
     return fetch(`${BASE_URL}/poi/${id}`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getAllPointsOfInterest() {
     return fetch(`${BASE_URL}/poi/getAll`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function updatePointOfInterest(poiData, id) {
@@ -278,43 +409,91 @@ function updatePointOfInterest(poiData, id) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(poiData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function searchContests(name, startDate, endDate, type) {
     return fetch(`${BASE_URL}/search/contests?name=${name}&startDate=${startDate}&endDate=${endDate}&type=${type}`)
-        .then(response => response.json());
+        .then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function searchContent(name, description, creationDate, contentType) {
     const contentTypeQueryParam = contentType ? `&contentType=${contentType}` : '';
     return fetch(`${BASE_URL}/search/content?name=${name}&description=${description}&creationDate=${creationDate}${contentTypeQueryParam}`)
-        .then(response => response.json());
+        .then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function searchItineraries(name, description, creationDate, difficultyLevel, estimatedDuration) {
     return fetch(`${BASE_URL}/search/itineraries?name=${name}&description=${description}&creationDate=${creationDate}&difficultyLevel=${difficultyLevel}&estimatedDuration=${estimatedDuration}`)
-        .then(response => response.json());
+        .then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function searchPointsOfInterest(name, description, category, location) {
     return fetch(`${BASE_URL}/search/pois?name=${name}&description=${description}&category=${category}&location=${location}`)
-        .then(response => response.json());
+        .then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function searchEvents(name, description, startDate, endDate) {
     return fetch(`${BASE_URL}/search/events?name=${name}&description=${description}&startDate=${startDate}&endDate=${endDate}`)
-        .then(response => response.json());
+        .then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function searchUsersByRole(role) {
     return fetch(`${BASE_URL}/search/usersByRole?role=${role}`)
-        .then(response => response.json());
+        .then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function searchUsersByEmail(email) {
     return fetch(`${BASE_URL}/search/usersByMail?email=${email}`)
-        .then(response => response.json());
+        .then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function createTownHall(townHallData) {
@@ -324,19 +503,37 @@ function createTownHall(townHallData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(townHallData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getTownHallById(id) {
     return fetch(`${BASE_URL}/townHall/${id}`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getAllTownHalls() {
     return fetch(`${BASE_URL}/townHall/getAll`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function updateTownHall(townHallData, id) {
@@ -346,13 +543,25 @@ function updateTownHall(townHallData, id) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(townHallData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function deleteTownHall(id) {
     return fetch(`${BASE_URL}/townHall/${id}`, {
         method: 'DELETE'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function createUser(userData) {
@@ -362,19 +571,37 @@ function createUser(userData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getUserById(id) {
     return fetch(`${BASE_URL}/users/${id}`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function getAllUsers() {
     return fetch(`${BASE_URL}/users/getAll`, {
         method: 'GET'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function changeUserSuspensionStatus(suspensionData) {
@@ -384,7 +611,13 @@ function changeUserSuspensionStatus(suspensionData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(suspensionData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function changeUserRole(roleChangeData) {
@@ -394,13 +627,25 @@ function changeUserRole(roleChangeData) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(roleChangeData),
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function deleteUser(id) {
     return fetch(`${BASE_URL}/users/${id}`, {
         method: 'DELETE'
-    }).then(response => response.json());
+    }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(JSON.stringify(response.json()));
+        }
+
+        return response.json();
+    });
 }
 
 function createUserButton() {
@@ -418,7 +663,10 @@ function createUserButton() {
             console.log("Created User:", user);
             alert("User created!");
         })
-        .catch(error => console.error("Error creating user:", error));
+        .catch(error => {
+            console.error("Error creating user:", error);
+            error_alert("Could not create requested object");
+        });
 
     // Clean up the UI
     document.getElementById("usUsername").value = "";
@@ -449,7 +697,10 @@ function createItineraryButton() {
             console.log("Created Itinerary:", user);
             alert('Itinerary created.');
         })
-        .catch(error => console.error("| ERROR | Something went wrong on creating Itinerary:", error));
+        .catch(error => {
+            console.error("| ERROR | Something went wrong on creating Itinerary:", error);
+            error_alert("Could not create requested object");
+        });
 
     // Clean up the UI
     document.getElementById("itName").value = "";
@@ -482,7 +733,10 @@ function createEventButton() {
             console.log("Created Event:", user);
             alert('Event created.');
         })
-        .catch(error => console.error("| ERROR | Something went wrong on creating event:", error));
+        .catch(error => {
+            console.error("| ERROR | Something went wrong on creating event:", error);
+            error_alert("Could not create requested object");
+        });
 
     // Clean up the UI
     document.getElementById("evName").value = "";
@@ -513,7 +767,10 @@ function createTownHallButton() {
             console.log("Created TownHall:", user);
             alert('Created TownHall.');
         })
-        .catch(error => console.error("| ERROR | Something went wrong on creating TownHall:", error));
+        .catch(error => {
+            console.error("| ERROR | Something went wrong on creating TownHall:", error);
+            error_alert("Could not create requested object");
+        });
 
     // Clean up the UI
     document.getElementById("thName").value = "";
@@ -542,7 +799,10 @@ function createContestButton() {
             console.log("Created Contest:", contest);
             alert('Contest created.');
         })
-        .catch(error => console.error("Error creating contest:", error));
+        .catch(error => {
+            console.error("Error creating contest:", error);
+            error_alert("Could not create requested object");
+        });
 
     // Clean up the UI
     document.getElementById("cstName").value = "";
@@ -600,7 +860,10 @@ function createPointOfInterestButton() {
             console.log("Created Point of Interest:", poi);
             alert('Point of interest created successfully.');
         })
-        .catch(error => console.error("Error creating point of interest:", error));
+        .catch(error => {
+            console.error("Error creating point of interest:", error);
+            error_alert("Could not create requested object");
+        });
 
     // Clean up the UI
     document.getElementById("poiName").value = "";
@@ -644,6 +907,7 @@ function performSearch() {
             break;
         default:
             console.error('Invalid search type');
+            error_alert('Invalid search type');
             break;
     }
 }
@@ -666,7 +930,7 @@ function processApproval() {
     const approvalType = document.getElementById("approvalType").value;
 
     if (!contentId || !userId) {
-        alert("Both Content ID and User ID are required.");
+        error_alert("Both Content ID and User ID are required.");
         return;
     }
 
@@ -682,7 +946,7 @@ function processApproval() {
             break;
         default:
             // Should probably make it a UI element, but it'll work for now.
-            alert("Invalid approval type selected.");
+            error_alert("Invalid approval type selected.");
             break;
     }
 }
@@ -692,7 +956,7 @@ function viewContent() {
     const entityType = document.getElementById("entityType").value;
 
     if (!id) {
-        alert("Please enter an ID to view.");
+        error_alert("Please enter an ID to view.");
         return;
     }
 
@@ -719,7 +983,7 @@ function viewContent() {
             fetchFunction = getUserById;
             break;
         default:
-            alert("Please select a valid content type.");
+            error_alert("Please select a valid content type.");
             return;
     }
 
@@ -732,7 +996,7 @@ function viewContent() {
         })
         .catch(error => {
             console.error('Error fetching data: ', error);
-            alert("Failed to fetch data. See console for more details.");
+            error_alert("Failed to fetch data. See console for more details.");
         });
 }
 
@@ -760,7 +1024,7 @@ function dumpContent() {
             fetchFunction = getAllUsers;
             break;
         default:
-            alert("Invalid type selected for dumping.");
+            error_alert("Invalid type selected for dumping.");
             return;
     }
 
@@ -777,7 +1041,7 @@ function dumpContent() {
         alert('Data loaded successfully');
     }).catch(error => {
         console.error('Error fetching data: ', error);
-        alert("Failed to fetch data. See console for more details.");
+        error_alert("Failed to fetch data. See console for more details.");
     });
 }
 
@@ -788,5 +1052,8 @@ function deleteTownhallButton() {
         .then(data => {
             console.log('Townhall deleted successfully:', data);
             alert('Townhall deleted successfully');})
-        .catch(error => { console.error('Error deleting townhall: ', error); });
+        .catch(error => {
+            console.error('Error deleting townhall: ', error);
+            error_alert('There was an error performing the requested operation.');
+        });
 }
