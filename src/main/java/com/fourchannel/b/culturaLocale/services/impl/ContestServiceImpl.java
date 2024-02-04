@@ -12,6 +12,7 @@ import com.fourchannel.b.culturaLocale.services.ContestService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -32,12 +33,19 @@ public class ContestServiceImpl implements ContestService {
         this.notificationRepository = notificationRepository;
     }
     @Override
-    public Contest createContest(Contest contest)
+    public Contest createContest(Contest contest, List<Long> contents)
     {
         if(contest == null)
         {
             throw new IllegalArgumentException("| ERROR | Contest is NULL");
         }
+
+        // subscribe all passed contents to the contest!
+        contents.forEach(c -> {
+            contest.subscribe(contentRepository.findById(c)
+                    .orElseThrow(() -> new IllegalArgumentException("| ERROR | Cannot add contents that don't exist!")));
+        });
+
         return contestRepository.save(contest);
     }
 
@@ -119,13 +127,17 @@ public class ContestServiceImpl implements ContestService {
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | Content doesn't exist"));
 
         // get the list of losing users
-        List<Long> losers = contest.closeContest(winningContentId);
+        Set<Long> losers = contest.closeContest(winningContentId);
 
         // save the contest status
         contestRepository.save(contest);
 
-        // notify all losers
-        for (Long loserId : losers) {
+        // if the winner had several entries and one of them
+        // lost, they should not receive a losing notification
+        losers.remove(winningContent.getCreator().getId());
+
+        // build and send out all notifications to users
+        losers.forEach(loserId -> {
             User user = userRepository.findById(loserId)
                     .orElseThrow(() -> new IllegalArgumentException("| ERROR | User doesn't exist"));
 
@@ -135,7 +147,7 @@ public class ContestServiceImpl implements ContestService {
             user.addNotification(notification);
 
             userRepository.save(user);
-        }
+        });
 
         // notify the winner!
         User winner = winningContent.getCreator();

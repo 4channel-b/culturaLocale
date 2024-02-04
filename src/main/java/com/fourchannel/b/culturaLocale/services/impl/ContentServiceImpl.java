@@ -8,6 +8,7 @@ import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,6 +61,28 @@ public class ContentServiceImpl implements ContentService {
         }
 
         return Optional.empty();
+    }
+    public void deleteTownHallReferences(Long townHallId) {
+        List<Long> ids = new ArrayList<>();
+
+        contentRepository.findAll().forEach(c -> {
+            if (c.getTownHall().getId().equals(townHallId)) {
+                ids.add(c.getId());
+            }
+        });
+
+        // first clear all contents
+        ids.forEach(contentRepository::deleteById);
+        ids.clear();
+
+        townHallRoleRepository.findAll().forEach(thr -> {
+            if (thr.getTownHall().getId().equals(townHallId)) {
+                ids.add(thr.getId());
+            }
+        });
+
+        // then clear all roles
+        ids.forEach(townHallRoleRepository::deleteById);
     }
     public Itinerary createNewItinerary(Itinerary itinerary,List<Long> contents) {
         if (itinerary == null) {

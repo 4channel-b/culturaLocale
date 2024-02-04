@@ -20,13 +20,13 @@ public class ContestController implements BaseCrudController<ContestCreationRequ
 
     @Override
     public ResponseEntity<Contest> create(ContestCreationRequestDTO dto) {
-        Contest elem = contestService.createContest(new Contest(dto));
+        Contest elem = contestService.createContest(new Contest(dto), dto.getContents());
 
         return ResponseEntity.ok(elem);
     }
 
     @Override
-    public ResponseEntity<Contest> getById(Long id) {
+    public ResponseEntity<Contest> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(contestService.getContest(id));
     }
 
@@ -61,7 +61,7 @@ public class ContestController implements BaseCrudController<ContestCreationRequ
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return null;
     }
 }

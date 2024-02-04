@@ -36,4 +36,5 @@ public interface ContentService {
     void approvePointOfInterest(Long id);
     void approveItinerary(Long id);
     boolean canUserApproveContent(Long contentId, Long userId);
+    void deleteTownHallReferences(Long thid);
 }

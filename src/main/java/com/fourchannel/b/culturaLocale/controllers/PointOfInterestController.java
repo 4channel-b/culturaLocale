@@ -4,6 +4,7 @@ import com.fourchannel.b.culturaLocale.dataModels.DTOs.PointOfInterestCreationRe
 import com.fourchannel.b.culturaLocale.dataModels.PointOfInterest;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class PointOfInterestController implements BaseCrudController<PointOfInte
     }
 
     @Override
-    public ResponseEntity<PointOfInterest> getById(Long id) {
+    public ResponseEntity<PointOfInterest> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(contentService.getPoi(id));
     }
 
@@ -42,7 +43,7 @@ public class PointOfInterestController implements BaseCrudController<PointOfInte
         return ResponseEntity.ok("{}");
     }
     @Override
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return null;
     }
 }

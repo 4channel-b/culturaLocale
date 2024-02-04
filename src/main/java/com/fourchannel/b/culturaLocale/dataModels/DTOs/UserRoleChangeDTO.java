@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
 public class UserRoleChangeDTO extends UserBasicDTO {
     Long townHallId;

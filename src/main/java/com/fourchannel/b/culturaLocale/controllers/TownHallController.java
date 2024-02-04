@@ -4,10 +4,7 @@ import com.fourchannel.b.culturaLocale.dataModels.DTOs.TownHallCreationRequestDT
 import com.fourchannel.b.culturaLocale.dataModels.TownHall;
 import com.fourchannel.b.culturaLocale.services.TownHallService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/townHall")
@@ -25,8 +22,8 @@ public class TownHallController implements BaseCrudController<TownHallCreationRe
     }
 
     @Override
-    public ResponseEntity<?> getById(Long aLong) {
-        return ResponseEntity.ok(townHallService.getById(aLong));
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(townHallService.getById(id));
     }
 
     @Override
@@ -40,8 +37,8 @@ public class TownHallController implements BaseCrudController<TownHallCreationRe
     }
 
     @Override
-    public ResponseEntity<?> delete(Long aLong) {
-        townHallService.delete(aLong);
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        townHallService.delete(id);
         return ResponseEntity.ok("{}");
     }
 }
