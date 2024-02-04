@@ -7,9 +7,7 @@ import com.fourchannel.b.culturaLocale.dataModels.users.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -56,7 +54,7 @@ public class Contest
 
         this.contents.add(content);
     }
-    public List<Long> closeContest(Long winnerContentId) {
+    public Set<Long> closeContest(Long winnerContentId) {
         if (!this.contestOpen) {
             throw new IllegalStateException("Contest is already closed.");
         }
@@ -74,7 +72,7 @@ public class Contest
         // Get a list from all contents in the objects
         // of losing user ids that are not equal to winnerContentId from the content creators
         // and return it.
-        List<Long> losers = new ArrayList<>();
+        Set<Long> losers = new HashSet<>();
         for (Content content : this.contents) {
             if (!content.getCreator().getId().equals(winnerContentId)) {
                 losers.add(content.getCreator().getId());
