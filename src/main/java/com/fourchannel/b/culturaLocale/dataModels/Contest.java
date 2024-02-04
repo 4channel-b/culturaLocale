@@ -27,7 +27,7 @@ public class Contest
     private String rules;
     @Getter
     private String type;
-    @OneToMany
+    @ManyToMany
     private List<Content> contents;
     @ManyToOne
     private Content winningContent;
