@@ -14,7 +14,7 @@ function setupShowcaseMode() {
     // Event data
     document.getElementById("evName").value = "Music Concert";
     document.getElementById("evDescription").value = "Outdoor music concert featuring various artists.";
-    document.getElementById("evCreationDate").value = "2024-03-20";
+    //document.getElementById("evCreationDate").value = "2024-03-20";
     document.getElementById("evCreator").value = ""; // ID unknown
     document.getElementById("evTownHall").value = ""; // ID unknown
     document.getElementById("evStartDate").value = "2024-07-12";
@@ -25,7 +25,7 @@ function setupShowcaseMode() {
     // Itinerary data
     document.getElementById("itName").value = "Cultural Heritage Tour";
     document.getElementById("itDescription").value = "A guided tour of the city's historical landmarks.";
-    document.getElementById("itCreationDate").value = "2024-04-10";
+    //document.getElementById("itCreationDate").value = "2024-04-10";
     document.getElementById("itCreator").value = ""; // ID unknown
     document.getElementById("itTownHall").value = ""; // ID unknown
     document.getElementById("itEstimateDuration").value = "3.5";
@@ -684,7 +684,7 @@ function createItineraryButton() {
     const itineraryData = {
         name: document.getElementById("itName").value,
         description: document.getElementById("itDescription").value,
-        creationDate: new Date(document.getElementById("itCreationDate").value),
+        creationDate: new Date(),
         creator: parseInt(document.getElementById("itCreator").value),
         townHall: parseInt(document.getElementById("itTownHall").value),
         estimatedDuration: parseFloat(document.getElementById("itEstimateDuration").value),
@@ -705,7 +705,7 @@ function createItineraryButton() {
     // Clean up the UI
     document.getElementById("itName").value = "";
     document.getElementById("itDescription").value = "";
-    document.getElementById("itCreationDate").value = "";
+    //document.getElementById("itCreationDate").value = "";
     document.getElementById("itCreator").value = "";
     document.getElementById("itTownHall").value = "";
     document.getElementById("itEstimateDuration").value = "";
@@ -717,7 +717,7 @@ function createEventButton() {
     const eventData = {
         name: document.getElementById("evName").value,
         description: document.getElementById("evDescription").value,
-        creationDate: new Date(document.getElementById("evCreationDate").value),
+        creationDate: new Date(),
         creator: parseInt(document.getElementById("evCreator").value),
         townHall: parseInt(document.getElementById("evTownHall").value),
         startDate: new Date(document.getElementById("evStartDate").value),
@@ -741,7 +741,7 @@ function createEventButton() {
     // Clean up the UI
     document.getElementById("evName").value = "";
     document.getElementById("evDescription").value = "";
-    document.getElementById("evCreationDate").value = "";
+    //document.getElementById("evCreationDate").value = "";
     document.getElementById("evCreator").value = "";
     document.getElementById("evTownHall").value = "";
     document.getElementById("evStartDate").value = "";
