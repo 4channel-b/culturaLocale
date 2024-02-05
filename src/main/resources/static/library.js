@@ -759,7 +759,7 @@ function createTownHallButton() {
             latitude: parseFloat(document.getElementById("thLocationLatitude").value)
         },
         area: parseFloat(document.getElementById("thArea").value),
-        establishment: new Date(document.getElementById("thEstablishment").value)
+        establishmentDate: new Date(document.getElementById("thEstablishment").value)
     };
 
     createTownHall(townHallData)
