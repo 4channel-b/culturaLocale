@@ -4,12 +4,13 @@ import com.fourchannel.b.culturaLocale.dataModels.Location;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class EventCreationRequestDTO extends ContentCreationRequestDTO {
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private Location location;
 }

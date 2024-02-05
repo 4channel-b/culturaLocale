@@ -2,6 +2,7 @@ package com.fourchannel.b.culturaLocale.dataModels;
 
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import lombok.Setter;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.TimeZoneColumn;
+import org.hibernate.annotations.TimeZoneStorageType;
 
 @NoArgsConstructor
 @Getter
@@ -25,18 +28,12 @@ public abstract class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="content_id_seq")
     private Long Id;
-    @Getter
     String name = null;
-    @Getter
     String description = null;
-    // GMT.
-    @Getter
+    // GMT
     Date creationDate = null;
     @ManyToOne
-    @Getter
     User creator = null;
-    @Getter
-    @Setter
     ApprovalStatus status = null;
     @ManyToOne
     TownHall townHall;
@@ -56,4 +53,5 @@ public abstract class Content {
     public Content(Long id) {
         this.setId(id);
     }
+
 }

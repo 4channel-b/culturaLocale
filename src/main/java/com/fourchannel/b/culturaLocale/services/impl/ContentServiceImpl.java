@@ -8,6 +8,7 @@ import com.fourchannel.b.culturaLocale.repositories.*;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,8 @@ public class ContentServiceImpl implements ContentService {
     private final TownHallRoleRepository townHallRoleRepository;
     private final TownHallRepository townHallRepository;
 
+    private LocalDateTime actualTime;
+
     public ContentServiceImpl(ItineraryRepository itineraryRepository,
                               PointOfInterestRepository pointOfInterestRepository,
                               EventRepository eventRepository,
@@ -38,6 +41,7 @@ public class ContentServiceImpl implements ContentService {
         this.contentRepository = contentRepository;
         this.townHallRoleRepository = townHallRoleRepository;
         this.townHallRepository = townHallRepository;
+        this.actualTime = LocalDateTime.now();
     }
     private ApprovalStatus genericApprovalDecision(Role role) {
         return switch (role) {
@@ -189,6 +193,14 @@ public class ContentServiceImpl implements ContentService {
             throw new IllegalArgumentException("| ERROR | Event is NULL");
         }
 
+        if (actualTime.isAfter(event.getEndDate())) {
+            throw new IllegalArgumentException("| ERROR | Event is already Expired");
+        }
+
+
+
+        //Does not have isExpired() check cause already has endDate in it
+
         event.setTownHall(townHallRepository.findById(event.getTownHall().getId())
                 .orElseThrow(() -> new IllegalArgumentException("| ERROR | TownHall doesn't exist")));
         event.setCreator(userRepository.findById(event.getCreator().getId())
@@ -286,4 +298,5 @@ public class ContentServiceImpl implements ContentService {
 
         return role == Role.Curator;
     }
+
 }
