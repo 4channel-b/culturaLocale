@@ -4,6 +4,7 @@ import com.fourchannel.b.culturaLocale.dataModels.DTOs.ItineraryCreationRequestD
 import com.fourchannel.b.culturaLocale.dataModels.Itinerary;
 import com.fourchannel.b.culturaLocale.services.ContentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class ItineraryController implements BaseCrudController<ItineraryCreation
     }
 
     @Override
-    public ResponseEntity<Itinerary> getById(Long id) {
+    public ResponseEntity<Itinerary> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(contentService.getItinerary(id));
     }
 
@@ -44,7 +45,7 @@ public class ItineraryController implements BaseCrudController<ItineraryCreation
     }
 
     @Override
-    public ResponseEntity<?> delete(Long aLong) {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return null;
     }
 }

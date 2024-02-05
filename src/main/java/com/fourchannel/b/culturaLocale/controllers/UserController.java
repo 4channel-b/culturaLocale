@@ -1,33 +1,24 @@
 package com.fourchannel.b.culturaLocale.controllers;
 
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserCreationRequestDTO;
+import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserRoleChangeDTO;
 import com.fourchannel.b.culturaLocale.dataModels.DTOs.UserSuspensionDTO;
 import com.fourchannel.b.culturaLocale.dataModels.users.User;
+import com.fourchannel.b.culturaLocale.services.TownHallRoleService;
 import com.fourchannel.b.culturaLocale.services.UserService;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController implements BaseCrudController<UserCreationRequestDTO, Long> {
     private final UserService userService;
+    private final TownHallRoleService townHallRoleService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, TownHallRoleService townHallRoleService) {
         this.userService = userService;
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<?> createUser(@RequestBody UserCreationRequestDTO dto)
-    {
-        User newUser = userService.createUser(new User(dto),
-                                              dto.getTownHall(),
-                                              dto.getRole());
-        return ResponseEntity.ok(newUser);
-    }
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getAllUser()
-    {
-        return ResponseEntity.ok(userService.findAll());
+        this.townHallRoleService = townHallRoleService;
     }
 
     @PutMapping("/suspension/")
@@ -41,25 +32,49 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    @PutMapping("/role/")
+    public ResponseEntity<?> changeRole(@RequestBody UserRoleChangeDTO dto) {
         try {
-            userService.delete(id);
+            if (townHallRoleService.getRole(dto.getId(), dto.getTownHallId()) == dto.getNewRole()) {
+                return ResponseEntity.badRequest().body("User already has this role.");
+            }
 
-            return ResponseEntity.ok().body("User successfully deleted :)");
+            townHallRoleService.setRole(dto.getId(), dto.getTownHallId(), dto.getNewRole());
+
+            return ResponseEntity.ok().body("Role change success.");
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(userService.getUser(id));
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
-        }
+    @Override
+    public ResponseEntity<?> create(UserCreationRequestDTO dto) {
+        User newUser = userService.createUser(new User(dto),
+                dto.getTownHall(),
+                dto.getRole());
+        return ResponseEntity.ok(newUser);
     }
 
-    // TODO: Upgrade, downgrade <-- in their own controller
+    @Override
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.getUser(id));
+    }
+
+    @Override
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(userService.findAll());
+    }
+
+    @Override
+    public ResponseEntity<?> update(UserCreationRequestDTO entity, Long aLong) {
+        // Bad request. No update use case for users yet.
+        return ResponseEntity.badRequest().body("Not implemented.");
+    }
+
+    @Override
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        userService.delete(id);
+
+        return ResponseEntity.ok().body("User successfully deleted.");
+    }
 }
