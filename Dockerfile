@@ -18,8 +18,11 @@ RUN chmod +x ./mvnw
 # Copy the source code
 COPY src src
 
-# Build the application
-RUN ./mvnw package -DskipTests
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
+# Use Maven to build the application
+RUN mvn package -DskipTests
 
 # We could use a JRE image here, but since we downloaded
 # the JDK one already we're not going to waste space on the local machine
