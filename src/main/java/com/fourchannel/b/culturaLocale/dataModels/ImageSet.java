@@ -1,6 +1,5 @@
 package com.fourchannel.b.culturaLocale.dataModels;
 
-import com.fourchannel.b.culturaLocale.databaseModels.Image;
 import lombok.*;
 
 import java.util.*;
