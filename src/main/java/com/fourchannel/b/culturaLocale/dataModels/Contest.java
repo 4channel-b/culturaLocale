@@ -32,6 +32,10 @@ public class Contest
     @ManyToOne
     private Content winningContent;
     private boolean contestOpen;
+    @ManyToOne
+    private TownHall townHall;
+    @ManyToOne
+    private User creator;
 
     public Contest(ContestCreationRequestDTO dto) {
         this.name = dto.getName();
@@ -42,6 +46,14 @@ public class Contest
         this.type = dto.getType();
         this.contents = new ArrayList<>();
         this.contestOpen = true;
+
+        // set it to fill it later
+        this.townHall = new TownHall();
+        this.townHall.setId(dto.getTownHallId());
+
+        // set it to fill it later
+        this.creator = new User();
+        this.creator.setId(dto.getCreatorId());
     }
 
     public void subscribe(Content content) {

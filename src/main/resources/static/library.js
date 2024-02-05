@@ -791,7 +791,9 @@ function createContestButton() {
         endDate: new Date(document.getElementById("cstEndDate").value),
         rules: document.getElementById("cstRules").value,
         type: document.getElementById("cstType").value,
-        contents: contentsArray
+        contents: contentsArray,
+        creatorId: parseInt(document.getElementById("cstCreatorId").value),
+        townHallId: parseInt(document.getElementById("cstTownHallId").value)
     };
 
     createContest(contestData)
@@ -812,6 +814,8 @@ function createContestButton() {
     document.getElementById("cstRules").value = "";
     document.getElementById("cstType").value = "";
     document.getElementById("cstContents").value = "";
+    document.getElementById("cstTownHallId").value = "";
+    document.getElementById("cstCreatorId").value = "";
 }
 
 function categoryStringToInteger(categoryString) {

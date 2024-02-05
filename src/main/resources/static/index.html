@@ -193,7 +193,7 @@
     </div>
 
     <div class="section">
-        <button type="button" class="collapsible">Contest</button>
+        <button type="button" class="collapsible">Contest:</button>
         <div class="content">
             <div>
                 <label>Name:</label>
@@ -222,6 +222,14 @@
             <div>
                 <label>Content IDs (comma-separated):</label>
                 <input type="text" id="cstContents" placeholder="1,2,3" />
+            </div>
+            <div>
+                <label>Creator ID:</label>
+                <input type="number" id="cstCreatorId"/>
+            </div>
+            <div>
+                <label>TownHall ID:</label>
+                <input type="number" id="cstTownHallId"/>
             </div>
             <button onclick="createContestButton();">Create Contest</button>
             <div id="searchResults"></div>
