@@ -40,9 +40,8 @@ public class SearchController {
     public List<Itinerary> searchItineraries(@RequestParam String name,
                                              @RequestParam String description,
                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date creationDate,
-                                             @RequestParam int difficultyLevel,
-                                             @RequestParam double estimatedDuration) {
-        return searchService.searchItineraries(name, description, creationDate, difficultyLevel, estimatedDuration);
+                                             @RequestParam int difficultyLevel) {
+        return searchService.searchItineraries(name, description, creationDate, difficultyLevel);
     }
 
     @GetMapping("/pois")

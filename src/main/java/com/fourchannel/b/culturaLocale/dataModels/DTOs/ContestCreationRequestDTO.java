@@ -18,4 +18,6 @@ public class ContestCreationRequestDTO {
     private String rules;
     private String type;
     private List<Long> contents;
+    private Long creatorId;
+    private Long townHallId;
 }

@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ItineraryRepository extends CrudRepository<Itinerary,Long> {
-    List<Itinerary> findByNameAndDescriptionAndCreationDateAndDifficultyLevelAndEstimatedDuration(
-            String name, String description, Date creationDate, int difficultyLevel, double estimatedDuration);
+    List<Itinerary> findByNameAndDescriptionAndCreationDateAndDifficultyLevel(
+            String name, String description, Date creationDate, int difficultyLevel);
 }
