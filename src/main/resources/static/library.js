@@ -25,10 +25,10 @@ function setupShowcaseMode() {
     // Itinerary data
     document.getElementById("itName").value = "Cultural Heritage Tour";
     document.getElementById("itDescription").value = "A guided tour of the city's historical landmarks.";
-    //document.getElementById("itCreationDate").value = "2024-04-10";
+    // document.getElementById("itCreationDate").value = "2024-04-10";
     document.getElementById("itCreator").value = ""; // ID unknown
     document.getElementById("itTownHall").value = ""; // ID unknown
-    document.getElementById("itEstimateDuration").value = "3.5";
+    // document.getElementById("itEstimateDuration").value = "3.5";
     document.getElementById("itDifficultyLevel").value = "2";
     document.getElementById("itContents").value = ""; // IDs unknown
 
@@ -441,8 +441,8 @@ function searchContent(name, description, creationDate, contentType) {
     });
 }
 
-function searchItineraries(name, description, creationDate, difficultyLevel, estimatedDuration) {
-    return fetch(`${BASE_URL}/search/itineraries?name=${name}&description=${description}&creationDate=${creationDate}&difficultyLevel=${difficultyLevel}&estimatedDuration=${estimatedDuration}`)
+function searchItineraries(name, description, creationDate, difficultyLevel) {
+    return fetch(`${BASE_URL}/search/itineraries?name=${name}&description=${description}&creationDate=${creationDate}&difficultyLevel=${difficultyLevel}`)
         .then(response => {
         if (response.status !== 200) {
             throw new Error(JSON.stringify(response.json()));
@@ -687,7 +687,7 @@ function createItineraryButton() {
         creationDate: new Date(),
         creator: parseInt(document.getElementById("itCreator").value),
         townHall: parseInt(document.getElementById("itTownHall").value),
-        estimatedDuration: parseFloat(document.getElementById("itEstimateDuration").value),
+        // estimatedDuration: parseFloat(document.getElementById("itEstimateDuration").value),
         difficultyLevel: parseInt(document.getElementById("itDifficultyLevel").value),
         contents: contentsArray
     };
@@ -705,10 +705,10 @@ function createItineraryButton() {
     // Clean up the UI
     document.getElementById("itName").value = "";
     document.getElementById("itDescription").value = "";
-    //document.getElementById("itCreationDate").value = "";
+    // document.getElementById("itCreationDate").value = "";
     document.getElementById("itCreator").value = "";
     document.getElementById("itTownHall").value = "";
-    document.getElementById("itEstimateDuration").value = "";
+    // document.getElementById("itEstimateDuration").value = "";
     document.getElementById("itDifficultyLevel").value = "";
     document.getElementById("itContents").value = "";
 }
@@ -891,7 +891,7 @@ function performSearch() {
             searchContent(searchTerm, searchTerm, startDate, additionalParam).then(displayResults);
             break;
         case 'itineraries':
-            searchItineraries(searchTerm, searchTerm, startDate, additionalParam, additionalParam).then(displayResults);
+            searchItineraries(searchTerm, searchTerm, startDate, additionalParam).then(displayResults);
             break;
         case 'pois':
             searchPointsOfInterest(searchTerm, searchTerm, additionalParam, additionalParam).then(displayResults);

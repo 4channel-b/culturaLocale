@@ -62,9 +62,9 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<Itinerary> searchItineraries(String name, String description, Date creationDate, int difficultyLevel, double estimatedDuration) {
-        return itineraryRepository.findByNameAndDescriptionAndCreationDateAndDifficultyLevelAndEstimatedDuration(
-                name, description, creationDate, difficultyLevel, estimatedDuration);
+    public List<Itinerary> searchItineraries(String name, String description, Date creationDate, int difficultyLevel) {
+        return itineraryRepository.findByNameAndDescriptionAndCreationDateAndDifficultyLevel(
+                name, description, creationDate, difficultyLevel);
     }
 
     @Override
