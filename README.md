@@ -5,6 +5,15 @@ culturaLocale is a software engineering project developed during the 2023/2024 u
 - Vasil Ferecka
 - Damiano Buzzo
 
+The project purpose is to manage and digitize information related to a municipal area. Content, linked to position, can be of various types and is subject to validation.
+
+The platform also allows the creation of itineraries or contests, and the management of the related content.
+
+The project is formed by:
+- **backend application** REST API written in java using Spring Boot
+- **basic web interface** frontend (html+javascript) that allows to call the API endpoints.
+
+The interface does not have some functionality described in the sequence diagrams but is just a way to easily call endpoints, in the current 4th iteration.
 ## Project Structure
 
 ### Visual Paradigm
