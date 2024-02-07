@@ -46,6 +46,16 @@ public class ContestServiceImpl implements ContestService {
         this.townHallService = townHallService;
         this.userService = userService;
     }
+
+    /**
+     * Creates a new contest with specified contents. Validates the creator's role as Animator within the town hall.
+     * Throws IllegalArgumentException if the contest is null or the creator is not an Animator. All contents must exist.
+     *
+     * @param contest The contest to be created.
+     * @param contents A list of content IDs to include in the contest.
+     * @return The created and saved contest.
+     * @throws IllegalArgumentException if contest is null, creator is not Animator, or content does not exist.
+     */
     @Override
     public Contest createContest(Contest contest, List<Long> contents)
     {
@@ -73,11 +83,22 @@ public class ContestServiceImpl implements ContestService {
         return contestRepository.save(contest);
     }
 
+    /**
+     * Retrieves a contest by its ID. Returns null if no contest is found.
+     *
+     * @param id The ID of the contest to retrieve.
+     * @return The contest if found, null otherwise.
+     */
     public Contest getContest(Long id)
     {
         return this.contestRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Retrieves all contests available in the system.
+     *
+     * @return A list of all contests.
+     */
     @Override
     public List<Contest> getAllContest()
     {
@@ -85,6 +106,14 @@ public class ContestServiceImpl implements ContestService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Updates a contest with new contents. Validates the existence of the contest and all new contents.
+     * Throws IllegalArgumentException if the contest is null, does not exist, or if any content does not exist.
+     *
+     * @param contest The contest to update.
+     * @param contents A list of content IDs to update the contest with.
+     * @throws IllegalArgumentException if contest is null, does not exist, or content does not exist.
+     */
     @Override
     public void updateContest(Contest contest, List<Long> contents)
     {
@@ -109,8 +138,12 @@ public class ContestServiceImpl implements ContestService {
     }
 
     /**
-     * @param contentId
-     * @param contestId
+     * Subscribes a content to a contest. Validates both the contest and content existence.
+     * Throws IllegalArgumentException if either does not exist.
+     *
+     * @param contentId The ID of the content to subscribe.
+     * @param contestId The ID of the contest to which the content is subscribing.
+     * @throws IllegalArgumentException if the contest or content does not exist.
      */
     @Override
     public void subscribeContent(Long contentId, Long contestId) {
@@ -141,8 +174,12 @@ public class ContestServiceImpl implements ContestService {
     }
 
     /**
-     * @param contestId
-     * @param winningContentId
+     * Terminates a contest by selecting a winning content. Notifies all participants of the result.
+     * Throws IllegalArgumentException if the contest or winning content does not exist.
+     *
+     * @param contestId The ID of the contest to terminate.
+     * @param winningContentId The ID of the winning content.
+     * @throws IllegalArgumentException if the contest or content does not exist.
      */
     @Override
     public void terminateContest(Long contestId, Long winningContentId) {

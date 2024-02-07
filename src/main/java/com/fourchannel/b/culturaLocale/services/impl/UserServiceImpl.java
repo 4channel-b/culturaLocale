@@ -28,6 +28,16 @@ public class UserServiceImpl implements UserService {
         this.townHallService = townHallService;
     }
 
+    /**
+     * Creates a new user with a specified role in a town hall. Validates the existence of the town hall and the validity of the role.
+     * Throws IllegalArgumentException if the town hall does not exist, the role is invalid, or the user already exists.
+     *
+     * @param user The user to be created.
+     * @param townHall The ID of the town hall where the user will have a role.
+     * @param role The index of the role from the Role enum.
+     * @return The created user entity.
+     * @throws IllegalArgumentException if town hall does not exist, role is invalid, or user already exists.
+     */
     @Override
     public User createUser(User user, Long townHall, int role) {
         if (!this.townHallRepository.existsById(townHall)) {
@@ -49,6 +59,13 @@ public class UserServiceImpl implements UserService {
         return newUser;
     }
 
+    /**
+     * Updates the suspension status of a user. Validates the existence of the user.
+     *
+     * @param id The ID of the user whose suspension status is to be updated.
+     * @param newStatus The new suspension status.
+     * @throws IllegalArgumentException if the user does not exist.
+     */
     @Override
     public void updateSuspensionStatus(Long id, boolean newStatus) {
         if (!userRepository.existsById(id)) {
@@ -59,12 +76,24 @@ public class UserServiceImpl implements UserService {
         user.setSuspended(newStatus);
         userRepository.save(user);
     }
+
+    /**
+     * Retrieves all users available in the system.
+     *
+     * @return A list of all users.
+     */
     @Override
     public List<User> findAll() {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Deletes a user by their ID. Validates the existence of the user before deletion.
+     *
+     * @param id The ID of the user to be deleted.
+     * @throws IllegalArgumentException if the user does not exist.
+     */
     @Override
     public void delete(Long id) {
         if(!userRepository.existsById(id)) {
@@ -74,6 +103,12 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(userRepository.findById(id).get());
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param id The ID of the user to retrieve.
+     * @return The retrieved user entity.
+     */
     @Override
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow();
