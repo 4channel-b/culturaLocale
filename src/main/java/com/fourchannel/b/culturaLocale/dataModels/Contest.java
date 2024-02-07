@@ -37,6 +37,13 @@ public class Contest
     @ManyToOne
     private User creator;
 
+    /**
+     * Constructs a Contest entity based on a {@link ContestCreationRequestDTO}, initializing it with provided contest details
+     * and setting it as open. This constructor is designed to facilitate the creation of a Contest entity directly from a
+     * data transfer object (DTO).
+     *
+     * @param dto The {@link ContestCreationRequestDTO} containing contest creation details.
+     */
     public Contest(ContestCreationRequestDTO dto) {
         this.name = dto.getName();
         this.description = dto.getDescription();
@@ -56,6 +63,13 @@ public class Contest
         this.creator.setId(dto.getCreatorId());
     }
 
+    /**
+     * Subscribes a {@link Content} to this contest. Ensures that the content is not already subscribed to avoid duplicates.
+     * Throws IllegalStateException if the content is already part of the contest.
+     *
+     * @param content The {@link Content} to be subscribed to the contest.
+     * @throws IllegalStateException If the content is already part of the contest.
+     */
     public void subscribe(Content content) {
         // make sure it's not here already
         for (Content c : contents) {
@@ -66,6 +80,16 @@ public class Contest
 
         this.contents.add(content);
     }
+
+    /**
+     * Closes the contest, marks a specific {@link Content} as the winning content, and determines the set of user IDs who
+     * did not win. Throws IllegalStateException if the contest is already closed or if the specified winning content does not
+     * exist within the contest.
+     *
+     * @param winnerContentId The ID of the winning {@link Content}.
+     * @return A {@link Set} of user IDs who did not win the contest.
+     * @throws IllegalStateException If the contest is already closed or if the winning content is not part of the contest.
+     */
     public Set<Long> closeContest(Long winnerContentId) {
         if (!this.contestOpen) {
             throw new IllegalStateException("Contest is already closed.");
