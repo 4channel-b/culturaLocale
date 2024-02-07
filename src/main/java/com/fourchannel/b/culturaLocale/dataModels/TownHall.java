@@ -23,6 +23,11 @@ public class TownHall {
     private double area;
     private Date establishmentDate;
 
+    /**
+     * Constructs a TownHall entity based on a {@link TownHallCreationRequestDTO}.
+     *
+     * @param dto The {@link TownHallCreationRequestDTO} containing town hall creation details.
+     */
     public TownHall(TownHallCreationRequestDTO dto) {
         this.name = dto.getName();
         this.description = dto.getDescription();

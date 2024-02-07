@@ -27,6 +27,12 @@ public class User {
     private List<Notification> notificationList;
     private boolean suspended;
 
+    /**
+     * Constructs a User entity based on a {@link UserCreationRequestDTO}, initializing it with provided user details.
+     * Sets preferred category and notification list to null and suspended to false by default.
+     *
+     * @param userCreationRequestDTO The {@link UserCreationRequestDTO} containing user creation details.
+     */
     public User(UserCreationRequestDTO userCreationRequestDTO) {
         this.username = userCreationRequestDTO.getUsername();
         this.fullName = userCreationRequestDTO.getFullName();
@@ -38,6 +44,11 @@ public class User {
         this.suspended = false;
     }
 
+    /**
+     * Adds a notification to the user's list of notifications.
+     *
+     * @param n The {@link Notification} to be added to the user.
+     */
     public void addNotification(Notification n) {
         this.notificationList.add(n);
     }

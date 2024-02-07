@@ -30,7 +30,11 @@ public class Event extends Content {
         return "EVENT";
     }
 
-    // Constructor that takes EventCreationRequestDTO
+    /**
+     * Constructs an Event entity based on an {@link EventCreationRequestDTO}.
+     *
+     * @param eventCreationRequestDTO The {@link EventCreationRequestDTO} containing event creation details.
+     */
     public Event(EventCreationRequestDTO eventCreationRequestDTO) {
         super(
                 eventCreationRequestDTO.getName(),

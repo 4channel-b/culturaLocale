@@ -33,6 +33,11 @@ public class Itinerary extends Content {
         return "ITINERARY";
     }
 
+    /**
+     * Constructs an Itinerary entity based on an {@link ItineraryCreationRequestDTO}.
+     *
+     * @param itineraryCreationRequestDTO The {@link ItineraryCreationRequestDTO} containing itinerary creation details.
+     */
     public Itinerary(ItineraryCreationRequestDTO itineraryCreationRequestDTO) {
         super(
                 itineraryCreationRequestDTO.getName(),

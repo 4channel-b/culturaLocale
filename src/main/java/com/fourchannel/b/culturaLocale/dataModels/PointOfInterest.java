@@ -27,6 +27,11 @@ public class PointOfInterest extends Content
         return "POINT_OF_INTEREST";
     }
 
+    /**
+     * Constructs a PointOfInterest entity based on a {@link PointOfInterestCreationRequestDTO}.
+     *
+     * @param poiCreationRequestDTO The {@link PointOfInterestCreationRequestDTO} containing point of interest creation details.
+     */
     public PointOfInterest(PointOfInterestCreationRequestDTO poiCreationRequestDTO) {
         super(
                 poiCreationRequestDTO.getName(),
